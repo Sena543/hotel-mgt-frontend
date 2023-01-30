@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 
-function Root() {
+function RootLayout() {
 	return (
 		<>
 			<Sidebar />
@@ -10,4 +10,4 @@ function Root() {
 	);
 }
 
-export default Root;
+export default RootLayout;

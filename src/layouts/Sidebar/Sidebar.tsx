@@ -4,6 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
+	const drawerWidth = 740;
 	const sidebarNavLinks = [
 		{ name: "Dashboard", link: "/" },
 		{ name: "Room", link: "rooms" },
@@ -13,7 +14,15 @@ function Sidebar() {
 		{ name: "Staff", link: "employees" },
 	];
 	return (
-		<Drawer variant="persistent" anchor="left" open={true}>
+		<Drawer
+			variant="persistent"
+			anchor="left"
+			open={true}
+			sx={{
+				// width: drawerWidth,
+				width: `calc(100% - ${drawerWidth}px)`,
+			}}
+		>
 			<List>
 				{sidebarNavLinks.map(({ name, link }) => (
 					<ListItem key={link}>

@@ -1,6 +1,6 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./layouts/Root";
+import RootLayout from "./layouts/Root";
 import Booking from "./pages/Booking/Booking";
 import Rooms from "./pages/Room/Rooms";
 import Guests from "./pages/Guest/Guests";
@@ -11,7 +11,7 @@ function App() {
 	const routes = createBrowserRouter([
 		{
 			path: "/",
-			element: <Root />,
+			element: <RootLayout />,
 			children: [
 				{
 					path: "rooms",
