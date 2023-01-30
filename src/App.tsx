@@ -2,7 +2,6 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./layouts/Root";
 import Booking from "./pages/Booking/Booking";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import Rooms from "./pages/Room/Rooms";
 import Guests from "./pages/Guest/Guests";
 import Concierge from "./pages/Concierge/Concierge";
