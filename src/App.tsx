@@ -3,6 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./layouts/Root";
 import Booking from "./pages/Booking/Booking";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Rooms from "./pages/Room/Rooms";
+import Guests from "./pages/Guest/Guests";
+import Concierge from "./pages/Concierge/Concierge";
+import Staff from "./pages/Staff/Staff";
 
 function App() {
 	const routes = createBrowserRouter([
@@ -11,8 +15,28 @@ function App() {
 			element: <Root />,
 			children: [
 				{
+					path: "rooms",
+					element: <Rooms />,
+				},
+				{
 					path: "booking",
 					element: <Booking />,
+				},
+				{
+					path: "booking",
+					element: <Booking />,
+				},
+				{
+					path: "guests",
+					element: <Guests />,
+				},
+				{
+					path: "concierge",
+					element: <Concierge />,
+				},
+				{
+					path: "employees",
+					element: <Staff />,
 				},
 			],
 		},
