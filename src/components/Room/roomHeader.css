@@ -1,0 +1,12 @@
+.room-header-paper {
+	display: flex;
+	flex-direction: row;
+	width: 70%;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 40px;
+}
+
+.roomHeader {
+	border-bottom: 5px solid coral;
+}
