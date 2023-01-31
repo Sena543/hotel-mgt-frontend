@@ -6,6 +6,7 @@ import Rooms from "./pages/Room/Rooms";
 import Guests from "./pages/Guest/Guests";
 import Concierge from "./pages/Concierge/Concierge";
 import Staff from "./pages/Staff/Staff";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
 	const routes = createBrowserRouter([
@@ -13,6 +14,10 @@ function App() {
 			path: "/",
 			element: <RootLayout />,
 			children: [
+				{
+					path: "/",
+					element: <Dashboard />,
+				},
 				{
 					path: "rooms",
 					element: <Rooms />,
