@@ -59,63 +59,77 @@ function RoomList() {
 			status: "Pending",
 			period: "Oct 24th - 31st",
 		},
+		{
+			roomName: "Delux B-003",
+			bedType: "Double Bed",
+			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
+			status: "Booked",
+			period: "Oct 24th - 31st",
+		},
+		{
+			roomName: "Delux B-004",
+			bedType: "Double Bed",
+			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
+			status: "Pending",
+			period: "Oct 24th - 31st",
+		},
 	];
 	return (
-		// <Paper className="room-list-container">
-		<TableContainer component={Paper} className="room-table-container">
-			<Table>
-				<TableHead>
-					<TableRow>
-						{tableHeadList.map((name) => (
-							<StyledTableCell>
-								{name.toLocaleUpperCase()}
-								{/* <Typography variant="h6">{name}</Typography> */}
-							</StyledTableCell>
-						))}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{tableData.map(
-						({
-							roomName,
-							bedType,
-							facility,
-							status,
-							period,
-						}: {
-							roomName: string;
-							bedType: string;
-							facility: string;
-							status: string;
-							period: string;
-						}) => (
-							<StyledTableRow hover>
-								<TableCell>{roomName}</TableCell>
-								<TableCell>{bedType}</TableCell>
-								<TableCell>{facility}</TableCell>
-								<TableCell>
-									<Typography
-										className="available"
-										style={{
-											display: "grid",
-											placeItems: "center",
-											width: "70%",
-											borderRadius: 5,
-										}}
-									>
-										{status}
-									</Typography>
-									<Typography variant="caption" display="block">
-										{period}
-									</Typography>
-								</TableCell>
-							</StyledTableRow>
-						)
-					)}
-				</TableBody>
-			</Table>
-		</TableContainer>
-		// </Paper>
+		<>
+			<TableContainer component={Paper} elevation={0} className="room-table-container">
+				<Table>
+					<TableHead>
+						<TableRow>
+							{tableHeadList.map((name) => (
+								<StyledTableCell>
+									{name.toLocaleUpperCase()}
+									{/* <Typography variant="h6">{name}</Typography> */}
+								</StyledTableCell>
+							))}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{tableData.map(
+							({
+								roomName,
+								bedType,
+								facility,
+								status,
+								period,
+							}: {
+								roomName: string;
+								bedType: string;
+								facility: string;
+								status: string;
+								period: string;
+							}) => (
+								<StyledTableRow hover>
+									<TableCell>{roomName}</TableCell>
+									<TableCell>{bedType}</TableCell>
+									<TableCell>{facility}</TableCell>
+									<TableCell>
+										<Typography
+											className={status.toLocaleLowerCase()}
+											style={{
+												display: "grid",
+												placeItems: "center",
+												width: "70%",
+												borderRadius: 5,
+											}}
+										>
+											{status}
+										</Typography>
+										<Typography variant="caption" display="block">
+											{period}
+										</Typography>
+									</TableCell>
+								</StyledTableRow>
+							)
+						)}
+					</TableBody>
+				</Table>
+			</TableContainer>
+		</>
 	);
 }
 

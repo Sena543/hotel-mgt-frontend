@@ -14,3 +14,14 @@
 .booked {
 	background-color: rgba(216, 193, 193, 255);
 }
+
+/* .pagination-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.pagination {
+	display: flex;
+	flex-direction: row;
+} */
