@@ -1,0 +1,16 @@
+.room-table-container {
+	margin-top: 3em;
+	width: 100%;
+}
+
+.available {
+	background-color: rgba(190, 223, 213, 255);
+}
+
+.pending {
+	background-color: rgba(245, 241, 214, 255);
+}
+
+.booked {
+	background-color: rgba(216, 193, 193, 255);
+}
