@@ -31,7 +31,6 @@ function Sidebar() {
 				// width: `calc(100% - ${drawerWidth}px)`,
 			}}
 		>
-			{/* <DrawerHeader ></DrawerHeader> */}
 			<Divider />
 			<List>
 				{sidebarNavLinks.map(({ name, link, icon }, index) => (
