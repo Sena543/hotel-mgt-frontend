@@ -1,0 +1,11 @@
+.glance-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 12em;
+	height: 5em;
+	margin: auto;
+	border-radius: 10px;
+	box-shadow: 2px 2px #d1d1d1;
+}
