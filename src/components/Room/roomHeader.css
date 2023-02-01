@@ -1,3 +1,7 @@
+.room-header-container {
+	display: flex;
+}
+
 .room-header-paper {
 	display: flex;
 	flex-direction: row;
@@ -9,4 +13,24 @@
 
 .roomHeader {
 	border-bottom: 5px solid coral;
+}
+
+.textfield-div {
+	height: 40px;
+	width: 30%;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 3px 3px 2px #e4e3e5;
+	margin: auto 5px;
+}
+
+.schedule-div {
+	display: grid;
+	place-items: center;
+	height: 40px;
+	width: 18%;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 3px 3px 2px #e4e3e5;
+	margin: auto 5px;
 }
