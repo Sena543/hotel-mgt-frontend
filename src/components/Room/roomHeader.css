@@ -12,7 +12,21 @@
 }
 
 .roomHeader {
-	border-bottom: 5px solid coral;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.roomHeader::after {
+	content: "";
+	display: block;
+	width: 0;
+	height: 2px;
+	background: coral;
+	transition: width 300ms;
+}
+
+.roomHeader:hover::after {
+	width: 100%;
 }
 
 .textfield-div {
