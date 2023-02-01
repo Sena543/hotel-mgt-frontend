@@ -1,4 +1,12 @@
-import { Drawer } from "@mui/material";
+import {
+	DashboardRounded,
+	KingBedRounded,
+	BookOnlineRounded,
+	PortraitRounded,
+	BadgeRounded,
+	AccountBox,
+} from "@mui/icons-material";
+import { Drawer, ListItemIcon, ListItemText, ListItemButton, Divider } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
@@ -6,12 +14,12 @@ import { Link } from "react-router-dom";
 function Sidebar() {
 	const drawerWidth = 740;
 	const sidebarNavLinks = [
-		{ name: "Dashboard", link: "/" },
-		{ name: "Room", link: "rooms" },
-		{ name: "Booking", link: "booking" },
-		{ name: "Guests", link: "guests" },
-		{ name: "Concierge", link: "concierge" },
-		{ name: "Staff", link: "employees" },
+		{ name: "Dashboard", link: "/", icon: <DashboardRounded /> },
+		{ name: "Room", link: "rooms", icon: <KingBedRounded /> },
+		{ name: "Booking", link: "booking", icon: <BookOnlineRounded /> },
+		{ name: "Guests", link: "guests", icon: <PortraitRounded /> },
+		{ name: "Concierge", link: "concierge", icon: <AccountBox /> },
+		{ name: "Staff", link: "employees", icon: <BadgeRounded /> },
 	];
 	return (
 		<Drawer
@@ -19,15 +27,25 @@ function Sidebar() {
 			anchor="left"
 			open={true}
 			sx={{
-				// width: drawerWidth,
-				width: `calc(100% - ${drawerWidth}px)`,
+				width: drawerWidth,
+				// width: `calc(100% - ${drawerWidth}px)`,
 			}}
 		>
+			{/* <DrawerHeader ></DrawerHeader> */}
+			<Divider />
 			<List>
-				{sidebarNavLinks.map(({ name, link }) => (
-					<ListItem key={link}>
-						<Link to={link}>{name}</Link>
-					</ListItem>
+				{sidebarNavLinks.map(({ name, link, icon }, index) => (
+					<Link
+						style={{ textDecoration: "none", color: "grey", borderRadius: 5, background: "blue" }}
+						to={link}
+					>
+						<ListItemButton>
+							<ListItem key={link}>
+								<ListItemIcon>{icon}</ListItemIcon>
+								<ListItemText primary={name} />
+							</ListItem>
+						</ListItemButton>
+					</Link>
 				))}
 			</List>
 		</Drawer>
