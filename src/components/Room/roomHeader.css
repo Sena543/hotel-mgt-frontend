@@ -14,6 +14,12 @@
 .roomHeader {
 	display: inline-block;
 	text-decoration: none;
+	margin: 5px auto;
+}
+
+.roomHeader:hover {
+	background: #e4e4e8;
+	border-radius: 5px;
 }
 
 .roomHeader::after {
@@ -36,6 +42,10 @@
 	border-radius: 10px;
 	box-shadow: 3px 3px 2px #e4e3e5;
 	margin: auto 5px;
+	transition: transform 200ms ease-in;
+}
+.textfield-div:hover {
+	transform: scale(1.1);
 }
 
 .schedule-div {
@@ -47,4 +57,9 @@
 	border-radius: 10px;
 	box-shadow: 3px 3px 2px #e4e3e5;
 	margin: auto 5px;
+	transition: transform 200ms ease-in;
+}
+
+.schedule-div:hover {
+	transform: scale(1.1);
 }
