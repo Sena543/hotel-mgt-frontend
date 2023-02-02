@@ -3,7 +3,10 @@
 	gap: 2rem;
 	grid-template-columns: repeat(4, 1fr);
 }
-
+.dashboard-container > div:first-child {
+	grid-column: span 4;
+	display: flex;
+}
 .grid-col-span-3_row-span-2 {
 	grid-column: span 3;
 	grid-row: span 2;
