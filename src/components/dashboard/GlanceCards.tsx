@@ -1,7 +1,5 @@
-import { BookmarkBorderRounded } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import "./glance.css";
-import React from "react";
 
 type GlanceCardsProps = {
 	number: number;
