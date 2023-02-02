@@ -30,12 +30,14 @@ function Dashboard() {
 			<div>
 				<AvailableRooms />
 			</div>
-			<div className="grid-col-span-2">
+			<div className="grid-col-span-2 grid-row-span-2">
 				<Calendar />
 			</div>
 			<div className="grid-col-span-2">
 				<Review />
-				{/* <Review /> */}
+			</div>
+			<div className="grid-col-span-2">
+				<Review />
 			</div>
 		</div>
 	);
