@@ -12,7 +12,7 @@ import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
-	const drawerWidth = 740;
+	const drawerWidth = 240;
 	const sidebarNavLinks = [
 		{ name: "Dashboard", link: "/", icon: <DashboardRounded /> },
 		{ name: "Room", link: "rooms", icon: <KingBedRounded /> },
@@ -26,9 +26,17 @@ function Sidebar() {
 			variant="persistent"
 			anchor="left"
 			open={true}
+			// sx={{
+			// 	width: drawerWidth,
+			// 	// width: `calc(100% - ${drawerWidth}px)`,
+			// }}
 			sx={{
 				width: drawerWidth,
-				// width: `calc(100% - ${drawerWidth}px)`,
+				flexShrink: 0,
+				"& .MuiDrawer-paper": {
+					width: drawerWidth,
+					boxSizing: "border-box",
+				},
 			}}
 		>
 			<Divider />
