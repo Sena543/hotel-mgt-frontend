@@ -1,7 +1,11 @@
-import React from "react";
+import "./dash.css";
 import { BookmarkBorderRounded, LogoutRounded, LoginRounded, CalendarMonthRounded } from "@mui/icons-material";
 
 import { GlanceCards } from "../../components/dashboard/GlanceCards";
+import AvailableRooms from "../../components/dashboard/AvailableRooms";
+import ReservationStat from "../../components/dashboard/ReservationStat";
+import Review from "../../components/dashboard/Review";
+import Calendar from "../../components/dashboard/Calendar";
 
 function Dashboard() {
 	const glanceData = [
@@ -11,11 +15,26 @@ function Dashboard() {
 		{ name: "Check out", number: 5, icon: <LogoutRounded fontSize="large" />, backgColor: "#fcddda" },
 	];
 	return (
-		<div>
-			<div style={{ display: "flex", flexDirection: "row" }}>
+		<div className="dashboard-container">
+			<>
 				{glanceData.map(({ name, number, icon, backgColor }) => (
 					<GlanceCards name={name} number={number} icon={icon} backgColor={backgColor} />
 				))}
+			</>
+			<div>
+				<AvailableRooms />
+			</div>
+			<div className=".grid-col-span-3_row-span-2">
+				<ReservationStat />
+			</div>
+			<div>
+				<AvailableRooms />
+			</div>
+			<div className="grid-col-span-2">
+				<Calendar />
+			</div>
+			<div className="grid-col-span-2">
+				<Review />
 			</div>
 		</div>
 	);
