@@ -24,7 +24,7 @@ function Dashboard() {
 			<div>
 				<AvailableRooms />
 			</div>
-			<div className=".grid-col-span-3_row-span-2">
+			<div className="grid-col-span-3_row-span-2">
 				<ReservationStat />
 			</div>
 			<div>
@@ -35,6 +35,7 @@ function Dashboard() {
 			</div>
 			<div className="grid-col-span-2">
 				<Review />
+				{/* <Review /> */}
 			</div>
 		</div>
 	);
