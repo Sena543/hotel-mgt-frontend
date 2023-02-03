@@ -1,4 +1,6 @@
 .generic-card-container {
+	display: grid;
+	place-items: center;
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 2px 2px #d1d1d1;
