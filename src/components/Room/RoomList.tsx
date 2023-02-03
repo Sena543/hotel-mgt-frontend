@@ -3,6 +3,7 @@ import { tableCellClasses } from "@mui/material/TableCell";
 
 import { styled } from "@mui/material/styles";
 import "./roomList.css";
+import { tableData } from "../../services/roomList";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -30,50 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function RoomList() {
 	const tableHeadList = ["Room Name", "Bed Type", "Facility", "Status"];
-	const tableData = [
-		{
-			roomName: "Delux B-001",
-			bedType: "Double Bed",
-			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-			status: "Booked",
-			period: "Oct 24th - 31st",
-		},
-		{
-			roomName: "Delux B-002",
-			bedType: "Double Bed",
-			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-			status: "Available",
-			period: "Oct 24th - 31st",
-		},
-		{
-			roomName: "Delux B-003",
-			bedType: "Double Bed",
-			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-			status: "Booked",
-			period: "Oct 24th - 31st",
-		},
-		{
-			roomName: "Delux B-004",
-			bedType: "Double Bed",
-			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-			status: "Pending",
-			period: "Oct 24th - 31st",
-		},
-		{
-			roomName: "Delux B-003",
-			bedType: "Double Bed",
-			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-			status: "Booked",
-			period: "Oct 24th - 31st",
-		},
-		{
-			roomName: "Delux B-004",
-			bedType: "Double Bed",
-			facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-			status: "Pending",
-			period: "Oct 24th - 31st",
-		},
-	];
+
 	return (
 		<>
 			<TableContainer component={Paper} elevation={0} className="room-table-container">
