@@ -1,21 +1,28 @@
 import GenericDashCards from "../Cards/GenericDashCards";
-import { ResponsiveStream } from "@nivo/stream";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { lineGraphData } from "../../services/lineGraphData";
 
 function ReservationStat() {
 	return (
 		<GenericDashCards>
 			<div style={{ width: "100%", height: "96%", display: "flex" }}>
-				<ResponsiveStream
+				<AreaChart
+					width={940}
+					height={400}
 					data={lineGraphData}
-					keys={["Check in", "Check out"]}
-					margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-					axisTop={null}
-					axisRight={null}
-					enableGridX={true}
-					enableGridY={false}
-					fillOpacity={0.85}
-				/>
+					margin={{
+						top: 10,
+						right: 30,
+						left: 0,
+						bottom: 0,
+					}}
+				>
+					<CartesianGrid strokeDasharray="3 3" />
+					<XAxis dataKey="name" />
+					<YAxis />
+					<Tooltip />
+					<Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+				</AreaChart>
 			</div>
 		</GenericDashCards>
 	);
