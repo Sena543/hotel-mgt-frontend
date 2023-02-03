@@ -1,7 +1,12 @@
 import React from "react";
+import GuestTable from "../../components/guest/GuestTable";
 
 function Guests() {
-	return <div>Guests</div>;
+	return (
+		<div>
+			<GuestTable />
+		</div>
+	);
 }
 
 export default Guests;
