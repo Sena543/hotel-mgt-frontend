@@ -9,7 +9,7 @@ function RoomHeader() {
 		<div className="room-header-container">
 			<Paper className="room-header-paper">
 				{roomAvailabilityTypes.map((room) => (
-					<div className="roomHeader">
+					<div key={room} className="roomHeader">
 						<Typography variant="h6">{room}</Typography>
 					</div>
 				))}
