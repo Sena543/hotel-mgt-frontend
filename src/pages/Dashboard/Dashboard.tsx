@@ -6,6 +6,7 @@ import AvailableRooms from "../../components/dashboard/AvailableRooms";
 import ReservationStat from "../../components/dashboard/ReservationStat";
 import Review from "../../components/dashboard/Review";
 import Calendar from "../../components/dashboard/Calendar";
+import DashPieChart from "../../components/dashboard/PieChart";
 
 function Dashboard() {
 	const glanceData = [
@@ -22,7 +23,7 @@ function Dashboard() {
 				))}
 			</div>
 			<div>
-				<AvailableRooms />
+				<DashPieChart />
 			</div>
 			<div className="grid-col-span-3_row-span-2">
 				<ReservationStat />
