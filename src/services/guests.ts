@@ -2,8 +2,8 @@ export const guests = [
 	{
 		name: "Clark Kent",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -11,8 +11,8 @@ export const guests = [
 	{
 		name: "Bruce Wayne",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -20,8 +20,8 @@ export const guests = [
 	{
 		name: "Hal Jordan",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -29,8 +29,8 @@ export const guests = [
 	{
 		name: "Anthony Stark",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -38,8 +38,8 @@ export const guests = [
 	{
 		name: "Steve Rogers",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -47,8 +47,8 @@ export const guests = [
 	{
 		name: "Bruce Banner",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -56,8 +56,8 @@ export const guests = [
 	{
 		name: "Clint Barton",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -65,8 +65,8 @@ export const guests = [
 	{
 		name: "Nick Fury",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
@@ -74,8 +74,8 @@ export const guests = [
 	{
 		name: "Peter Parker",
 		room: "G-01",
-		checkIn: "12-01-2023",
-		checkOut: "20-02-2023",
+		checkin: "12-01-2023",
+		checkout: "20-02-2023",
 		request:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis a condimentum vitae sapien pellentesque. Mauris pharetra et ultrices neque ornare aenean euismod elementum. ",
 		status: "Booked",
