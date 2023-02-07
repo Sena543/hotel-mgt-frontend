@@ -9,13 +9,13 @@ export const pieData = [
 		id: "check in",
 		label: "check in",
 		value: 524,
-		color: "hsl(180, 70%, 50%)",
+		color: "hsl(270, 70%, 50%)",
 	},
 	{
 		id: "check in",
 		label: "check in",
 		value: 152,
-		color: "hsl(16, 70%, 50%)",
+		color: "hsl(270, 70%, 50%)",
 	},
 	{
 		id: "check out",
@@ -26,7 +26,7 @@ export const pieData = [
 	{
 		id: "check out",
 		label: "check out",
-		value: 22,
+		value: 220,
 		color: "hsl(105, 70%, 50%)",
 	},
 ];
