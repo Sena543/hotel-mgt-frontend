@@ -3,7 +3,7 @@ import { tableCellClasses } from "@mui/material/TableCell";
 
 import { styled } from "@mui/material/styles";
 import "./roomList.css";
-import { tableData } from "../../services/roomList";
+import { roomData } from "../../services/roomList";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -47,7 +47,7 @@ function RoomList() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{tableData.map(
+						{roomData.map(
 							({
 								roomName,
 								bedType,

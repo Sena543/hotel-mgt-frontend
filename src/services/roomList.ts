@@ -1,4 +1,4 @@
-export const tableData = [
+export const roomData = [
 	{
 		roomName: "Delux B-001",
 		bedType: "Double Bed",
