@@ -34,7 +34,7 @@ function GenericTable({ tableData }: GenericTableProps) {
 				<TableBody>
 					{tableData &&
 						tableData.map((data: any, index: number) => (
-							<StyledTableRow key={`${data["name"]} ${index}`}>
+							<StyledTableRow key={`${data["name"]} ${index}`} hover>
 								{/* {header.map((name, _) => {
 									console.log("toLocaleLowerCase:", data?.["checkout"]);
 									// console.log("toLocaleLowerCase:", data?.["checkout".toLowerCase()]);
