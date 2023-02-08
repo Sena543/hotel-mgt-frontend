@@ -1,4 +1,3 @@
-import React from "react";
 import GuestTable from "../../components/guest/GuestTable";
 
 function Guests() {
