@@ -1,7 +1,7 @@
 import { MoreHorizRounded } from "@mui/icons-material";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { guests } from "../../services/guests";
 import GenericTable from "../Table/GenericTable";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
