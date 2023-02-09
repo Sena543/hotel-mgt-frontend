@@ -3,7 +3,6 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButto
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { guests } from "../../services/guests";
-import GenericTable from "../Table/GenericTable";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 import Request from "../guest/Request";
 
@@ -27,8 +26,8 @@ function GuestTable() {
 					</TableHead>
 					<TableBody>
 						{guests &&
-							guests.map(({ name, room, checkin, checkout, request, status }) => (
-								<StyledTableRow hover>
+							guests.map(({ name, room, checkin, checkout, request, status }, index) => (
+								<StyledTableRow hover key={`${name}${room}-${index}`}>
 									<StyledTableCell>
 										<Link to={`guest_details/${name}`}>
 											<Typography>{name}</Typography>
