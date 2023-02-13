@@ -5,27 +5,33 @@ import GuestProfile from "./GuestProfile";
 
 function GuestDetails() {
 	return (
-		<div className="guest-details-container">
-			<div className="current-booking-card">
-				<GenericDashCards>Current Booking</GenericDashCards>
+		<>
+			<div style={{ display: "flex", flexDirection: "row", marginBottom: "25px" }}>
+				<Typography>Guest/ </Typography>
+				<Typography> {`GuestName`}</Typography>
 			</div>
-			<div className="guest-profile-card">
-				<GenericDashCards>
-					<GuestProfile />
-				</GenericDashCards>
-			</div>
+			<div className="guest-details-container">
+				<div className="current-booking-card">
+					<GenericDashCards>Current Booking</GenericDashCards>
+				</div>
+				<div className="guest-profile-card">
+					<GenericDashCards>
+						<GuestProfile />
+					</GenericDashCards>
+				</div>
 
-			<div className="booking-history-title grid-col-span-3">
-				<Typography>Booking History</Typography>
-				<div className="date-report-div">
-					<div>Date filter</div>
-					<div>Generate Report</div>
+				<div className="booking-history-title grid-col-span-3">
+					<Typography>Booking History</Typography>
+					<div className="date-report-div">
+						<div>Date filter</div>
+						<div>Generate Report</div>
+					</div>
+				</div>
+				<div className="guest-booking-history-card grid-col-span-3">
+					<GenericDashCards>Booking History</GenericDashCards>
 				</div>
 			</div>
-			<div className="guest-booking-history-card grid-col-span-3">
-				<GenericDashCards>Booking History</GenericDashCards>
-			</div>
-		</div>
+		</>
 	);
 }
 
