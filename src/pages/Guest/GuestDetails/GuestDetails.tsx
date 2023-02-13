@@ -2,17 +2,20 @@ import "./guest-details.css";
 import GenericDashCards from "../../../components/Cards/GenericDashCards";
 import { Typography } from "@mui/material";
 import GuestProfile from "./GuestProfile";
+import CurrentBooking from "./CurrentBooking";
 
 function GuestDetails() {
 	return (
 		<>
 			<div style={{ display: "flex", flexDirection: "row", marginBottom: "25px" }}>
-				<Typography>Guest/ </Typography>
-				<Typography> {`GuestName`}</Typography>
+				<Typography style={{ marginRight: "5px" }}>Guest / </Typography>
+				<Typography>{` GuestName`}</Typography>
 			</div>
 			<div className="guest-details-container">
 				<div className="current-booking-card">
-					<GenericDashCards>Current Booking</GenericDashCards>
+					<GenericDashCards>
+						<CurrentBooking />
+					</GenericDashCards>
 				</div>
 				<div className="guest-profile-card">
 					<GenericDashCards>
@@ -21,7 +24,9 @@ function GuestDetails() {
 				</div>
 
 				<div className="booking-history-title grid-col-span-3">
-					<Typography>Booking History</Typography>
+					<Typography fontWeight="bold" fontSize="20px">
+						Booking History
+					</Typography>
 					<div className="date-report-div">
 						<div>Date filter</div>
 						<div>Generate Report</div>
