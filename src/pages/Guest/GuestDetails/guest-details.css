@@ -1,0 +1,29 @@
+.guest-details-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
+}
+
+.current-booking-card {
+	grid-column: span 2;
+}
+
+.booking-history-title {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: auto 20px;
+}
+
+.date-report-div {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 35%;
+}
+
+.grid-col-span-3 {
+	grid-column: 1/4;
+}
