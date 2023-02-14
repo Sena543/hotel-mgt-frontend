@@ -1,10 +1,26 @@
 import GenericDashCards from "../Cards/GenericDashCards";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { lineGraphData } from "../../services/lineGraphData";
-
+import { Typography } from "@mui/material";
+import "./styles/reservation-stat.css";
 function ReservationStat() {
 	return (
 		<GenericDashCards>
+			<div className="reservation-stat-container">
+				<Typography fontWeight={"light"}>Reservation Statistics</Typography>
+				<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "40%" }}>
+					<div
+						style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "20%" }}
+					>
+						<Typography>123</Typography>
+						<Typography>Check in</Typography>
+					</div>
+					<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+						<Typography>22</Typography>
+						<Typography>Check out</Typography>
+					</div>
+				</div>
+			</div>
 			<div style={{ width: "100%", height: "96%", display: "flex" }}>
 				<AreaChart
 					width={940}
