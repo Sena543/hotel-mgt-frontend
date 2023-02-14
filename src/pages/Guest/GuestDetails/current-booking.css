@@ -15,3 +15,22 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
+
+.booking-history-div {
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
+	margin: 20px;
+	margin: 5px;
+}
+
+.room-details-div {
+	margin: 10px;
+}
+
+.room-details {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
