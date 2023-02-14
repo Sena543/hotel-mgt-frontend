@@ -1,19 +1,13 @@
 import "./guest-profile.css";
 import { MailOutlineRounded, PersonRounded, PhoneOutlined } from "@mui/icons-material";
 import { Icon, Typography } from "@mui/material";
+import imgSvg from "../../../assets/react.svg";
 
 function GuestProfile() {
 	return (
 		<div className="guest-profile-container">
 			<div className="img_name-div display-flex-flex-direction-row">
-				<Icon>
-					<PersonRounded />
-				</Icon>
-				{/* <img
-					loading="lazy"
-					src={"C:/Users/senanuk/Pictures/Screenshot_20230116_025745.png"}
-					alt="Guest image"
-				/> */}
+				<img loading="lazy" src={imgSvg} alt="Guest image" />
 				<div>
 					<Typography style={{ fontSize: "12px" }}>GS-#123</Typography>
 					<Typography style={{ fontSize: "14px", fontWeight: "bold" }}>Bruce Wayne</Typography>
