@@ -5,6 +5,7 @@ import { Link, Outlet } from "react-router-dom";
 import { guests } from "../../services/guests";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 import Request from "../guest/Request";
+import "./guest-table.css";
 
 function GuestTable() {
 	const [open, setOpen] = useState<boolean>(false);
@@ -36,7 +37,6 @@ function GuestTable() {
 									<StyledTableCell>{room}</StyledTableCell>
 									<StyledTableCell>{checkin}</StyledTableCell>
 									<StyledTableCell>{checkout}</StyledTableCell>
-									{/* <StyledTableCell>{request}</StyledTableCell> */}
 									<StyledTableCell>
 										<IconButton onClick={() => setOpen(true)}>
 											<MoreHorizRounded />
@@ -54,13 +54,3 @@ function GuestTable() {
 }
 
 export default GuestTable;
-// {
-// 	showActionCol ? (
-// 		<StyledTableCell>
-// 			<IconButton onClick={() => setOpen(true)}>
-// 				<MoreHorizRounded />
-// 			</IconButton>
-// 		</StyledTableCell>
-// 	) : null;
-// }
-// <Request request={data["request"]} open={open} setOpen={setOpen} />;
