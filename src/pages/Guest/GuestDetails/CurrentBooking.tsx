@@ -8,10 +8,10 @@ function CurrentBooking() {
 	return (
 		<div className="current-booking-container">
 			<div>
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
+				<img src={imgSvg} height="100px" alt="room image sample" />
+				<img src={imgSvg} height="100px" alt="room image sample" />
+				<img src={imgSvg} height="100px" alt="room image sample" />
+				<img src={imgSvg} height="100px" alt="room image sample" />
 			</div>
 			{/* <div> */}
 			<div className="facilities-div">
@@ -37,21 +37,27 @@ function CurrentBooking() {
 						<Person2Outlined />
 						<Typography fontSize={fontSize}>Room Capacity</Typography>
 					</div>
-					<Typography fontWeight="bolder">3-5</Typography>
+					<Typography fontSize={fontSize + 2} fontWeight="bolder">
+						3-5
+					</Typography>
 				</div>
 				<div className="room-details-div">
 					<div className="room-details">
 						<BedOutlined />
 						<Typography fontSize={fontSize}>Bed Type</Typography>
 					</div>
-					<Typography fontWeight="bolder">King Deluxe B-23</Typography>
+					<Typography fontSize={fontSize + 2} fontWeight="bolder">
+						Double
+					</Typography>
 				</div>
 				<div className="room-details-div">
 					<div className="room-details">
 						<CalendarToday />
 						<Typography fontSize={fontSize}>Booking Date</Typography>
 					</div>
-					<Typography fontWeight="bolder">King Deluxe B-23</Typography>
+					<Typography fontSize={fontSize + 2} fontWeight="bolder">
+						Oct 25th - 28th
+					</Typography>
 				</div>
 			</div>
 			{/* </div> */}
