@@ -4,10 +4,12 @@
 	padding: auto 100px;
 }
 
-.current-booking-container > img {
-	width: 50px;
-	height: 250px;
-	margin: 10px;
+.current-booking-container > div img {
+	width: 65%;
+	height: 95%;
+	margin: 4px;
+	/* background-color: rebeccapurple; */
+	border-radius: 10px;
 }
 
 .facilities-div {
@@ -33,4 +35,12 @@
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
+}
+
+.room-image-container {
+	margin: 2px;
+	display: flex;
+	flex-direction: row;
+	height: 50%;
+	/* background-color: brown; */
 }
