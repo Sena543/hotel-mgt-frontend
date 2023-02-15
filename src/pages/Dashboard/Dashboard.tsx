@@ -7,6 +7,7 @@ import ReservationStat from "../../components/dashboard/ReservationStat";
 import Review from "../../components/dashboard/Review";
 import Calendar from "../../components/dashboard/Calendar";
 import DashPieChart from "../../components/dashboard/PieChart";
+import GenericDashCards from "../../components/Cards/GenericDashCards";
 
 function Dashboard() {
 	const glanceData = [
@@ -35,7 +36,7 @@ function Dashboard() {
 				<Calendar />
 			</div>
 			<div className="grid-col-span-2">
-				<Review />
+				<GenericDashCards>Check in today list</GenericDashCards>
 			</div>
 			<div className="grid-col-span-2">
 				<Review />
