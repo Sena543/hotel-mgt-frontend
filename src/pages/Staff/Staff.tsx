@@ -1,5 +1,6 @@
 import { Paper, Typography, TableContainer, Table, TableHead, TableRow, TableBody, TableCell } from "@mui/material";
 import { useState } from "react";
+import "./staff.css";
 import { StyledTableCell, StyledTableRow } from "../../components/Table/TableComp";
 import { employeeData } from "../../services/employee-data";
 
@@ -33,6 +34,11 @@ function Staff() {
 
 	return (
 		<div>
+			<div className="staff-list-div">
+				<Typography style={{}} fontSize={30} fontWeight="bold">
+					Hotel Staff
+				</Typography>
+			</div>
 			<Paper className="room-header-paper">
 				{headers &&
 					headers.map(({ name, value }) => (
@@ -60,7 +66,7 @@ function Staff() {
 									description,
 									schedule,
 									time,
-									status,
+									// status,
 									contact,
 								}: {
 									name: string;
@@ -68,33 +74,41 @@ function Staff() {
 									description: string;
 									schedule: string;
 									time: string;
-									status: string;
+									// status: string;
 									contact: string;
-								}) => (
-									<StyledTableRow hover key={`${name}-${jobTitle}-${contact}`}>
-										<TableCell>{name}</TableCell>
-										<TableCell>
-											<Typography>{jobTitle}</Typography>
-											<Typography variant="caption">{description}</Typography>
-										</TableCell>
-										<TableCell>
-											<Typography>{schedule}</Typography>
-											<Typography variant="caption">{time}</Typography>
-										</TableCell>
-										<TableCell>{contact}</TableCell>
-										<TableCell>
-											<Typography className={status.toLocaleLowerCase()}>
-												{schedule
-													.split(", ")
-													.includes(
-														new Date().toLocaleDateString("en-us", { weekday: "long" })
-													)
-													? "Active"
-													: "Inactive"}
-											</Typography>
-										</TableCell>
-									</StyledTableRow>
-								)
+								}) => {
+									const status = schedule
+										.split(", ")
+										.includes(new Date().toLocaleDateString("en-us", { weekday: "long" }));
+									return (
+										<StyledTableRow hover key={`${name}-${jobTitle}-${contact}`}>
+											<TableCell>{name}</TableCell>
+											<TableCell>
+												<Typography>{jobTitle}</Typography>
+												<Typography variant="caption">{description}</Typography>
+											</TableCell>
+											<TableCell>
+												<Typography>{schedule}</Typography>
+												<Typography variant="caption">{time}</Typography>
+											</TableCell>
+											<TableCell>{contact}</TableCell>
+											<TableCell>
+												<Typography
+													className={`generic-status ${status ? "active" : "inactive"}`}
+												>
+													{/* <Typography className={status.toLocaleLowerCase()}> */}
+													{schedule
+														.split(", ")
+														.includes(
+															new Date().toLocaleDateString("en-us", { weekday: "long" })
+														)
+														? "Active"
+														: "Inactive"}
+												</Typography>
+											</TableCell>
+										</StyledTableRow>
+									);
+								}
 							)}
 					</TableBody>
 				</Table>

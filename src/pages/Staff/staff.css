@@ -1,0 +1,19 @@
+.generic-status {
+	display: grid;
+	place-items: center;
+	width: 70%;
+	border-radius: 5px;
+}
+
+.active {
+	background-color: rgba(190, 223, 213, 255);
+}
+.inactive {
+	background-color: rgba(216, 193, 193, 255);
+}
+
+.staff-list-div {
+	display: flex;
+	position: relative;
+	top: -2em;
+}
