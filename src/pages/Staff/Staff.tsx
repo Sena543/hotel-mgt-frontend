@@ -83,19 +83,14 @@ function Staff() {
 										</TableCell>
 										<TableCell>{contact}</TableCell>
 										<TableCell>
-											<Typography
-												className={status.toLocaleLowerCase()}
-												style={{
-													display: "grid",
-													placeItems: "center",
-													width: "70%",
-													borderRadius: 5,
-												}}
-											>
-												{status}
-											</Typography>
-											<Typography variant="caption" display="block">
-												{time}
+											<Typography className={status.toLocaleLowerCase()}>
+												{schedule
+													.split(", ")
+													.includes(
+														new Date().toLocaleDateString("en-us", { weekday: "long" })
+													)
+													? "Active"
+													: "Inactive"}
 											</Typography>
 										</TableCell>
 									</StyledTableRow>
