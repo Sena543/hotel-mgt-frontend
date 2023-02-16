@@ -29,9 +29,12 @@ function CurrentBooking() {
 				</div>
 				<div className="room-details">
 					<div className="room-details">
-						<Icon>
-							<KeyOutlined style={{ color: "red" }} />
-						</Icon>
+						{/* <Icon icon={<KeyOutlined sx={{ fontSize: 50 }} style={{ color: "red" }} />} /> */}
+						<KeyOutlined
+							sx={{ fontSize: 70, color: "white", backgroundColor: "#79c5f7", borderRadius: "60px" }}
+							// style={{ color: "red" }}
+						/>
+						{/* </Icon> */}
 						<div>
 							<Typography>Booking ID #12345678</Typography>
 							<Typography fontSize={fontSize} fontWeight="bolder">
