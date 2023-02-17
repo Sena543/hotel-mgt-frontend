@@ -1,16 +1,19 @@
 import "./guest-profile.css";
 import { MailOutlineRounded, PersonRounded, PhoneOutlined } from "@mui/icons-material";
 import { Icon, Typography } from "@mui/material";
-import imgSvg from "../../../assets/react.svg";
+// import imgSvg from "../../../assets/react.svg";
+import profile from "../../../assets/images/profile.jpg";
+import { useParams } from "react-router-dom";
 
 function GuestProfile() {
+	const { name } = useParams();
 	return (
 		<div className="guest-profile-container">
 			<div className="img_name-div display-flex-flex-direction-row">
-				<img loading="lazy" src={imgSvg} alt="Guest image" />
+				<img className="profile-img" loading="lazy" src={profile} alt="Guest image" />
 				<div>
-					<Typography style={{ fontSize: "12px" }}>GS-#123</Typography>
-					<Typography style={{ fontSize: "14px", fontWeight: "bold" }}>Bruce Wayne</Typography>
+					<Typography style={{ fontSize: "15px" }}>GS-#123</Typography>
+					<Typography style={{ fontSize: "25px", fontWeight: "bold" }}>{name}</Typography>
 				</div>
 			</div>
 			<div style={{ width: "70%" }}>
