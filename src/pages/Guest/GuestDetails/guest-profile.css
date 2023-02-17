@@ -16,6 +16,7 @@
 	margin: 15px auto;
 }
 
-/* .img_name-div {
-	width: 40px;
-} */
+.profile-img {
+	width: 100px;
+	border-radius: 10px;
+}
