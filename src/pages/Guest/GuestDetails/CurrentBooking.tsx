@@ -1,7 +1,7 @@
 import { Icon, Typography } from "@mui/material";
 import "./current-booking.css";
 import imgSvg from "../../../assets/react.svg";
-import { BedOutlined, CalendarToday, KeyOutlined, Person, Person2Outlined } from "@mui/icons-material";
+import { BedOutlined, CalendarToday, KeyOutlined, Person, Person2Outlined, VpnKeyOutlined } from "@mui/icons-material";
 
 const fontSize = 15;
 function CurrentBooking() {
@@ -13,12 +13,11 @@ function CurrentBooking() {
 				</Typography>
 			</div>
 			<div className="room-image-container">
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
-				<img src={imgSvg} alt="room image sample" />
+				<img loading="lazy" src={imgSvg} alt="room image sample" />
+				<img loading="lazy" src={imgSvg} alt="room image sample" />
+				<img loading="lazy" src={imgSvg} alt="room image sample" />
+				<img loading="lazy" src={imgSvg} alt="room image sample" />
+				<img loading="lazy" src={imgSvg} alt="room image sample" />
 			</div>
 			<div>
 				<div className="facilities-div">
@@ -29,13 +28,19 @@ function CurrentBooking() {
 				</div>
 				<div className="room-details">
 					<div className="room-details">
-						{/* <Icon icon={<KeyOutlined sx={{ fontSize: 50 }} style={{ color: "red" }} />} /> */}
-						<KeyOutlined
-							sx={{ fontSize: 70, color: "white", backgroundColor: "#79c5f7", borderRadius: "60px" }}
-							// style={{ color: "red" }}
-						/>
-						{/* </Icon> */}
-						<div>
+						<div
+							style={{
+								backgroundColor: "#79c5f7",
+								borderRadius: "60px",
+								width: "50%",
+								height: "75px",
+								display: "grid",
+								placeItems: "center",
+							}}
+						>
+							<VpnKeyOutlined sx={{ fontSize: 40, color: "white" }} />
+						</div>
+						<div style={{ marginLeft: "5px" }}>
 							<Typography>Booking ID #12345678</Typography>
 							<Typography fontSize={fontSize} fontWeight="bolder">
 								King Deluxe B-23
