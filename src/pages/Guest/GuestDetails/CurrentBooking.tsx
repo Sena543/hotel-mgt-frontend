@@ -13,11 +13,11 @@ function CurrentBooking() {
 				</Typography>
 			</div>
 			<div className="room-image-container">
-				<img loading="lazy" src={imgSvg} alt="room image sample" />
-				<img loading="lazy" src={imgSvg} alt="room image sample" />
-				<img loading="lazy" src={imgSvg} alt="room image sample" />
-				<img loading="lazy" src={imgSvg} alt="room image sample" />
-				<img loading="lazy" src={imgSvg} alt="room image sample" />
+				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
+				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
+				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
+				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
+				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
 			</div>
 			<div>
 				<div className="facilities-div">
