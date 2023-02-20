@@ -17,3 +17,9 @@
 	position: relative;
 	top: -2em;
 }
+
+.selected_filter {
+	background-color: red;
+	border-radius: 5px;
+	/* background-color: aliceblue; */
+}
