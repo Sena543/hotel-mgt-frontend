@@ -42,7 +42,11 @@ function Staff() {
 			<Paper className="room-header-paper">
 				{headers &&
 					headers.map(({ name, value }) => (
-						<div onClick={() => setSelectedHeader(value)} key={`${name}-${value}`} className="roomHeader">
+						<div
+							onClick={() => setSelectedHeader(value)}
+							key={`${name}-${value}`}
+							className={`roomHeader ${selectedHeader === value ? "selected_filter" : null}`}
+						>
 							<Typography variant="h6">{name}</Typography>
 						</div>
 					))}
