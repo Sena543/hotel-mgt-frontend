@@ -31,7 +31,7 @@ export const roomData = [
 		roomName: "Delux B-003",
 		bedType: "Double Bed",
 		facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
-		status: "Booked",
+		status: "Available",
 		period: "Oct 24th - 31st",
 	},
 	{
