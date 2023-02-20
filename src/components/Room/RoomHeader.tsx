@@ -3,14 +3,23 @@ import { Paper, Typography, InputAdornment } from "@mui/material";
 import CustomTextField from "../TextInput/CustomTextField";
 import { SearchRounded } from "@mui/icons-material";
 
-function RoomHeader() {
-	const roomAvailabilityTypes = ["All Rooms (50)", "Available Rooms(30)", "Booked Rooms(20)"];
+type RoomHeaderProps = {
+	selectedHeader: string;
+	setSelectedHeader: Function;
+};
+
+function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
+	const roomAvailabilityTypes = [
+		{ name: "All Rooms (50)", value: "all" },
+		{ name: "Available Rooms(30)", value: "available" },
+		{ name: "Booked Rooms(20)", value: "booked" },
+	];
 	return (
 		<div className="room-header-container">
 			<Paper className="room-header-paper">
-				{roomAvailabilityTypes.map((room) => (
-					<div key={room} className="roomHeader">
-						<Typography variant="h6">{room}</Typography>
+				{roomAvailabilityTypes.map(({ name, value }) => (
+					<div onClick={() => setSelectedHeader(value)} key={name} className="roomHeader">
+						<Typography variant="h6">{name}</Typography>
 					</div>
 				))}
 			</Paper>

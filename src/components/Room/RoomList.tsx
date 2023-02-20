@@ -29,8 +29,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-function RoomList() {
+function RoomList({ selectedHeader }: { selectedHeader: string }) {
 	const tableHeadList = ["Room Name", "Bed Type", "Facility", "Status"];
+
+	const filterEmployees = () => {
+		//filter rooms by availability status
+		if (selectedHeader === "booked") {
+			return roomData.filter(({ status }: { status: string }) => status === "Booked");
+		}
+		if (selectedHeader === "available") {
+			return roomData.filter(({ status }: { status: string }) => status === "Available");
+		}
+		// if (selectedHeader === "inactive") {
+		// 	return roomData.filter(({ status }: { status: string }) => status === "Pending");
+		// }
+
+		return roomData;
+	};
 
 	return (
 		<>
@@ -47,7 +62,7 @@ function RoomList() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{roomData.map(
+						{filterEmployees().map(
 							({
 								roomName,
 								bedType,
