@@ -1,11 +1,12 @@
 import "./dash.css";
 import { BookmarkBorderRounded, LogoutRounded, LoginRounded, CalendarMonthRounded } from "@mui/icons-material";
+import Calendar from "react-calendar";
 
 import { GlanceCards } from "../../components/dashboard/GlanceCards";
 import AvailableRooms from "../../components/dashboard/AvailableRooms";
 import ReservationStat from "../../components/dashboard/ReservationStat";
 import Review from "../../components/dashboard/Review";
-import Calendar from "../../components/dashboard/Calendar";
+import DashboardCalendar from "../../components/dashboard/Calendar";
 import DashPieChart from "../../components/dashboard/PieChart";
 import GenericDashCards from "../../components/Cards/GenericDashCards";
 
@@ -33,7 +34,7 @@ function Dashboard() {
 				<AvailableRooms />
 			</div>
 			<div className="grid-col-span-2 grid-row-span-2">
-				<Calendar />
+				<DashboardCalendar />
 			</div>
 			<div className="grid-col-span-2">
 				<GenericDashCards>Check in today list</GenericDashCards>

@@ -1,8 +1,9 @@
-import React from "react";
+import Calendar from "react-calendar";
 import GenericDashCards from "../Cards/GenericDashCards";
 
-function Calendar() {
+function DashboardCalendar() {
+	// return <Calendar />;
 	return <GenericDashCards>Calendar</GenericDashCards>;
 }
 
-export default Calendar;
+export default DashboardCalendar;
