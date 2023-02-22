@@ -1,0 +1,19 @@
+.sidebar-link {
+	display: flex;
+	text-decoration: none;
+	color: grey;
+}
+
+.selected-page-style {
+	color: white;
+	margin: 10px;
+	border-radius: 15px;
+	/* box-shadow: 5px 5px 15px red; */
+	box-shadow: 5px 5px 15px #dfd7e7;
+	background: linear-gradient(to right, #80529d, #a988bd);
+}
+
+.default-page-style {
+	margin: "10px";
+	color: grey;
+}
