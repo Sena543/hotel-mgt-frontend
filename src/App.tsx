@@ -6,11 +6,11 @@ import { theme } from "./themes/theme";
 
 function App() {
 	return (
-		<ThemeProvider theme={theme}>
-			<div className="App">
+		<div className="App">
+			<ThemeProvider theme={theme}>
 				<RouterProvider router={routes} />
-			</div>
-		</ThemeProvider>
+			</ThemeProvider>
+		</div>
 	);
 }
 
