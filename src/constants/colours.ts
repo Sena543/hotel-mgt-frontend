@@ -27,3 +27,6 @@ export default {
 		},
 	},
 };
+
+export const PURPLE_LINE_GRAPH_COLOR = "#80529d";
+export const YELLOW_LINE_GRAPH_COLOR = "#f6ae44";
