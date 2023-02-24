@@ -2,9 +2,12 @@ import { pieData } from "../../services/pieData";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
 import GenericDashCards from "../Cards/GenericDashCards";
 import { useState } from "react";
+import { PURPLE_LINE_GRAPH_COLOR, YELLOW_LINE_GRAPH_COLOR } from "../../constants/colours";
+import { Typography } from "@mui/material";
 
 const RADIAN = Math.PI / 180;
-const COLORS = ["#0088FE", "#FFBB28", "#FF8042"];
+const COLORS = [PURPLE_LINE_GRAPH_COLOR, "#FFF"];
+// const COLORS = [PURPLE_LINE_GRAPH_COLOR, YELLOW_LINE_GRAPH_COLOR];
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
 	const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -49,7 +52,7 @@ function DashPieChart() {
 					outerRadius={60}
 					fill="rgb(80, 164, 212)"
 					labelLine={false}
-					label={renderCustomizedLabel}
+					// label={renderCustomizedLabel}
 					// onMouseEnter={(_, index) => setAcitiveIndex(index)}
 				>
 					{result.map((entry: any, index: any) => (
@@ -58,6 +61,10 @@ function DashPieChart() {
 				</Pie>
 				<Tooltip />
 			</PieChart>
+			<div>
+				<Typography>1234</Typography>
+				<Typography>Available Rooms Today</Typography>
+			</div>
 		</GenericDashCards>
 	);
 }
