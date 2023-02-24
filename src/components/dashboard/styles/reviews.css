@@ -1,0 +1,40 @@
+.review-img-icon {
+	width: 50px;
+	border-radius: 50px;
+}
+
+.generic-flex-justify-content-style {
+	display: flex;
+	align-items: center;
+}
+
+.latest-review-div {
+	width: 90%;
+	/* display: flex; */
+	/* align-items: center; */
+	justify-content: space-between;
+}
+
+.customer {
+	width: 95%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.reviewer-profile {
+	justify-content: space-between;
+	width: 34%;
+	margin: auto 9%;
+}
+
+.customer-dets {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.customer-comments {
+	align-items: flex-start;
+	margin-left: 5em;
+	text-align: left;
+	margin: auto 3em;
+}
