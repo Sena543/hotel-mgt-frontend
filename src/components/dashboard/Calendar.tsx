@@ -5,11 +5,9 @@ import "./dash-calendar.css";
 
 function DashboardCalendar() {
 	return (
-		<GenericDashCards>
-			{/* <div className="cal-container"> */}
+		<div className="dashboard-calendar-container">
 			<Calendar />
-			{/* </div> */}
-		</GenericDashCards>
+		</div>
 	);
 	//return <GenericDashCards>Calendar</GenericDashCards>;
 }
