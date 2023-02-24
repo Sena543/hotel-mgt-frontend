@@ -16,9 +16,7 @@ import { useState } from "react";
 
 function Sidebar() {
 	const [selectedIndex, setSelectedIndex] = useState<number>(0);
-	const drawerWidth = 300;
-	// const drawerWidth = 250;
-	// const drawerWidth = 240;
+	const drawerWidth = 240;
 	const sidebarNavLinks = [
 		{ name: "Dashboard", link: "/", icon: <DashboardRounded fontSize="large" /> },
 		{ name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
@@ -50,12 +48,13 @@ function Sidebar() {
 				<Divider />
 				<List>
 					{sidebarNavLinks.map(({ name, link, icon }, index) => (
-						<ListItem key={link}>
+						<ListItem
+							// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+							key={link}
+						>
 							<Link style={{ width: "100%" }} className="sidebar-link" to={link}>
 								<ListItemButton
-									className={`${
-										selectedIndex === index ? "selected-page-style" : "default-page-style"
-									}`}
+									className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
 									onClick={() => setSelectedIndex(index)}
 									// disableRipple
 									// style={{
