@@ -36,10 +36,8 @@ function Dashboard() {
 			<div className="grid-col-span-2 grid-row-span-2">
 				<DashboardCalendar />
 			</div>
-			<div className="grid-col-span-2">
-				<GenericDashCards>Check in today list</GenericDashCards>
-			</div>
-			<div className="grid-col-span-2">
+			{/* <div className="grid-col-span-2"><GenericDashCards>Check in today list</GenericDashCards></div> */}
+			<div className="grid-col-span-2  grid-row-span-2">
 				<Review />
 			</div>
 		</div>
