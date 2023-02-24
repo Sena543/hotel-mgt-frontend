@@ -19,7 +19,7 @@ function Dashboard() {
 	];
 	return (
 		<div className="dashboard-container">
-			<div>
+			<div className="glance-cards-div">
 				{glanceData.map(({ name, number, icon, backgColor }) => (
 					<GlanceCards name={name} number={number} icon={icon} backgColor={backgColor} />
 				))}
