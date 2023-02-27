@@ -6,16 +6,24 @@ import {
 	PortraitRounded,
 	BadgeRounded,
 	AccountBox,
+	MenuRounded,
 } from "@mui/icons-material";
-import { Drawer, ListItemIcon, ListItemText, ListItemButton, Divider } from "@mui/material";
+import { Drawer, ListItemIcon, ListItemText, ListItemButton, Divider, Hidden, IconButton, Menu } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
-
-function Sidebar() {
+type SidebarProps = {
+	window?: () => Window;
+};
+function Sidebar({ window }: SidebarProps) {
 	const [selectedIndex, setSelectedIndex] = useState<number>(0);
+	const [mobileOpen, setMobileOpen] = useState(false);
+
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	};
 	const drawerWidth = 240;
 	const sidebarNavLinks = [
 		{ name: "Dashboard", link: "/", icon: <DashboardRounded fontSize="large" /> },
@@ -25,59 +33,97 @@ function Sidebar() {
 		{ name: "Concierge", link: "concierge", icon: <AccountBox fontSize="large" /> },
 		{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
 	];
-	return (
-		<>
-			<CssBaseline />
-			<Drawer
-				variant="persistent"
-				anchor="left"
-				open={true}
-				// sx={{
-				// 	width: drawerWidth,
-				// 	// width: `calc(100% - ${drawerWidth}px)`,
-				// }}
-				sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					"& .MuiDrawer-paper": {
-						width: drawerWidth,
-						boxSizing: "border-box",
-					},
-				}}
-			>
-				<Divider />
-				<List>
-					{sidebarNavLinks.map(({ name, link, icon }, index) => (
-						<ListItem
-							// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
-							key={link}
+
+	const drawer = (
+		<List>
+			{sidebarNavLinks.map(({ name, link, icon }, index) => (
+				<ListItem
+					// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+					key={link}
+				>
+					<Link style={{ width: "100%" }} className="sidebar-link" to={link}>
+						<ListItemButton
+							className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+							onClick={() => setSelectedIndex(index)}
 						>
-							<Link style={{ width: "100%" }} className="sidebar-link" to={link}>
-								<ListItemButton
-									className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
-									onClick={() => setSelectedIndex(index)}
-									// disableRipple
-									// style={{
-									// 	margin: "10px",
-									// 	borderRadius: 15,
-									// 	boxShadow: `${selectedIndex === index ? "5px 5px 15px #dfd7e7" : ""}`,
-									// 	color: `${selectedIndex === index ? "white" : ""}`,
-									// 	background: `${
-									// 		selectedIndex === index ? `linear-gradient(to right, #80529d, #a988bd)` : ""
-									// 	}`,
-									// }}
+							<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
+								{icon}
+							</ListItemIcon>
+							<ListItemText primary={name} />
+						</ListItemButton>
+					</Link>
+				</ListItem>
+			))}
+		</List>
+	);
+	const container = window !== undefined ? () => window().document.body : undefined;
+	return (
+		<div className="sidebar-container" style={{ position: "relative" }}>
+			<CssBaseline />
+			<div className={"drawer-mobile-open"} aria-label="menu">
+				<IconButton onClick={handleDrawerToggle}>
+					<MenuRounded style={{ color: "red" }} sx={{ fontSize: 40 }} />
+				</IconButton>
+			</div>
+			<div className="sidebar">
+				<Hidden smUp implementation="css">
+					<Drawer
+						container={container}
+						variant="temporary"
+						open={mobileOpen}
+						onClose={handleDrawerToggle}
+						ModalProps={{
+							keepMounted: true, // Better open performance on mobile.
+						}}
+						sx={{
+							// display: { xs: "block", sm: "none" },
+							"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+						}}
+					>
+						{drawer}
+					</Drawer>
+				</Hidden>
+				<Hidden xsDown implementation="css">
+					<Drawer
+						variant="persistent"
+						anchor="left"
+						open
+						sx={{
+							// display: { xs: "none", sm: "block" },
+							width: drawerWidth,
+							flexShrink: 0,
+							"& .MuiDrawer-paper": {
+								width: drawerWidth,
+								boxSizing: "border-box",
+							},
+						}}
+					>
+						<Divider />
+						{drawer}
+						{/* <List>
+							{sidebarNavLinks.map(({ name, link, icon }, index) => (
+								<ListItem
+									// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+									key={link}
 								>
-									<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
-										{icon}
-									</ListItemIcon>
-									<ListItemText primary={name} />
-								</ListItemButton>
-							</Link>
-						</ListItem>
-					))}
-				</List>
-			</Drawer>
-		</>
+									<Link style={{ width: "100%" }} className="sidebar-link" to={link}>
+										<ListItemButton
+											className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+											onClick={() => setSelectedIndex(index)}
+										>
+											<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
+												{icon}
+											</ListItemIcon>
+											<ListItemText primary={name} />
+										</ListItemButton>
+									</Link>
+								</ListItem>
+							))}
+						</List> */}
+					</Drawer>
+				</Hidden>
+			</div>
+		</div>
 	);
 }
 

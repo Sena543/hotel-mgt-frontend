@@ -1,3 +1,35 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 700px) {
+	.drawer-mobile-open {
+		display: block;
+		position: absolute;
+		top: 5%;
+		left: 5%;
+	}
+	.sidebar {
+		display: none;
+	}
+}
+
+/* xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536 */
+
+/* Small devices (portrait tablets and large phones, 900px and down) */
+@media only screen and (min-width: 701px) {
+	.sidebar {
+		display: block;
+	}
+	.drawer-mobile-open {
+		display: none;
+		position: absolute;
+		top: -35px;
+		left: -8%;
+	}
+}
+
 .sidebar-link {
 	display: flex;
 	text-decoration: none;
@@ -18,4 +50,8 @@
 .default-page-style {
 	margin: "10px";
 	color: grey;
+}
+
+.drawer-mobile-close {
+	display: none;
 }
