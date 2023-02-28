@@ -1,26 +1,12 @@
-import { IconButton, Tooltip, Typography } from "@mui/material";
-import GenericDashCards from "../Cards/GenericDashCards";
-import profile from "../../assets/images/profile.jpg";
 import { MoreVertRounded, Star } from "@mui/icons-material";
-import "./styles/reviews.css";
-import ReviewModal from "./ReviewModal";
-import { useState } from "react";
-import ReviewComponent from "./Review/ReviewComponent";
+import { Typography, IconButton, Tooltip } from "@mui/material";
+import profile from "../../../assets/images/profile.jpg";
 
-function Review() {
-	const [openModal, setOpenModal] = useState(false);
+function ReviewComponent() {
 	return (
-		<GenericDashCards>
-			<div className="latest-review-div  generic-flex-justify-content-style">
-				<Typography fontWeight={"bolder"}>Latest Customer Review</Typography>
-				<Tooltip title="View all ">
-					<IconButton onClick={() => setOpenModal(true)}>
-						<MoreVertRounded />
-					</IconButton>
-				</Tooltip>
-			</div>
-			<ReviewComponent />
-			{/* <div>
+		<div>
+			{/*  */}
+			<div>
 				<div className="customer generic-flex-justify-content-style">
 					<div className="reviewer-profile generic-flex-justify-content-style">
 						<img className="review-img-icon" loading="lazy" src={profile} alt="Guest image" />
@@ -46,10 +32,9 @@ function Review() {
 						Deleniti, reiciendis distinctio.
 					</Typography>
 				</div>
-			</div> */}
-			<ReviewModal open={openModal} setOpenModal={setOpenModal} />
-		</GenericDashCards>
+			</div>
+		</div>
 	);
 }
 
-export default Review;
+export default ReviewComponent;
