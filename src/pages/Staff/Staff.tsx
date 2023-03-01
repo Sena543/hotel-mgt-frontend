@@ -33,26 +33,27 @@ function Staff() {
 	};
 
 	return (
-		<div>
+		<div className="staff-container">
 			<div className="staff-list-div">
 				<Typography style={{}} fontSize={30} fontWeight="bold">
 					Hotel Staff
 				</Typography>
+				{/* </div> */}
+				<Paper className="room-header-paper">
+					{headers &&
+						headers.map(({ name, value }) => (
+							<div
+								onClick={() => setSelectedHeader(value)}
+								key={`${name}-${value}`}
+								className={`roomHeader ${selectedHeader === value ? "header-selected" : null}`}
+							>
+								<Typography variant="h6">{name}</Typography>
+							</div>
+						))}
+				</Paper>
 			</div>
-			<Paper className="room-header-paper">
-				{headers &&
-					headers.map(({ name, value }) => (
-						<div
-							onClick={() => setSelectedHeader(value)}
-							key={`${name}-${value}`}
-							className={`roomHeader ${selectedHeader === value ? "selected_filter" : null}`}
-						>
-							<Typography variant="h6">{name}</Typography>
-						</div>
-					))}
-			</Paper>
 
-			<TableContainer component={Paper} elevation={0} className="room-table-container">
+			<TableContainer component={Paper} elevation={0} className="staff-table-container">
 				<Table>
 					<TableHead>
 						<TableRow>

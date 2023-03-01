@@ -16,10 +16,46 @@
 	display: flex;
 	position: relative;
 	top: -2em;
+	margin-top: 2%;
 }
 
 .selected_filter {
 	background-color: red;
 	border-radius: 5px;
 	/* background-color: aliceblue; */
+}
+
+/* Medium devices (phones, 700px and up) */
+@media only screen and (min-width: 700px) and (max-width: 1500px) {
+	.staff-container {
+		margin-left: 200px;
+	}
+	.staff-list-div {
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+		top: -1em;
+		left: 0.5em;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.staff-container {
+		margin-top: 2%;
+	}
+
+	.staff-list-div {
+		display: flex;
+		justify-content: space-between;
+		position: relative;
+		top: -1.7em;
+		left: 2em;
+		/* outline: 2px solid hotpink; */
+	}
+}
+
+.header-selected {
+	background: linear-gradient(to right, #80529d, #a988bd);
+	color: #fff;
+	border-radius: 2px;
 }
