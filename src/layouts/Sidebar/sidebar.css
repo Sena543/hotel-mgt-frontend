@@ -3,8 +3,8 @@
 	.drawer-mobile-open {
 		display: block;
 		position: absolute;
-		top: 5%;
-		left: 5%;
+		top: -2em;
+		left: -5%;
 	}
 	.sidebar {
 		display: none;
