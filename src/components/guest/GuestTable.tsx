@@ -14,7 +14,7 @@ function GuestTable() {
 	return (
 		<div>
 			{/* <GenericTable tableData={guests} showActionCol={true} /> */}
-			<TableContainer component={Paper} elevation={0} className="room-table-container">
+			<TableContainer component={Paper} elevation={0} className="guest-table-container">
 				<Table>
 					<TableHead>
 						<TableRow>
