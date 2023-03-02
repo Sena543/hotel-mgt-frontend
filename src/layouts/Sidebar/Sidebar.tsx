@@ -8,7 +8,17 @@ import {
 	AccountBox,
 	MenuRounded,
 } from "@mui/icons-material";
-import { Drawer, ListItemIcon, ListItemText, ListItemButton, Divider, Hidden, IconButton, Menu } from "@mui/material";
+import {
+	Drawer,
+	ListItemIcon,
+	ListItemText,
+	ListItemButton,
+	Divider,
+	Hidden,
+	IconButton,
+	Menu,
+	useTheme,
+} from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
@@ -18,6 +28,7 @@ type SidebarProps = {
 	window?: () => Window;
 };
 function Sidebar({ window }: SidebarProps) {
+	const theme = useTheme();
 	const [selectedIndex, setSelectedIndex] = useState<number>(0);
 	const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -62,7 +73,7 @@ function Sidebar({ window }: SidebarProps) {
 			<CssBaseline />
 			<div className={"drawer-mobile-open"} aria-label="menu">
 				<IconButton onClick={handleDrawerToggle}>
-					<MenuRounded style={{ color: "red" }} sx={{ fontSize: 40 }} />
+					<MenuRounded style={{ color: theme.palette.primary.main }} sx={{ fontSize: 40 }} />
 				</IconButton>
 			</div>
 			<div className="sidebar">
