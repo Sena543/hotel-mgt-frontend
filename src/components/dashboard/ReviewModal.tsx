@@ -15,14 +15,14 @@ const style = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 1000,
-	height: "85%",
+	// width: 1000,
+	// height: "85%",
 	// maxHeight: "80%",
-	bgcolor: "background.paper",
-	border: "1px solid #000",
-	boxShadow: 24,
-	p: 4,
-	overflowY: "auto",
+	// bgcolor: "background.paper",
+	// border: "1px solid #000",
+	// boxShadow: 24,
+	// p: 4,
+	overflowY: "scroll",
 };
 
 function ReviewModal({ open, setOpenModal }: ReviewModalProps) {
@@ -34,7 +34,8 @@ function ReviewModal({ open, setOpenModal }: ReviewModalProps) {
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
-			<Box sx={style}>
+			<Box className="modal-box">
+				{/* <Box sx={style} className="modal-box"> */}
 				<div className="guest-review-header generic-flex-justify-content-style">
 					<Typography fontWeight={"bolder"} fontSize="25px">
 						Guest Reviews

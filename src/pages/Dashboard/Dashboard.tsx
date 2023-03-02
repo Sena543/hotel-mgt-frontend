@@ -24,7 +24,7 @@ function Dashboard() {
 					<GlanceCards name={name} number={number} icon={icon} backgColor={backgColor} />
 				))}
 			</div>
-			<div className="grid-mobile-col-span-2">
+			<div className="grid-mobile-col-span-2 ">
 				<DashPieChart />
 			</div>
 			<div className="grid-col-span-3_row-span-2 grid-mobile-col-span-2">
