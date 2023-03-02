@@ -10,16 +10,21 @@ type RoomHeaderProps = {
 
 function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 	const roomAvailabilityTypes = [
-		{ name: "All Rooms (50)", value: "all" },
-		{ name: "Available Rooms(30)", value: "available" },
-		{ name: "Booked Rooms(20)", value: "booked" },
+		{ name: "All Rooms", value: "all" },
+		{ name: "Available Rooms", value: "available" },
+		{ name: "Booked Rooms", value: "booked" },
 	];
+	console.log(selectedHeader);
 	return (
 		<div className="room-header-container">
 			<Paper className="room-header-paper">
 				{roomAvailabilityTypes.map(({ name, value }) => (
-					<div onClick={() => setSelectedHeader(value)} key={name} className="roomHeader">
-						<Typography variant="h6">{name}</Typography>
+					<div
+						onClick={() => setSelectedHeader(value)}
+						key={name}
+						className={`roomHeader ${selectedHeader === value ? "header-selected" : null}`}
+					>
+						<Typography>{name}</Typography>
 					</div>
 				))}
 			</Paper>
