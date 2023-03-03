@@ -1,0 +1,69 @@
+.create-guest-modal-container {
+	background: white;
+	border-radius: 10px;
+	border: 2px solid rgb(108, 105, 105);
+	gap: 1rem;
+}
+@media only screen and (max-width: 700px) {
+	.create-guest-modal-container {
+		width: 80%;
+		height: 70%;
+		transform: translate(15%, 15%);
+		/* background: white; */
+		/* border-radius: 10px; */
+		/* border: 2px solid rgb(108, 105, 105); */
+		/* gap: 1rem; */
+	}
+}
+
+@media only screen and (min-width: 700px) {
+	/* and (max-width: 1200px) { */
+	.create-guest-modal-container {
+		width: 50%;
+		height: 70%;
+		transform: translate(55%, 20%);
+		background: white;
+		border-radius: 10px;
+		border: 2px solid rgb(108, 105, 105);
+		gap: 1rem;
+	}
+}
+.create-guest-form {
+	width: 100%;
+	display: grid;
+	place-items: center;
+	gap: 1rem;
+	margin-top: 1rem;
+	/* outline: 2px solid hotpink; */
+}
+
+.name-div {
+	display: flex;
+	gap: 1rem;
+}
+.custom-text-field {
+	width: 70%;
+	border: 1px solid rgb(119, 119, 119);
+	border-radius: 10px;
+	height: 50px;
+}
+
+.contact-div,
+.button-div {
+	width: 100%;
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	margin-top: 2rem;
+}
+
+.button-div {
+	display: flex;
+	justify-content: center;
+	/* outline: 2px solid rebeccapurple; */
+	align-items: center;
+}
+
+.create-guest-button {
+	width: 60%;
+}
