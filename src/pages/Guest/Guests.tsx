@@ -14,7 +14,11 @@ function Guests() {
 					Guest List
 				</Typography>
 
-				<Button onClick={() => setOpenModal(true)} style={{ color: theme?.palette.primary.main }}>
+				<Button
+					variant="contained"
+					onClick={() => setOpenModal(true)}
+					// style={{ color: theme?.palette.primary.main }}
+				>
 					Create Guest
 				</Button>
 			</div>
