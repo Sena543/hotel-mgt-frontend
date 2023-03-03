@@ -4,3 +4,7 @@
 		width: 100%;
 	}
 }
+
+.guest-name {
+	text-decoration: none;
+}

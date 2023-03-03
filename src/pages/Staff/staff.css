@@ -19,12 +19,6 @@
 	margin-top: 2%;
 }
 
-.selected_filter {
-	background-color: red;
-	border-radius: 5px;
-	/* background-color: aliceblue; */
-}
-
 /* Medium devices (phones, 700px and up) */
 @media only screen and (min-width: 700px) and (max-width: 1500px) {
 	.staff-container {

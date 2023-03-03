@@ -2,7 +2,6 @@
 	display: flex;
 	justify-content: space-between;
 	position: relative;
-	outline: 2px solid hotpink;
 	top: -1.7em;
 	left: 2em;
 }
