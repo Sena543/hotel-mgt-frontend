@@ -16,7 +16,6 @@ import {
 	Divider,
 	Hidden,
 	IconButton,
-	Menu,
 	useTheme,
 } from "@mui/material";
 import List from "@mui/material/List";
@@ -45,16 +44,44 @@ function Sidebar({ window }: SidebarProps) {
 		{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
 	];
 
+	// const drawer = (
+	// 	<List>
+	// 		{sidebarNavLinks.map(({ name, link, icon }, index) => (
+	// 			<ListItem
+	// 				// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+	// 				key={link}
+	// 			>
+	// 				<Link className="sidebar-link" to={link}>
+	// 					<ListItemButton
+	// 						className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+	// 						onClick={() => setSelectedIndex(index)}
+	// 					>
+	// 						<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
+	// 							{icon}
+	// 						</ListItemIcon>
+	// 						<ListItemText primary={name} />
+	// 					</ListItemButton>
+	// 				</Link>
+	// 			</ListItem>
+	// 		))}
+	// 	</List>
+	// );
+
 	const drawer = (
 		<List>
 			{sidebarNavLinks.map(({ name, link, icon }, index) => (
-				<ListItem
-					// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
-					key={link}
-				>
-					<Link style={{ width: "100%" }} className="sidebar-link" to={link}>
+				<ListItem key={link}>
+					<Link
+						className={`sidebar-link ${
+							selectedIndex === index ? "selected-page-style" : "default-page-style"
+						}`}
+						// className="sidebar-link"
+						to={link}
+						key={`${name}-${link}`}
+					>
 						<ListItemButton
-							className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+							disableRipple
+							// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
 							onClick={() => setSelectedIndex(index)}
 						>
 							<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
@@ -67,11 +94,12 @@ function Sidebar({ window }: SidebarProps) {
 			))}
 		</List>
 	);
+
 	const container = window !== undefined ? () => window().document.body : undefined;
 	return (
 		<div className="sidebar-container" style={{ position: "relative" }}>
 			<CssBaseline />
-			<div className={"drawer-mobile-open"} aria-label="menu">
+			<div className={"drawer-mobile-open"}>
 				<IconButton onClick={handleDrawerToggle}>
 					<MenuRounded style={{ color: theme.palette.primary.main }} sx={{ fontSize: 40 }} />
 				</IconButton>

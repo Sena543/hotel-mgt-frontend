@@ -44,11 +44,13 @@
 	box-shadow: 10px 10px 10px #dfd7e7;
 	/* box-shadow: 5px 5px 15px #dfd7e7; */
 	background: linear-gradient(to right, #80529d, #a988bd);
-	transition: all 150ms;
+	transition: all 400ms;
+	margin-left: 25px;
+	width: 100%;
 }
 
 .default-page-style {
-	margin: "10px";
+	margin: 10px;
 	color: grey;
 }
 
