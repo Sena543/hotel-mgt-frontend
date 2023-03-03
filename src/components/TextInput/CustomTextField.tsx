@@ -10,7 +10,7 @@ const CustomTextField = styled(TextField)({
 	"& .MuiOutlinedInput-root": {
 		"& fieldset": {
 			borderRadius: 10,
-			borderWidth: 0,
+			// borderWidth: 0,
 			height: "100%",
 		},
 		// "&:hover fieldset": {
