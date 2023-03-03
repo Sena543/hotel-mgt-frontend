@@ -9,10 +9,6 @@
 		width: 80%;
 		height: 70%;
 		transform: translate(15%, 15%);
-		/* background: white; */
-		/* border-radius: 10px; */
-		/* border: 2px solid rgb(108, 105, 105); */
-		/* gap: 1rem; */
 	}
 }
 
@@ -43,7 +39,8 @@
 }
 .custom-text-field {
 	width: 70%;
-	border: 1px solid rgb(119, 119, 119);
+	/* border: 1px solid rgb(0, 0, 0); */
+	/* border: 10px solid rgb(119, 119, 119); */
 	border-radius: 10px;
 	height: 50px;
 }

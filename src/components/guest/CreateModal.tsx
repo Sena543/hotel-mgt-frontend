@@ -1,9 +1,9 @@
+import "./create-guest.css";
 import { CloseRounded } from "@mui/icons-material";
 import { Button, Typography, IconButton, Divider, Tooltip, TextField, Autocomplete } from "@mui/material";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
 // import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import "./create-guest.css";
 import { useState } from "react";
 
 type CreateModalProps = {
@@ -29,7 +29,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 	};
 	return (
 		<GenericModal className="create-guest-modal-container" open={open} setOpenModal={setOpenModal}>
-			<div className="guest-review-header generic-flex-justify-content-style">
+			<div style={{ padding: "auto 10px" }} className="guest-review-header generic-flex-justify-content-style">
 				<Typography fontWeight={"bolder"} fontSize="25px">
 					New Guest
 				</Typography>
@@ -44,6 +44,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 				<div style={{}}>
 					<div className="name-div">
 						<CustomTextField
+							autoFocus
 							name="lastName"
 							variant="outlined"
 							value={guestDetails.lastName}
