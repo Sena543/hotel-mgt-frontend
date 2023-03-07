@@ -1,6 +1,6 @@
 import { Typography, Button, useTheme } from "@mui/material";
 import { useState } from "react";
-import CreateGuestModal from "../../components/guest/CreateModal";
+import CreateGuestModal from "../../components/guest/CreateGuestModal";
 import GuestTable from "../../components/guest/GuestTable";
 import "./guests.css";
 
