@@ -17,6 +17,8 @@
 	position: relative;
 	top: -2em;
 	margin-top: 2%;
+	align-items: center;
+	justify-content: space-between;
 }
 
 /* Medium devices (phones, 700px and up) */

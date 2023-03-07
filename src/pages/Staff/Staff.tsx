@@ -1,11 +1,23 @@
-import { Paper, Typography, TableContainer, Table, TableHead, TableRow, TableBody, TableCell } from "@mui/material";
+import {
+	Paper,
+	Typography,
+	TableContainer,
+	Table,
+	TableHead,
+	TableRow,
+	TableBody,
+	TableCell,
+	Button,
+} from "@mui/material";
 import { useState } from "react";
 import "./staff.css";
 import { StyledTableCell, StyledTableRow } from "../../components/Table/TableComp";
 import { employeeData } from "../../services/employee-data";
+import CreateStaffModal from "../../components/staff/CreateStaffModal";
 
 function Staff() {
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");
+	const [openModal, setOpenModal] = useState(false);
 
 	const headers = [
 		{ name: "All Employees", value: "all" },
@@ -35,10 +47,11 @@ function Staff() {
 	return (
 		<div className="staff-container">
 			<div className="staff-list-div">
-				<Typography style={{}} fontSize={30} fontWeight="bold">
-					Hotel Staff
-				</Typography>
-				{/* </div> */}
+				<div>
+					<Typography style={{}} fontSize={30} fontWeight="bold">
+						Hotel Staff
+					</Typography>
+				</div>
 				<Paper className="room-header-paper">
 					{headers &&
 						headers.map(({ name, value }) => (
@@ -51,6 +64,9 @@ function Staff() {
 							</div>
 						))}
 				</Paper>
+				<Button onClick={() => setOpenModal(true)} variant="contained">
+					Create Staff
+				</Button>
 			</div>
 
 			<TableContainer component={Paper} elevation={0} className="staff-table-container">
@@ -118,6 +134,7 @@ function Staff() {
 					</TableBody>
 				</Table>
 			</TableContainer>
+			<CreateStaffModal open={openModal} setOpenModal={setOpenModal} />
 		</div>
 	);
 }
