@@ -54,6 +54,10 @@
 	margin-top: 2rem;
 }
 
+.date-picker-div {
+	margin: 2rem auto;
+}
+
 .button-div {
 	display: flex;
 	justify-content: center;
@@ -63,4 +67,13 @@
 
 .create-guest-button {
 	width: 60%;
+}
+
+.select-guest-room {
+	margin-top: 4rem;
+	width: 100%;
+}
+
+.auto-complete{
+	width: 100% !important;
 }
