@@ -23,7 +23,7 @@
 }
 
 .roomHeader:hover {
-	background: var(--hover-color);
+	/* background: var(--hover-color); */
 	border-radius: 2px;
 	cursor: pointer;
 }
