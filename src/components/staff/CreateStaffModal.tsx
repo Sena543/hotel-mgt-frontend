@@ -73,7 +73,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 									}
 								/>
 							}
-							label={day}
+							label={<Typography variant="h6">{day}</Typography>}
 						/>
 					</div>
 				))}

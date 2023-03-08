@@ -25,7 +25,9 @@
 	}
 }
 .select-working-days {
-	width: 80%;
+	/* outline: 2px solid hotpink; */
+	margin: 2rem auto;
+	/* width: 100%; */
 }
 
 .create-staff-form {
