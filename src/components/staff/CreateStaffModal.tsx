@@ -30,25 +30,39 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 		workingDays: [],
 	});
 
-	const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-	const handleWorkingDaySelection = (isChecked: boolean, label: string) => {
-		let workingDays = [...staffDetails.workingDays];
-        // const find_inArray = workingDays.includes(label)
-        // if (find_inArray && isChecked) workingDays.push(label);
+	const handleChange = (name: string, value: unknown) => {
+		setStaffDetails((prevState: any) => {
+			return { ...prevState, [name]: value };
+		});
 	};
 
+	const handleWorkingDaySelection = (label: string) => {
+		let workingDays: string[] = [...staffDetails.workingDays];
+		const find_inArray = workingDays.includes(label);
+
+		if (find_inArray) {
+			workingDays = workingDays.filter((day) => day !== label);
+		} else {
+			workingDays.push(label);
+		}
+
+		handleChange("workingDays", workingDays);
+	};
+
+	const weekDays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	const renderDaysWithCheckbox = (
 		<>
 			{weekDays &&
-				weekDays.map((day) => (
-					<div>
+				weekDays.map((day: string) => (
+					<div key={day}>
 						<FormControlLabel
 							control={
 								<Checkbox
-									onChange={(e) => {
-										console.log(e.target.checked);
-									}}
+									checked={staffDetails["workingDays"].includes(day)}
+									onChange={
+										(e) => handleWorkingDaySelection(day)
+										// console.log(e.target.checked);
+									}
 								/>
 							}
 							label={day}
@@ -58,11 +72,6 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 		</>
 	);
 
-	const handleChange = (name: string, value: unknown) => {
-		setStaffDetails((prevState: any) => {
-			return { ...prevState, [name]: value };
-		});
-	};
 	return (
 		<GenericModal className="create-staff-modal-container" open={open} setOpenModal={setOpenModal}>
 			<div style={{ padding: "auto 10px" }} className="guest-review-header generic-flex-justify-content-style">
