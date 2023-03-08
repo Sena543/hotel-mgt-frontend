@@ -21,8 +21,16 @@ type CreateModalProps = {
 	setOpenModal: Function;
 };
 
+interface StaffDetails {
+	lastName: string;
+	firstName: string;
+	email: string;
+	contact: string;
+	workingDays: string[];
+}
+
 function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
-	const [staffDetails, setStaffDetails] = useState({
+	const [staffDetails, setStaffDetails] = useState<StaffDetails>({
 		lastName: "",
 		firstName: "",
 		email: "",
