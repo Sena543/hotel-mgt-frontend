@@ -25,10 +25,10 @@ export default createBrowserRouter([
 				path: "booking",
 				element: <Booking />,
 			},
-			{
-				path: "booking",
-				element: <Booking />,
-			},
+			// {
+			// 	path: "booking",
+			// 	element: <Booking />,
+			// },
 			{
 				path: "guests",
 				element: <Guests />,
