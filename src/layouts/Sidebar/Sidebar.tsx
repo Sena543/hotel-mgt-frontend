@@ -38,9 +38,9 @@ function Sidebar({ window }: SidebarProps) {
 	const sidebarNavLinks = [
 		{ name: "Dashboard", link: "/", icon: <DashboardRounded fontSize="large" /> },
 		{ name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
-		{ name: "Booking", link: "booking", icon: <BookOnlineRounded fontSize="large" /> },
+		// { name: "Booking", link: "booking", icon: <BookOnlineRounded fontSize="large" /> },
 		{ name: "Guests", link: "guests", icon: <PortraitRounded fontSize="large" /> },
-		{ name: "Concierge", link: "concierge", icon: <AccountBox fontSize="large" /> },
+		// { name: "Concierge", link: "concierge", icon: <AccountBox fontSize="large" /> },
 		{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
 	];
 
