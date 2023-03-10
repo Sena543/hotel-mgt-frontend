@@ -7,9 +7,9 @@ type GenericHeaderProps = {
 
 function GenericHeader({ headerTitle }: GenericHeaderProps) {
 	return (
-		<div className="staff-list-div">
-			<div>
-				<Typography style={{}} fontSize={30} fontWeight="bold">
+		<div className="staff-list-div" style={{ position: "relative", bottom: "100px" }}>
+			<div style={{}}>
+				<Typography fontSize={30} fontWeight="bold">
 					{headerTitle}
 				</Typography>
 			</div>
