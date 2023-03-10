@@ -19,30 +19,32 @@ function Dashboard() {
 		{ name: "Check out", number: 5, icon: <LogoutRounded fontSize="large" />, backgColor: "#fcddda" },
 	];
 	return (
-		<div className="dashboard-container">
+		<>
 			<GenericHeader headerTitle="Dashboard" />
-			<div className="glance-cards-div">
-				{glanceData.map(({ name, number, icon, backgColor }, index) => (
-					<GlanceCards name={name} number={number} icon={icon} backgColor={backgColor} />
-				))}
+			<div className="dashboard-container">
+				<div className="glance-cards-div">
+					{glanceData.map(({ name, number, icon, backgColor }, index) => (
+						<GlanceCards name={name} number={number} icon={icon} backgColor={backgColor} />
+					))}
+				</div>
+				<div className="grid-mobile-col-span-2 ">
+					<DashPieChart />
+				</div>
+				<div className="grid-col-span-3_row-span-2 grid-mobile-col-span-2">
+					<ReservationStat />
+				</div>
+				<div className="grid-mobile-col-span-2">
+					<AvailableRooms />
+				</div>
+				<div className="grid-col-span-2 grid-row-span-2 grid-mobile-col-span-2">
+					<DashboardCalendar />
+				</div>
+				{/* <div className="grid-col-span-2"><GenericDashCards>Check in today list</GenericDashCards></div> */}
+				<div className="grid-col-span-2  grid-row-span-2">
+					<Review />
+				</div>
 			</div>
-			<div className="grid-mobile-col-span-2 ">
-				<DashPieChart />
-			</div>
-			<div className="grid-col-span-3_row-span-2 grid-mobile-col-span-2">
-				<ReservationStat />
-			</div>
-			<div className="grid-mobile-col-span-2">
-				<AvailableRooms />
-			</div>
-			<div className="grid-col-span-2 grid-row-span-2 grid-mobile-col-span-2">
-				<DashboardCalendar />
-			</div>
-			{/* <div className="grid-col-span-2"><GenericDashCards>Check in today list</GenericDashCards></div> */}
-			<div className="grid-col-span-2  grid-row-span-2">
-				<Review />
-			</div>
-		</div>
+		</>
 	);
 }
 
