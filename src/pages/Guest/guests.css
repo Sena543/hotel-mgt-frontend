@@ -3,7 +3,8 @@
 	justify-content: space-between;
 	position: relative;
 	top: -1.7em;
-	left: 2em;
+	align-items: center;
+	/* left: 2em; */
 }
 
 /* Medium devices (phones, 700px and up) */
