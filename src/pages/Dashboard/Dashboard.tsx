@@ -9,6 +9,7 @@ import Review from "../../components/dashboard/Review";
 import DashboardCalendar from "../../components/dashboard/Calendar";
 import DashPieChart from "../../components/dashboard/PieChart";
 import GenericDashCards from "../../components/Cards/GenericDashCards";
+import GenericHeader from "../../components/Header/GenericHeader";
 
 function Dashboard() {
 	const glanceData = [
@@ -19,6 +20,7 @@ function Dashboard() {
 	];
 	return (
 		<div className="dashboard-container">
+			<GenericHeader headerTitle="Dashboard" />
 			<div className="glance-cards-div">
 				{glanceData.map(({ name, number, icon, backgColor }, index) => (
 					<GlanceCards name={name} number={number} icon={icon} backgColor={backgColor} />

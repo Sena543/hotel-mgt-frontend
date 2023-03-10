@@ -17,6 +17,11 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 	console.log(selectedHeader);
 	return (
 		<div className="room-header-container">
+			<div>
+				<Typography style={{}} fontSize={30} fontWeight="bold">
+					Room
+				</Typography>
+			</div>
 			<Paper className="room-header-paper">
 				{roomAvailabilityTypes.map(({ name, value }) => (
 					<div
@@ -28,11 +33,10 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 					</div>
 				))}
 			</Paper>
-			<div className="textfield-div">
+			{/* <div className="textfield-div">
 				<CustomTextField
 					fullWidth
 					placeholder="Search here..."
-					// style={{ marginLeft: 20 }}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end" style={{ marginBottom: 15 }}>
@@ -41,11 +45,11 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 						),
 					}}
 				/>
-			</div>
-			<div className="schedule-div">
-				{/* <input id="dateInput" type="date" /> */}
-				<Typography variant="h6">Check schedule</Typography>
-			</div>
+			</div> */}
+			{/* <div className="schedule-div"> */}
+			{/* <input id="dateInput" type="date" /> */}
+			{/* <Typography variant="h6">Check schedule</Typography> */}
+			{/* </div> */}
 		</div>
 	);
 }
