@@ -88,23 +88,23 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								name="lastName"
 								variant="outlined"
 								value={guestDetails.lastName}
-								// error={!guestDetails.lastName}
-								// helperText="Last name is required"
 								className="custom-text-field"
 								label="Last Name"
 								margin="normal"
 								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
+								// error={!guestDetails.lastName}
+								// helperText="Last name is required"
 							/>
 							<CustomTextField
 								name="firstName"
 								variant="outlined"
 								className="custom-text-field"
 								label="First Name"
-								// error={!guestDetails.firstName}
-								// helperText="First name is required"
 								value={guestDetails.firstName}
 								margin="normal"
 								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
+								// error={!guestDetails.firstName}
+								// helperText="First name is required"
 							/>
 						</div>
 
@@ -115,11 +115,11 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								className="custom-text-field contacts-field email"
 								value={guestDetails.email}
 								fullWidth
+								label="Email"
+								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
 								// error={!guestDetails.email}
 								// helperText="email is required"
-								label="Email"
 								margin="normal"
-								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
 							/>
 							<CustomTextField
 								name="contact"
@@ -128,13 +128,13 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								value={guestDetails.contact}
 								className="custom-text-field contacts-field phone-number"
 								label="Phone Number"
-								margin="normal"
+								// margin="normal"
+								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
 								// error={!guestDetails.contact}
 								// helperText="Contact is required"
-								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
 							/>
 						</div>
-						<div className="date-picker-div name-div">
+						<div className="date-picker-div">
 							<DatePicker
 								disablePast
 								label="Check In Date"
@@ -142,7 +142,8 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								value={guestDetails.checkIn}
 								minDate={guestDetails.checkIn}
 								onChange={(dateValue) => handleDateChange("checkIn", dateValue)}
-								className="custom-text-field contacts-field"
+								className="custom-text-field contacts-field date-picker"
+								sx={{ marginTop: "2em" }}
 							/>
 							<DatePicker
 								disablePast
@@ -159,7 +160,8 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 										helperText: errorMessage,
 									},
 								}}
-								className="custom-text-field contacts-field"
+								sx={{ marginTop: "2em" }}
+								className="custom-text-field contacts-field date-picker"
 							/>
 						</div>
 						<div className="select-guest-room">
@@ -168,7 +170,8 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								className="auto-complete"
 								id="combo-box-demo"
 								// options={top100Films}
-								sx={{ width: 300 }}
+								// sx={{ width: 300 }}
+								sx={{ marginTop: "1em" }}
 								renderInput={(params: any) => (
 									<CustomTextField
 										className="custom-text-field contacts-field"
