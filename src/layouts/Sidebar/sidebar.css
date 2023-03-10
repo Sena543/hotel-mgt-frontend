@@ -1,3 +1,35 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 700px) {
+	.drawer-mobile-open {
+		display: block;
+		position: absolute;
+		top: -2em;
+		left: -5%;
+	}
+	.sidebar {
+		display: none;
+	}
+}
+
+/* xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536 */
+
+/* Small devices (portrait tablets and large phones, 900px and down) */
+@media only screen and (min-width: 701px) {
+	.sidebar {
+		display: block;
+	}
+	.drawer-mobile-open {
+		display: none;
+		position: absolute;
+		top: -35px;
+		left: -8%;
+	}
+}
+
 .sidebar-link {
 	display: flex;
 	text-decoration: none;
@@ -6,16 +38,20 @@
 
 .selected-page-style {
 	color: white;
-	margin: 5px;
+	margin: 5px 0px 25px auto;
 	border-radius: 15px;
-	/* box-shadow: 5px 5px 15px red; */
 	box-shadow: 10px 10px 10px #dfd7e7;
 	/* box-shadow: 5px 5px 15px #dfd7e7; */
 	background: linear-gradient(to right, #80529d, #a988bd);
-	transition: all 150ms;
+	transition: margin ease 150ms;
+	width: 100%;
 }
 
 .default-page-style {
-	margin: "10px";
+	margin: 10px;
 	color: grey;
+}
+
+.drawer-mobile-close {
+	display: none;
 }

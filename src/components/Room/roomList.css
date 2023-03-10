@@ -3,6 +3,10 @@
 	width: 100%;
 }
 
+.table{
+	width: 100%;
+}
+
 .available {
 	background-color: rgba(190, 223, 213, 255);
 }

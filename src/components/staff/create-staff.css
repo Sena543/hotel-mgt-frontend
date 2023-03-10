@@ -1,0 +1,36 @@
+.create-staff-modal-container {
+	background: white;
+	border-radius: 10px;
+	border: 2px solid rgb(108, 105, 105);
+	gap: 1rem;
+}
+@media only screen and (max-width: 700px) {
+	.create-staff-modal-container {
+		width: 80%;
+		height: 70%;
+		transform: translate(15%, 15%);
+	}
+}
+
+@media only screen and (min-width: 700px) {
+	/* and (max-width: 1200px) { */
+	.create-staff-modal-container {
+		width: 50%;
+		height: 70%;
+		transform: translate(55%, 20%);
+		background: white;
+		border-radius: 10px;
+		border: 2px solid rgb(108, 105, 105);
+		gap: 1rem;
+	}
+}
+.select-working-days {
+	/* outline: 2px solid hotpink; */
+	margin: 2rem auto;
+	/* width: 100%; */
+}
+
+.create-staff-form {
+	display: grid;
+	place-items: center;
+}

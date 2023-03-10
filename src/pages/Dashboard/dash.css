@@ -1,12 +1,8 @@
-.dashboard-container {
+/* .dashboard-container {
 	display: grid;
 	gap: 2rem;
 	grid-template-columns: repeat(4, 1fr);
 }
-/* .dashboard-container > div:first-child {
-	grid-column: span 4;
-	display: flex;
-} */
 
 .glance-cards-div {
 	grid-column: span 4;
@@ -24,4 +20,136 @@
 
 .grid-row-span-2 {
 	grid-row: span 2;
+} */
+
+/* xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536 */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 700px) {
+	/* @media only screen and (max-width: 600px) { */
+	.dashboard-container {
+		display: grid;
+		gap: 2rem;
+		grid-template-columns: repeat(1, 1fr);
+		/* grid-template-columns: repeat(2, 1fr); */
+	}
+
+	.glance-container {
+		margin: 2em;
+	}
+
+	.grid-mobile-col-span-2 {
+		grid-column: span 2;
+	}
+
+	.glance-cards-div {
+		grid-column: span 2;
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 10%;
+		gap: 2rem;
+	}
+
+	.grid-col-span-3_row-span-2 {
+		grid-column: span 2;
+	}
+
+	.grid-col-span-2 {
+		grid-column: span 2;
+	}
+
+	.grid-row-span-2 {
+		grid-row: span 2;
+	}
 }
+
+/* @media only screen and (min-width: 701px) {
+	.dashboard-container {
+		padding-left: 240px;
+		display: grid;
+		gap: 2rem;
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.grid-mobile-col-span-2 {
+		grid-column: span 2;
+	}
+
+	.glance-cards-div {
+		grid-column: span 2;
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.grid-col-span-3_row-span-2 {
+		grid-column: span 2;
+	}
+
+	.grid-col-span-2 {
+		grid-column: span 2;
+	}
+
+	.grid-row-span-2 {
+		grid-row: span 2;
+	}
+} */
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	.dashboard-container {
+		padding-left: 200px;
+		display: grid;
+		gap: 2rem;
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.glance-cards-div {
+		grid-column: span 4;
+		display: flex;
+	}
+
+	.grid-col-span-3_row-span-2 {
+		grid-column: span 3;
+		grid-row: span 2;
+	}
+
+	.grid-col-span-2 {
+		grid-column: span 2;
+	}
+
+	.grid-row-span-2 {
+		grid-row: span 2;
+	}
+}
+/* .dashboard-container > div:first-child {
+	grid-column: span 4;
+	display: flex;
+} */
+
+/* Small devices (portrait tablets and large phones, 900px and up) */
+/* @media only screen and (min-width: 900px) { */
+/* .sidebar {
+		display: block;
+	} */
+/* .drawer-mobile-open { */
+/* display: none; */
+/* position: absolute; */
+/* top: -35px; */
+/* left: -8%; */
+/* } */
+/* } */
+
+/* Medium devices (landscape tablets, 1200px and up) */
+/*
+@media only screen and (min-width: 1200) {
+	.sidebar {
+		display: block;
+	}
+	.drawer-mobile-open {
+		display: none;
+	}
+}
+*/

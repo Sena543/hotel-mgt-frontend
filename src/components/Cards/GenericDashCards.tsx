@@ -1,6 +1,7 @@
+import { ReactNode } from "react";
 import "./card.css";
 type GenericDashCardsProps = {
-	children: any;
+	children: ReactNode;
 	className?: string;
 };
 

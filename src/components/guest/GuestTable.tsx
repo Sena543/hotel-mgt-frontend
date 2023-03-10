@@ -14,7 +14,7 @@ function GuestTable() {
 	return (
 		<div>
 			{/* <GenericTable tableData={guests} showActionCol={true} /> */}
-			<TableContainer component={Paper} elevation={0} className="room-table-container">
+			<TableContainer component={Paper} elevation={0} className="guest-table-container">
 				<Table>
 					<TableHead>
 						<TableRow>
@@ -30,7 +30,7 @@ function GuestTable() {
 							guests.map(({ name, room, checkin, checkout, request, status }, index) => (
 								<StyledTableRow hover key={`${name}${room}-${index}`}>
 									<StyledTableCell>
-										<Link to={`guest_details/${name}`}>
+										<Link className={"guest-name"} to={`guest_details/${name}`}>
 											<Typography>{name}</Typography>
 										</Link>
 									</StyledTableCell>

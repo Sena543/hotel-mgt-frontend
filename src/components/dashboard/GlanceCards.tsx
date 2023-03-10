@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import "./glance.css";
+import "./styles/glance.css";
 
 type GlanceCardsProps = {
 	number: number;

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { TableCell, tableCellClasses, TableRow } from "@mui/material";
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({

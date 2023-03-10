@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useState } from "react";
 import RoomHeader from "../../components/Room/RoomHeader";
 import RoomList from "../../components/Room/RoomList";
+import "./room.css";
 
 function Rooms() {
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");

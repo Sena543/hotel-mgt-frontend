@@ -1,10 +1,12 @@
-import { createTheme } from "@mui/material";
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
-const primaryTheme = createTheme({
+let primaryTheme = createTheme({
 	palette: {
 		primary: { main: "#80529d" },
 	},
 });
+
+primaryTheme = responsiveFontSizes(primaryTheme);
 
 export const theme = createTheme(primaryTheme, {
 	palette: {

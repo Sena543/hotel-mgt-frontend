@@ -1,7 +1,7 @@
 import Calendar from "react-calendar";
 import GenericDashCards from "../Cards/GenericDashCards";
 import "react-calendar/dist/Calendar.css";
-import "./dash-calendar.css";
+import "./styles/dash-calendar.css";
 
 function DashboardCalendar() {
 	return (
