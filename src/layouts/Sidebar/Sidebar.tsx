@@ -44,29 +44,6 @@ function Sidebar({ window }: SidebarProps) {
 		{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
 	];
 
-	// const drawer = (
-	// 	<List>
-	// 		{sidebarNavLinks.map(({ name, link, icon }, index) => (
-	// 			<ListItem
-	// 				// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
-	// 				key={link}
-	// 			>
-	// 				<Link className="sidebar-link" to={link}>
-	// 					<ListItemButton
-	// 						className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
-	// 						onClick={() => setSelectedIndex(index)}
-	// 					>
-	// 						<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
-	// 							{icon}
-	// 						</ListItemIcon>
-	// 						<ListItemText primary={name} />
-	// 					</ListItemButton>
-	// 				</Link>
-	// 			</ListItem>
-	// 		))}
-	// 	</List>
-	// );
-
 	const drawer = (
 		<List>
 			{sidebarNavLinks.map(({ name, link, icon }, index) => (
@@ -167,3 +144,25 @@ function Sidebar({ window }: SidebarProps) {
 }
 
 export default Sidebar;
+// const drawer = (
+// 	<List>
+// 		{sidebarNavLinks.map(({ name, link, icon }, index) => (
+// 			<ListItem
+// 				// className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+// 				key={link}
+// 			>
+// 				<Link className="sidebar-link" to={link}>
+// 					<ListItemButton
+// 						className={selectedIndex === index ? "selected-page-style" : "default-page-style"}
+// 						onClick={() => setSelectedIndex(index)}
+// 					>
+// 						<ListItemIcon style={{ color: `${selectedIndex === index ? "white" : ""}` }}>
+// 							{icon}
+// 						</ListItemIcon>
+// 						<ListItemText primary={name} />
+// 					</ListItemButton>
+// 				</Link>
+// 			</ListItem>
+// 		))}
+// 	</List>
+// );
