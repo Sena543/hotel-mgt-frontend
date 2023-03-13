@@ -15,7 +15,7 @@ export const roomData = [
 	},
 	{
 		roomName: "Delux B-003",
-		bedType: "Double Bed",
+		bedType: "Single Bed",
 		facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
 		status: "Booked",
 		period: "Oct 24th - 31st",
@@ -28,14 +28,14 @@ export const roomData = [
 		period: "Oct 24th - 31st",
 	},
 	{
-		roomName: "Delux B-003",
-		bedType: "Double Bed",
+		roomName: "Delux B-005",
+		bedType: "Single Bed",
 		facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
 		status: "Available",
 		period: "Oct 24th - 31st",
 	},
 	{
-		roomName: "Delux B-004",
+		roomName: "Delux B-006",
 		bedType: "Double Bed",
 		facility: "AC, Shower, Double Bed, Towel, Bathup, Coffee Set, LED TV, Wifi",
 		status: "Pending",
