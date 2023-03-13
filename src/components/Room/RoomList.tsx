@@ -53,7 +53,7 @@ function RoomList({ selectedHeader }: { selectedHeader: string }) {
 								status: string;
 								period: string;
 							}) => (
-								<StyledTableRow hover>
+								<StyledTableRow hover key={`${roomName}-${bedType}`}>
 									<TableCell>{roomName}</TableCell>
 									<TableCell>{bedType}</TableCell>
 									<TableCell>{facility}</TableCell>

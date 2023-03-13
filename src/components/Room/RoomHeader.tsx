@@ -17,22 +17,24 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 	console.log(selectedHeader);
 	return (
 		<div className="room-header-container">
-			<div className="guest-title">
+			{/* <div className="room"> */}
+			<div>
 				<Typography style={{}} fontSize={30} fontWeight="bold">
 					Room
 				</Typography>
-				<Paper className="room-header-paper">
-					{roomAvailabilityTypes.map(({ name, value }) => (
-						<div
-							onClick={() => setSelectedHeader(value)}
-							key={name}
-							className={`roomHeader ${selectedHeader === value ? "header-selected" : null}`}
-						>
-							<Typography>{name}</Typography>
-						</div>
-					))}
-				</Paper>
 			</div>
+			<Paper className="room-header-paper">
+				{roomAvailabilityTypes.map(({ name, value }) => (
+					<div
+						onClick={() => setSelectedHeader(value)}
+						key={name}
+						className={`roomHeader ${selectedHeader === value ? "header-selected" : ""}`}
+					>
+						<Typography variant="h6">{name}</Typography>
+					</div>
+				))}
+			</Paper>
+			{/* </div> */}
 			{/* <div className="textfield-div">
 				<CustomTextField
 					fullWidth

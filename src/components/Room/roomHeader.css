@@ -2,7 +2,7 @@
 	--hover-color: #a988bd;
 	display: flex;
 	align-items: center;
-	height: 50px;
+	height: 60px;
 	justify-content: space-between;
 }
 
@@ -13,18 +13,16 @@
 	align-items: center;
 	justify-content: space-between;
 	height: 100%;
-	padding: 0.5em;
+	padding: 0.3em;
 }
 
 .roomHeader {
 	display: inline-block;
 	text-decoration: none;
-	max-width: 45%;
-	/* margin: 5px auto; */
+	max-width: 50%;
 }
 
 .roomHeader:hover {
-	/* background: var(--hover-color); */
 	border-radius: 2px;
 	cursor: pointer;
 }
@@ -38,9 +36,9 @@
 	transition: width 300ms;
 }
 
-.roomHeader:hover::after {
+/* .roomHeader:hover::after {
 	width: 100%;
-}
+} */
 
 .textfield-div {
 	height: 100%;
@@ -75,6 +73,9 @@
 	/* background-color: var(--defaultPrimaryColor); */
 	background: linear-gradient(to right, #80529d, #a988bd);
 	color: #fff;
+	/* height: 100%; */
 	border-radius: 2px;
+	display: flex;
+	align-items: center;
 	/* background-color: #6f48eb; */
 }
