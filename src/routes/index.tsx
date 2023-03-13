@@ -1,12 +1,13 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "../layouts/Root";
-import Booking from "../pages/Booking/Booking";
-import Concierge from "../pages/Concierge/Concierge";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import GuestDetails from "../pages/Guest/GuestDetails/GuestDetails";
-import Guests from "../pages/Guest/Guests";
-import Rooms from "../pages/Room/Rooms";
-import Staff from "../pages/Staff/Staff";
+const RootLayout = lazy(() => import("../layouts/Root"));
+const Booking = lazy(() => import("../pages/Booking/Booking"));
+const Concierge = lazy(() => import("../pages/Concierge/Concierge"));
+const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const GuestDetails = lazy(() => import("../pages/Guest/GuestDetails/GuestDetails"));
+const Guests = lazy(() => import("../pages/Guest/Guests"));
+const Rooms = lazy(() => import("../pages/Room/Rooms"));
+const Staff = lazy(() => import("../pages/Staff/Staff"));
 
 export default createBrowserRouter([
 	{

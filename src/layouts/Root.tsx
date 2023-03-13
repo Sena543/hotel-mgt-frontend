@@ -1,11 +1,15 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+import PageLoading from "./PageLoading";
 import Sidebar from "./Sidebar/Sidebar";
 
 function RootLayout() {
 	return (
 		<>
-			<Sidebar />
-			<Outlet />
+			<Suspense fallback={<PageLoading />}>
+				<Sidebar />
+				<Outlet />
+			</Suspense>
 		</>
 	);
 }
