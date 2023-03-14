@@ -7,6 +7,7 @@ import {
 	BadgeRounded,
 	AccountBox,
 	MenuRounded,
+	Restaurant,
 } from "@mui/icons-material";
 import {
 	Drawer,
@@ -40,8 +41,8 @@ function Sidebar({ window }: SidebarProps) {
 		{ name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
 		// { name: "Booking", link: "booking", icon: <BookOnlineRounded fontSize="large" /> },
 		{ name: "Guests", link: "guests", icon: <PortraitRounded fontSize="large" /> },
-		// { name: "Concierge", link: "concierge", icon: <AccountBox fontSize="large" /> },
 		{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
+		{ name: "Restuarant", link: "restaurant", icon: <Restaurant fontSize="large" /> },
 	];
 
 	const drawer = (
