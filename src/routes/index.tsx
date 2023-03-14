@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 const RootLayout = lazy(() => import("../layouts/Root"));
 const Booking = lazy(() => import("../pages/Booking/Booking"));
-const Concierge = lazy(() => import("../pages/Concierge/Concierge"));
+const Restuarant = lazy(() => import("../pages/Restuarant/Restuarant"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const GuestDetails = lazy(() => import("../pages/Guest/GuestDetails/GuestDetails"));
 const Guests = lazy(() => import("../pages/Guest/Guests"));
@@ -37,8 +37,8 @@ export default createBrowserRouter([
 			},
 			{ path: "guests/guest_details/:name", element: <GuestDetails /> },
 			{
-				path: "concierge",
-				element: <Concierge />,
+				path: "restaurant",
+				element: <Restuarant />,
 			},
 			{
 				path: "employees",
