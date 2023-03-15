@@ -32,7 +32,10 @@ function GenericTable({ tableData, showActionCol }: GenericTableProps) {
 			<Table>
 				<TableHead>
 					<TableRow>
-						{header && header.map((name) => <StyledTableCell>{name.toLocaleUpperCase()}</StyledTableCell>)}
+						{header &&
+							header.map((name) => (
+								<StyledTableCell key={name}>{name.toLocaleUpperCase()}</StyledTableCell>
+							))}
 						{showActionCol ? <StyledTableCell>ACTIONS</StyledTableCell> : null}
 					</TableRow>
 				</TableHead>
