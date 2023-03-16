@@ -1,3 +1,4 @@
+import "./generic-modal.css";
 import { CloseRounded } from "@mui/icons-material";
 import { Box, Typography, IconButton, Divider, TextField, Tooltip, Modal } from "@mui/material";
 import { ReactNode } from "react";
@@ -19,7 +20,7 @@ function GenericModal({ className, open, setOpenModal, children }: ModalProps) {
 			aria-describedby="modal-modal-description"
 		>
 			<Box
-				className={className}
+				className={`default-box-style ${className}`}
 				// className="modal-box"
 			>
 				{children}
