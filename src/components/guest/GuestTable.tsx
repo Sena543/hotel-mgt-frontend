@@ -19,7 +19,7 @@ function GuestTable() {
 					<TableHead>
 						<TableRow>
 							{headerList.map((name) => (
-								<StyledTableCell>
+								<StyledTableCell key={name}>
 									<Typography variant="h6">{name.toLocaleUpperCase()}</Typography>
 								</StyledTableCell>
 							))}
