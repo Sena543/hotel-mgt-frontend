@@ -82,7 +82,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 
 	return (
 		<GenericModal className="create-staff-modal-container" open={open} setOpenModal={setOpenModal}>
-			<div style={{ padding: "auto 10px" }} className="guest-review-header generic-flex-justify-content-style">
+			<div style={{ padding: "auto 10px" }} className="create-staff-header generic-flex-justify-content-style">
 				<Typography fontWeight={"bolder"} fontSize="25px">
 					New Staff
 				</Typography>
