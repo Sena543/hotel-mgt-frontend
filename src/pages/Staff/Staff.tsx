@@ -52,7 +52,7 @@ function Staff() {
 						Hotel Staff
 					</Typography>
 				</div>
-				<Paper className="room-header-paper">
+				<Paper className="staff-header-paper">
 					{headers &&
 						headers.map(({ name, value }) => (
 							<div
