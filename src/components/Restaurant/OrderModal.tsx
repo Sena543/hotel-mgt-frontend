@@ -1,6 +1,6 @@
 import "./order-modal.css";
 import GenericModal from "../Modal/GenericModal";
-import { Autocomplete, Divider, IconButton, Tooltip, Typography } from "@mui/material";
+import { Autocomplete, Button, Divider, IconButton, Tooltip, Typography } from "@mui/material";
 import { CloseRounded } from "@mui/icons-material";
 import CustomTextField from "../TextInput/CustomTextField";
 
@@ -34,9 +34,9 @@ const top100Films = [
 
 function OrderModal({ open, setOpenModal }: OrderModalProps) {
 	return (
-		<GenericModal open={open} setOpenModal={setOpenModal}>
+		<GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
 			<div className="order-modal-header">
-				<Typography>Create New Order</Typography>
+				<Typography variant="h5">Create New Order</Typography>
 				<Tooltip title="Close">
 					<IconButton onClick={() => setOpenModal(false)}>
 						<CloseRounded />
@@ -45,7 +45,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 			</div>
 			<Divider />
 			<div className="new-order-form">
-				<div className="guest-details-order order-modal-header">
+				<div className="guest-details-order">
 					<Autocomplete
 						disablePortal
 						id="combo-box-demo"
@@ -54,10 +54,14 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 						renderInput={(params) => <CustomTextField {...params} label="Guest Name" />}
 					/>
 					<CustomTextField label="Guest ID" />
-					<CustomTextField label="Room ID" />
+					{/* <CustomTextField label="Room ID" /> */}
 				</div>
 
-				<div className="guest-details-order order-modal-header">
+				<div className="guest-details-order">
+					<CustomTextField label="Room ID" style={{ width: "56%" }} />
+				</div>
+
+				<div className="guest-details-order ">
 					<Autocomplete
 						disablePortal
 						id="combo-box-demo"
@@ -67,6 +71,16 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 					/>
 					<CustomTextField label="Price" />
 					{/* <CustomTextField label="Room ID" /> */}
+				</div>
+				<div className="button-div">
+					<Button
+						style={{ width: "60%" }}
+						// onClick={() => console.log(staffDetails)}
+						variant="contained"
+						className="create-order-button"
+					>
+						Create
+					</Button>
 				</div>
 			</div>
 		</GenericModal>

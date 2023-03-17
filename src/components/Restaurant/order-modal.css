@@ -2,6 +2,46 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0.5rem;
 }
 
-.guest-details-order{}
+.new-order-form {
+	display: grid;
+	place-content: center;
+	gap: 1.5rem;
+	/* gap: 0.5rem; */
+	margin: 1rem auto;
+}
+
+.button-div {
+	display: grid;
+	place-content: center;
+}
+
+/* .guest-details-order{} */
+@media only screen and (min-width: 700px) {
+	.order-modal-container {
+		transform: translate(65%, 25%);
+		width: 40%;
+		min-height: 60%;
+	}
+	.guest-details-order {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.order-modal-container {
+		transform: translate(10%, 25%);
+		width: 80%;
+		min-height: 60%;
+		padding: 1rem;
+	}
+	.guest-details-order {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+}
