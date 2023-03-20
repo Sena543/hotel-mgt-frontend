@@ -1,0 +1,62 @@
+import "./menu-modal.css";
+import { CloseRounded } from "@mui/icons-material";
+import { Typography, IconButton, Divider, Autocomplete, Button, Tooltip } from "@mui/material";
+import GenericModal from "../Modal/GenericModal";
+import CustomTextField from "../TextInput/CustomTextField";
+
+type MenuModalProps = {
+	open: boolean;
+	setOpenModal: Function;
+};
+
+const dish_type = [{ label: "Breakfast" }, { label: "Lunch" }, { label: "Dinner" }];
+
+function MenuModal({ open, setOpenModal }: MenuModalProps) {
+	return (
+		<GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
+			<div className="order-modal-header">
+				<Typography variant="h5">Add New Dish</Typography>
+				<Tooltip title="Close">
+					<IconButton onClick={() => setOpenModal(false)}>
+						<CloseRounded />
+					</IconButton>
+				</Tooltip>
+			</div>
+			<Divider />
+			<div className="dish-form">
+				{/* <div className="guest-details-order"> */}
+				<CustomTextField label="Meal" className="menu-modal-text-field" />
+				{/* <div className="price-label-div"> */}
+				<CustomTextField label="Price" className="menu-modal-text-field" />
+
+				<Autocomplete
+					disablePortal
+					id="combo-box-demo"
+					options={dish_type}
+					className="menu-modal-text-field"
+					renderInput={(params) => (
+						<CustomTextField {...params} className="menu-modal-text-field" label="Dish Type" />
+					)}
+				/>
+				{/* </div> */}
+				<CustomTextField
+					className="menu-modal-text-field"
+					label="Description"
+					rows={5}
+					multiline
+					// minRows={5}
+					// style={{ width: "56%" }}
+				/>
+				{/* </div> */}
+
+				<div className="button-div">
+					<Button variant="contained" className="create-order-button">
+						Add
+					</Button>
+				</div>
+			</div>
+		</GenericModal>
+	);
+}
+
+export default MenuModal;

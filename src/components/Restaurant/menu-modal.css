@@ -1,0 +1,18 @@
+.dish-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 5rem auto;
+	gap: 0.5rem;
+}
+.menu-modal-text-field {
+	width: 85%;
+	margin-top: 2.5%;
+}
+
+.price-label-div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
