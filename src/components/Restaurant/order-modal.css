@@ -11,14 +11,23 @@
 	gap: 1.5rem;
 	/* gap: 0.5rem; */
 	margin: 1rem auto;
+	padding: 0.5rem;
+}
+.menu-link {
+	text-decoration: none;
 }
 
 .button-div {
 	display: grid;
 	place-content: center;
+	width: 100%;
 }
 
+.create-order-button {
+	width: 10rem;
+}
 /* .guest-details-order{} */
+
 @media only screen and (min-width: 700px) {
 	.order-modal-container {
 		transform: translate(65%, 25%);
@@ -32,7 +41,7 @@
 	}
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
 	.order-modal-container {
 		transform: translate(10%, 25%);
 		width: 80%;
@@ -43,5 +52,45 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.order-modal-container {
+		transform: translate(10%, 25%);
+		width: 80%;
+		min-height: 60%;
+		padding: 1rem;
+	}
+	.guest-details-order {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.custom-text-field-order-modal {
+		width: 100% !important;
+		padding: 0.5rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.order-modal-container {
+		transform: translate(5%, 5%);
+		width: 90%;
+		min-height: 50%;
+		padding: 1rem;
+	}
+	.guest-details-order {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.custom-text-field-order-modal {
+		width: 100% !important;
+		padding: 0.5rem;
 	}
 }
