@@ -1,11 +1,15 @@
-.food-header > h2 {
+.food-header > h2,
+h3 {
 	font-family: "Pacifico", cursive;
 	font-size: 4rem;
 	color: var(--defaultPrimaryColor);
 }
 
 .element-sep {
-	border-top: 15px solid red;
+	border-top: 2px dotted var(--defaultPrimaryColor);
+	/* border-top: 3px dotted rgb(152, 134, 175); */
+
+	width: 60%;
 	/* margin-left: 20px;
 	margin-right: 20px; */
 }
@@ -14,6 +18,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin: 5% auto;
 }
 
 @media only screen and (max-width: 700px) {
