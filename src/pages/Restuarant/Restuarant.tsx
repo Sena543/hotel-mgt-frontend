@@ -1,8 +1,9 @@
 import "./restaurant.css";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Link as MuiLink } from "@mui/material";
 import { useState } from "react";
 import GenericTable from "../../components/Table/GenericTable";
 import OrderModal from "../../components/Restaurant/OrderModal";
+import { Link } from "react-router-dom";
 
 function Restuarant() {
 	const [open, setOpenModal] = useState(false);
@@ -22,7 +23,10 @@ function Restuarant() {
 				</Typography>
 
 				<div className="header-button-div">
-					<Button onClick={() => setOpenMenuModal(true)}>View Menu</Button>
+					<Link className="menu-link" to={"/restaurant/menu"}>
+						<Button>View Menu</Button>
+					</Link>
+					{/* <Button onClick={() => setOpenMenuModal(true)}>View Menu</Button> */}
 					<Button onClick={() => setOpenModal(true)}>Create Guest Order</Button>
 				</div>
 			</div>
