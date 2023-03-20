@@ -33,21 +33,13 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
 					disablePortal
 					id="combo-box-demo"
 					options={dish_type}
+					fullWidth
 					className="menu-modal-text-field"
 					renderInput={(params) => (
-						<CustomTextField {...params} className="menu-modal-text-field" label="Dish Type" />
+						<CustomTextField {...params} fullWidth className="menu-modal-text-field" label="Dish Type" />
 					)}
 				/>
-				{/* </div> */}
-				<CustomTextField
-					className="menu-modal-text-field"
-					label="Description"
-					rows={5}
-					multiline
-					// minRows={5}
-					// style={{ width: "56%" }}
-				/>
-				{/* </div> */}
+				<CustomTextField className="menu-modal-text-field" label="Description" rows={5} multiline />
 
 				<div className="button-div">
 					<Button variant="contained" className="create-order-button">
