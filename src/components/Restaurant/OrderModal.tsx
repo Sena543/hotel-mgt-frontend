@@ -51,14 +51,20 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 						id="combo-box-demo"
 						options={top100Films}
 						sx={{ width: 300 }}
-						renderInput={(params) => <CustomTextField {...params} label="Guest Name" />}
+						renderInput={(params) => (
+							<CustomTextField {...params} className="custom-text-field-order-modal" label="Guest Name" />
+						)}
 					/>
-					<CustomTextField label="Guest ID" />
+					<CustomTextField label="Guest ID" className="custom-text-field-order-modal" />
 					{/* <CustomTextField label="Room ID" /> */}
 				</div>
 
 				<div className="guest-details-order">
-					<CustomTextField label="Room ID" style={{ width: "56%" }} />
+					<CustomTextField
+						className="custom-text-field-order-modal"
+						label="Room ID"
+						style={{ width: "56%" }}
+					/>
 				</div>
 
 				<div className="guest-details-order ">
@@ -67,14 +73,27 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 						id="combo-box-demo"
 						options={top100Films}
 						sx={{ width: 300 }}
-						renderInput={(params) => <CustomTextField {...params} label="Meal/Brevage" />}
+						renderInput={(params) => (
+							<CustomTextField {...params} className="custom-text-field-order-modal" label="Meal" />
+						)}
 					/>
-					<CustomTextField label="Price" />
-					{/* <CustomTextField label="Room ID" /> */}
+					<CustomTextField className="custom-text-field-order-modal" label="Price" />
+				</div>
+				<div className="guest-details-order ">
+					<Autocomplete
+						disablePortal
+						id="combo-box-demo"
+						options={top100Films}
+						sx={{ width: 300 }}
+						renderInput={(params) => (
+							<CustomTextField {...params} className="custom-text-field-order-modal" label="Beverage" />
+						)}
+					/>
+					<CustomTextField className="custom-text-field-order-modal" label="Price" />
 				</div>
 				<div className="button-div">
 					<Button
-						style={{ width: "60%" }}
+						// style={{ width: "80% !important" }}
 						// onClick={() => console.log(staffDetails)}
 						variant="contained"
 						className="create-order-button"
