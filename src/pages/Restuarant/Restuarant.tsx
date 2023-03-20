@@ -26,7 +26,6 @@ function Restuarant() {
 					<Link className="menu-link" to={"/restaurant/menu"}>
 						<Button>View Menu</Button>
 					</Link>
-					{/* <Button onClick={() => setOpenMenuModal(true)}>View Menu</Button> */}
 					<Button onClick={() => setOpenModal(true)}>Create Guest Order</Button>
 				</div>
 			</div>
