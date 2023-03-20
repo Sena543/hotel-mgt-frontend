@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Menu from "../pages/Restuarant/Menu/Menu";
 const RootLayout = lazy(() => import("../layouts/Root"));
 const Booking = lazy(() => import("../pages/Booking/Booking"));
 const Restuarant = lazy(() => import("../pages/Restuarant/Restuarant"));
@@ -39,7 +40,9 @@ export default createBrowserRouter([
 			{
 				path: "restaurant",
 				element: <Restuarant />,
+				// children: [{ path: "menu", element: <Menu /> }],
 			},
+			{ path: "restaurant/menu", element: <Menu /> },
 			{
 				path: "employees",
 				element: <Staff />,
