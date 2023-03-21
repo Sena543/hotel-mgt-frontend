@@ -24,21 +24,26 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
 			</div>
 			<Divider />
 			<div className="dish-form">
-				{/* <div className="guest-details-order"> */}
 				<CustomTextField label="Meal" className="menu-modal-text-field" />
-				{/* <div className="price-label-div"> */}
 				<CustomTextField label="Price" className="menu-modal-text-field" />
 
-				<Autocomplete
-					disablePortal
-					id="combo-box-demo"
-					options={dish_type}
-					fullWidth
-					className="menu-modal-text-field"
-					renderInput={(params) => (
-						<CustomTextField {...params} fullWidth className="menu-modal-text-field" label="Dish Type" />
-					)}
-				/>
+				<div className="menu-autocomplete">
+					<Autocomplete
+						disablePortal
+						id="combo-box-demo"
+						options={dish_type}
+						fullWidth
+						className="menu-modal-text-field"
+						renderInput={(params) => (
+							<CustomTextField
+								{...params}
+								fullWidth
+								className="menu-modal-text-field"
+								label="Dish Type"
+							/>
+						)}
+					/>
+				</div>
 				<CustomTextField className="menu-modal-text-field" label="Description" rows={5} multiline />
 
 				<div className="button-div">

@@ -1,10 +1,11 @@
 import "./menu.css";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuModal from "../../../components/Restaurant/MenuModal";
 import { useState } from "react";
+import { DeleteForeverRounded } from "@mui/icons-material";
 
-//www.benitos.com/menu/
+// www.benitos.com/menu/
 function Menu() {
 	const [open, setModalOpen] = useState(false);
 	const meals = [
@@ -83,10 +84,15 @@ function Menu() {
 				{mealFilter &&
 					mealFilter.map(({ meal, price }: { meal: string; price: number }) => (
 						<>
-							<div className="dish">
+							<div className={`dish slide-left`}>
 								<Typography variant="h5">{meal.toLocaleUpperCase()}</Typography>
 								<span className="element-sep"></span>
 								<Typography variant="h4">{price}</Typography>
+								<div className="delete-menu-item-icon">
+									<IconButton>
+										<DeleteForeverRounded />
+									</IconButton>
+								</div>
 							</div>
 						</>
 					))}
@@ -117,6 +123,10 @@ function Menu() {
 					<div className="food-list">{renderMealsAndPrices(lunch)}</div>
 					<div className="food-header">
 						<h2>Dinner</h2>
+					</div>
+					<div className="food-list">{renderMealsAndPrices(dinner)}</div>
+					<div className="food-header">
+						<h2>Bevrage</h2>
 					</div>
 					<div className="food-list">{renderMealsAndPrices(dinner)}</div>
 				</div>
