@@ -33,6 +33,7 @@
 		transform: translate(65%, 25%);
 		width: 40%;
 		min-height: 60%;
+		padding: 1rem;
 	}
 	.guest-details-order {
 		display: flex;
