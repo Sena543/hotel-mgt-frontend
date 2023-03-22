@@ -34,6 +34,7 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 					</div>
 				))}
 			</Paper>
+			<div></div>
 			{/* </div> */}
 			{/* <div className="textfield-div">
 				<CustomTextField

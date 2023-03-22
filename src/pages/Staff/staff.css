@@ -23,7 +23,7 @@
 }
 
 /* Medium devices (phones, 700px and up) */
-@media only screen and (min-width: 700px) and (max-width: 1500px) {
+@media only screen and (min-width: 700px) {
 	.staff-container {
 		margin-left: 200px;
 	}
@@ -64,12 +64,13 @@
 
 	.staff-header-paper {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		width: 90%;
 		align-items: center;
 		justify-content: space-between;
 		height: 100%;
 		padding: 0.3em;
+		gap: 0.5rem;
 	}
 }
 

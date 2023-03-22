@@ -7,6 +7,10 @@
 	/* left: 2em; */
 }
 
+.guest-container {
+	margin-left: 8%;
+}
+
 /* Medium devices (phones, 700px and up) */
 @media only screen and (min-width: 700px) and (max-width: 1500px) {
 	.guest-container {
