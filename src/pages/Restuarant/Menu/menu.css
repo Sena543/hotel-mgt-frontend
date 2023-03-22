@@ -2,23 +2,13 @@
 h3 {
 	font-family: "Pacifico", cursive;
 	font-size: 4rem;
+	font-weight: bold;
 	color: var(--defaultPrimaryColor);
 }
 
 .element-sep {
 	border-top: 2px dotted var(--defaultPrimaryColor);
-	/* border-top: 3px dotted rgb(152, 134, 175); */
-
 	width: 60%;
-	/* margin-left: 20px;
-	margin-right: 20px; */
-}
-
-.dish {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin: 5% auto;
 }
 
 @media only screen and (max-width: 700px) {
@@ -49,4 +39,48 @@ h3 {
 		align-items: center;
 		justify-content: space-between;
 	}
+}
+
+.dish-list {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.dish {
+	display: flex;
+	width: 82%;
+	align-items: center;
+	justify-content: space-between;
+	margin: 3% auto;
+}
+
+.price-label-div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.menu-autocomplete {
+	width: 85%;
+}
+
+.delete-menu-item-icon {
+	display: none;
+}
+
+.slide-left:hover .delete-menu-item-icon {
+	display: block;
+	/* transform: translateX(2rem); */
+	/* transition: transform ease-in-out 3000ms; */
+}
+
+.beverages-sides-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.sides-beverages-div {
+	width: 50%;
+	padding: 2rem;
 }
