@@ -1,3 +1,48 @@
+@media only screen and (min-width: 700px) {
+	.menu-modal-container {
+		transform: translate(65%, 25%);
+		width: 40%;
+		min-height: 60%;
+	}
+	/* .guest-details-order {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	} */
+}
+
+@media only screen and (max-width: 750px) {
+	.menu-modal-container {
+		transform: translate(10%, 25%);
+		width: 80%;
+		min-height: 60%;
+		padding: 1rem;
+	}
+	/* .guest-details-order {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	} */
+}
+
+@media only screen and (max-width: 600px) {
+	.menu-modal-container {
+		transform: translate(10%, 25%);
+		width: 80%;
+		min-height: 60%;
+		padding: 1rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.menu-modal-container {
+		transform: translate(5%, 35%);
+		width: 90%;
+		min-height: 50%;
+		padding: 1rem;
+	}
+}
+
 .dish-form {
 	display: flex;
 	justify-content: center;
@@ -9,27 +54,4 @@
 .menu-modal-text-field {
 	width: 85%;
 	margin-top: 2.5%;
-}
-
-.price-label-div {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-}
-
-.menu-autocomplete {
-	width: 85%;
-}
-
-.slide-left:hover {
-	transform: translateX(-5rem);
-	transition: transform ease-in-out 500ms;
-}
-
-.delete-menu-item-icon {
-	display: none;
-}
-
-.delete-menu-item-icon:hover {
-	display: block;
 }
