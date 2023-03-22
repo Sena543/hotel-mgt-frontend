@@ -82,19 +82,17 @@ function Menu() {
 		return (
 			<>
 				{mealFilter &&
-					mealFilter.map(({ meal, price }: { meal: string; price: number }) => (
-						<>
-							<div className={`dish slide-left`}>
-								<Typography variant="h5">{meal.toLocaleUpperCase()}</Typography>
-								<span className="element-sep"></span>
-								<Typography variant="h4">{price}</Typography>
-								<div className="delete-menu-item-icon">
-									<IconButton>
-										<DeleteForeverRounded />
-									</IconButton>
-								</div>
+					mealFilter.map(({ meal, price }: { meal: string; price: number }, index: number) => (
+						<div key={`${index}`} className={`dish slide-left`}>
+							<Typography variant="h5">{meal.toLocaleUpperCase()}</Typography>
+							<span className="element-sep"></span>
+							<Typography variant="h4">{price}</Typography>
+							<div className="delete-menu-item-icon">
+								<IconButton>
+									<DeleteForeverRounded />
+								</IconButton>
 							</div>
-						</>
+						</div>
 					))}
 			</>
 		);
@@ -125,10 +123,16 @@ function Menu() {
 						<h2>Dinner</h2>
 					</div>
 					<div className="food-list">{renderMealsAndPrices(dinner)}</div>
-					<div className="food-header">
-						<h2>Bevrage</h2>
+					<div className="beverages-sides-container">
+						<div className="food-header sides-beverages-div">
+							<h2>Sides</h2>
+							<div className="food-list">{renderMealsAndPrices(dinner)}</div>
+						</div>
+						<div className="food-header sides-beverages-div">
+							<h2>Bevrages</h2>
+							<div className="food-list">{renderMealsAndPrices(dinner)}</div>
+						</div>
 					</div>
-					<div className="food-list">{renderMealsAndPrices(dinner)}</div>
 				</div>
 			</div>
 			<MenuModal open={open} setOpenModal={setModalOpen} />
