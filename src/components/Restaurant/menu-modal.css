@@ -55,3 +55,11 @@
 	width: 85%;
 	margin-top: 2.5%;
 }
+
+.menu-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	padding-left: 1rem;
+}
