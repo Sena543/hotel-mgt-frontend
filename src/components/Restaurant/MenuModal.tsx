@@ -13,7 +13,7 @@ const dish_type = [{ label: "Breakfast" }, { label: "Lunch" }, { label: "Dinner"
 
 function MenuModal({ open, setOpenModal }: MenuModalProps) {
 	return (
-		<GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
+		<GenericModal className="menu-modal-container" open={open} setOpenModal={setOpenModal}>
 			<div className="order-modal-header">
 				<Typography variant="h5">Add New Dish</Typography>
 				<Tooltip title="Close">
