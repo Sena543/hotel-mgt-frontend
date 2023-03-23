@@ -1,11 +1,11 @@
-.current-booking-container {
-	width: 100%;
-	height: 100%;
-	/* padding: auto 100px; */
-}
+/* .current-booking-container { */
+/* width: 100%; */
+/* height: 100%; */
+/* padding: auto 100px; */
+/* } */
 
 .current-booking-container > div img {
-	width: 65%;
+	/* width: 65%; */
 	height: 90%;
 	margin: 4px;
 	/* background-color: rebeccapurple; */
@@ -43,6 +43,6 @@
 	margin: 2px;
 	display: flex;
 	flex-direction: row;
-	height: 50%;
+	/* height: 50%; */
 	/* background-color: brown; */
 }
