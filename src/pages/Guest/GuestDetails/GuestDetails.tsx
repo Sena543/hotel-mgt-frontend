@@ -5,13 +5,13 @@ import GuestProfile from "./GuestProfile";
 import CurrentBooking from "./CurrentBooking";
 import { StyledTableCell, StyledTableRow } from "../../../components/Table/TableComp";
 import { roomData } from "../../../services/roomList";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function GuestDetails() {
+	const { name } = useParams();
 	const tableHeadList = ["Room Name", "Bed Type", "Room Facility", "Book Date"];
-
 	return (
-		<>
+		<div className="guest-details-container">
 			<div className="booking-history-div">
 				<Typography style={{ marginRight: "5px" }} fontSize={30} fontWeight="bold">
 					Guest Details{" "}
@@ -19,11 +19,11 @@ function GuestDetails() {
 			</div>
 			<div style={{ display: "flex", flexDirection: "row", marginBottom: "25px" }}>
 				<Link to={"/guests"} style={{ textDecoration: "none" }}>
-					<Typography style={{ marginRight: "5px" }}>Guest / </Typography>
+					<Typography style={{ marginRight: "3px" }}>Guest / </Typography>
 				</Link>
-				<Typography>{` GuestName`}</Typography>
+				<Typography>{name}</Typography>
 			</div>
-			<div className="guest-details-container">
+			<div className="guest-details-booking">
 				<div className="current-booking-card">
 					<GenericDashCards>
 						<CurrentBooking />
@@ -101,7 +101,7 @@ function GuestDetails() {
 					</GenericDashCards>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 

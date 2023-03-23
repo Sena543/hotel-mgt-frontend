@@ -1,10 +1,60 @@
-import { Icon, Typography } from "@mui/material";
+import { Icon, IconButton, Typography } from "@mui/material";
 import "./current-booking.css";
-import imgSvg from "../../../assets/react.svg";
-import { BedOutlined, CalendarToday, KeyOutlined, Person, Person2Outlined, VpnKeyOutlined } from "@mui/icons-material";
+import Carousel from "react-elastic-carousel";
+import {
+	ArrowBackIos,
+	ArrowForwardIos,
+	ArrowForwardIosTwoTone,
+	BedOutlined,
+	CalendarToday,
+	KeyOutlined,
+	Person,
+	Person2Outlined,
+	VpnKeyOutlined,
+} from "@mui/icons-material";
+import CarouselImage from "./CarouselImage";
+import { useState } from "react";
 
 const fontSize = 15;
 function CurrentBooking() {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const imgs = [
+		{
+			url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/14656123/pexels-photo-14656123.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/14656123/pexels-photo-14656123.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+		{
+			url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+		},
+	];
+
+	const next = () => {
+		setCurrentIndex((currentIndex + 1) % imgs.length);
+	};
+
+	// move to the previous photo
+	// if we are at the beginning, go to the last photo
+	const prev = () => {
+		setCurrentIndex((currentIndex - 1 + imgs.length) % imgs.length);
+	};
 	return (
 		<div className="current-booking-container">
 			<div className="booking-history-div">
@@ -12,13 +62,11 @@ function CurrentBooking() {
 					Current Booking
 				</Typography>
 			</div>
-			<div className="room-image-container">
-				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
-				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
-				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
-				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
-				<img loading="lazy" src={"https://picsum.photos/200/300"} alt="room image sample" />
-			</div>
+			<Carousel itemsToShow={2.2}>
+				{imgs.map(({ url }) => (
+					<CarouselImage imgUrl={url} />
+				))}
+			</Carousel>
 			<div>
 				<div className="facilities-div">
 					<Typography>Room Facilities</Typography>

@@ -1,4 +1,4 @@
-.guest-details-container {
+.guest-details-booking {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
@@ -26,4 +26,22 @@
 
 .grid-col-span-3 {
 	grid-column: 1/4;
+}
+
+@media only screen and (max-width: 700px) {
+	.current-booking-card,
+	.guest-profile-card {
+		grid-column: span 3;
+	}
+}
+
+@media only screen and (min-width: 700px) {
+	.guest-details-container {
+		/* margin-left: 1/0px; */
+		width: 60vw;
+	}
+	/* .current-booking-card,
+	.guest-profile-card {
+		grid-column: span 3;
+	} */
 }
