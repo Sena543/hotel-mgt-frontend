@@ -37,7 +37,8 @@
 
 @media only screen and (min-width: 700px) {
 	.guest-details-container {
-		margin-left: 180px;
+		/* margin-left: 1/0px; */
+		width: 60vw;
 	}
 	/* .current-booking-card,
 	.guest-profile-card {
