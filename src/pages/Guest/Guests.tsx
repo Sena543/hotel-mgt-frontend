@@ -24,14 +24,16 @@ function Guests() {
 	const guestCollectionRef = collection(firestoredb, "guests");
 	useEffect(() => {
 		const getGuest = async () => {
+			let returnedData: any = [];
 			const data = await getDocs(guestCollectionRef);
-
-			setGuests(
-				data.docs.map((doc) => ({
+			data.docs.map((doc) =>
+				returnedData.push({
 					...doc.data(),
 					checkIn: new Date(dayjs.unix(doc.data().checkIn["seconds"]).toISOString()).toLocaleDateString(
 						"en-GB",
-						{ timeZone: "UTC" }
+						{
+							timeZone: "UTC",
+						}
 					),
 					checkOut: new Date(dayjs.unix(doc.data().checkOut["seconds"]).toISOString()).toLocaleDateString(
 						"en-GB",
@@ -39,12 +41,13 @@ function Guests() {
 							timeZone: "utc",
 						}
 					),
-				}))
+				})
 			);
+			setGuests(returnedData);
 		};
 		getGuest();
 	}, []);
-	console.log(guests);
+	// console.log(guests);
 	return (
 		<div className="guest-container">
 			<div className="guest-title">
