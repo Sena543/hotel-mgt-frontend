@@ -19,6 +19,10 @@
 		height: 70%;
 		transform: translate(15%, 15%);
 	}
+	.name-div {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 @media only screen and (min-width: 700px) {
@@ -32,6 +36,20 @@
 		border: 2px solid rgb(108, 105, 105);
 		gap: 1rem;
 	}
+
+	.name-div {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+
+	.name-div > .custom-text-field {
+		width: 65%;
+	}
+
+	.name-div > .custom-text-field:first-child {
+		padding-right: 1rem;
+	}
 }
 .select-working-days {
 	/* outline: 2px solid hotpink; */
@@ -42,4 +60,5 @@
 .create-staff-form {
 	display: grid;
 	place-items: center;
+	padding: 0.5rem 1rem;
 }
