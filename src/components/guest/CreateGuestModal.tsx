@@ -7,8 +7,11 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateValidationError, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import { useMemo, useState } from "react";
+import { addDoc, collection } from "firebase/firestore/lite";
+import firestoredb from "../../../firebase-config";
 
 type CreateModalProps = {
 	open: boolean;
@@ -21,11 +24,11 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 		firstName: "",
 		email: "",
 		contact: "",
+		// checkIn: "2023-30-3", //today
 		checkIn: dayjs(), //today
 		checkOut: dayjs().add(1, "day"), //tomorrow
-		roomAssigned: "",
+		roomAssigned: "GR-R02",
 	});
-
 	const [dateError, setDateError] = useState<DateValidationError | null>(null);
 
 	const errorMessage = useMemo(() => {
@@ -52,17 +55,35 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 	};
 
 	const handleDateChange = (name: string, value: any) => {
-		// console.log(value.$d);
-		// console.log(new Intl.DateTimeFormat("en-GB").format(value.$d));
-		// setGuestDetails({ ...guestDetails, [name]: new Intl.DateTimeFormat("en-GB").format(value.$d) });
 		if (name === "checkOut") {
 			if (dayjs(guestDetails.checkOut).isBefore(guestDetails.checkIn)) {
 				setDateError("invalidDate");
 				return;
 			}
 		}
-		setGuestDetails({ ...guestDetails, [name]: value });
+
+		// console.log(value);
+
+		setGuestDetails({
+			...guestDetails,
+			[name]: value,
+		});
 	};
+
+	const submitGuestData = async () => {
+		const guestCollectionRef = collection(firestoredb, "guests");
+		await addDoc(guestCollectionRef, {
+			...guestDetails,
+			checkIn: `${guestDetails["checkIn"].get("date")}-${guestDetails["checkIn"].get("month") + 1}-${guestDetails[
+				"checkIn"
+			].get("year")}`,
+			checkOut: `${guestDetails["checkOut"].get("date")}-${
+				guestDetails["checkOut"].get("month") + 1
+			}-${guestDetails["checkOut"].get("year")}`,
+		});
+		// console.log(addNewGuestData);
+	};
+
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<GenericModal className="create-guest-modal-container" open={open} setOpenModal={setOpenModal}>
@@ -136,11 +157,11 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 						</div>
 						<div className="date-picker-div">
 							<DatePicker
-								disablePast
+								// disablePast
 								label="Check In Date"
 								format="DD-MM-YYYY"
-								value={guestDetails.checkIn}
-								minDate={guestDetails.checkIn}
+								value={dayjs(guestDetails.checkIn, "DD-MM-YYYY")}
+								minDate={dayjs()}
 								onChange={(dateValue) => handleDateChange("checkIn", dateValue)}
 								className="custom-text-field contacts-field date-picker"
 								sx={{ marginTop: "2em" }}
@@ -149,7 +170,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								disablePast
 								format="DD-MM-YYYY"
 								label="Check Out Date"
-								value={guestDetails.checkOut}
+								value={dayjs(guestDetails.checkOut, "DD-MM-YYYY")}
 								onError={(newError) => setDateError(newError)}
 								onChange={(dateValue) => {
 									handleDateChange("checkOut", dateValue);
@@ -186,7 +207,8 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 					</div>
 					<div className="button-div">
 						<Button
-							onClick={() => console.log(guestDetails)}
+							// onClick={() => console.log(guestDetails)}
+							onClick={submitGuestData}
 							variant="contained"
 							className="create-guest-button"
 						>
