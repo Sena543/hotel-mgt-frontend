@@ -26,23 +26,25 @@ function Guests() {
 		const getGuest = async () => {
 			let returnedData: any = [];
 			const data = await getDocs(guestCollectionRef);
-			data.docs.map((doc) =>
+			data.docs.map((doc) => {
+				console.log(doc.data()["checkIn"]);
 				returnedData.push({
 					...doc.data(),
-					checkIn: new Date(dayjs.unix(doc.data().checkIn["seconds"]).toISOString()).toLocaleDateString(
-						"en-GB",
-						{
-							timeZone: "UTC",
-						}
-					),
-					checkOut: new Date(dayjs.unix(doc.data().checkOut["seconds"]).toISOString()).toLocaleDateString(
-						"en-GB",
-						{
-							timeZone: "utc",
-						}
-					),
-				})
-			);
+					// checkIn: new Date(dayjs.unix(doc.data().checkIn["seconds"]).toISOString()).toLocaleDateString(
+					// 	"en-GB",
+					// 	{
+					// 		timeZone: "UTC",
+					// 	}
+					// ),
+					// checkOut: new Date(dayjs.unix(doc.data().checkOut["seconds"]).toISOString()).toLocaleDateString(
+					// 	"en-GB",
+					// 	{
+					// 		timeZone: "utc",
+					// 	}
+					// ),
+				});
+			});
+			// console.log(returnedData);
 			setGuests(returnedData);
 		};
 		getGuest();
