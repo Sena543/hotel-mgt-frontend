@@ -93,7 +93,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 				</Tooltip>
 			</div>
 			<Divider />
-			<div className="create-guest-form create-staff-form">
+			<div className=" create-staff-form">
 				<div style={{}}>
 					<div className="name-div">
 						<CustomTextField
