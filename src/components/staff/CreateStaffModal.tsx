@@ -48,6 +48,16 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 		handleChange("workingDays", workingDays);
 	};
 
+	const submitCreateEmployeeData = async () => {
+		const employeesCollectionRef = collection(firestoredb, "employees");
+
+		await addDoc(employeesCollectionRef, {
+			...staffDetails,
+			employeeID: `E-${new Date().getTime().toString().substr(-5)}`,
+		});
+		// console.log(addNewGuestData);
+	};
+
 	const weekDays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	const renderDaysWithCheckbox = (
 		<>
@@ -149,7 +159,8 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 				</div>
 				<div className="button-div">
 					<Button
-						onClick={() => console.log(staffDetails)}
+						// onClick={() => console.log(staffDetails)}
+						onClick={submitCreateEmployeeData}
 						variant="contained"
 						className="create-guest-button"
 					>
