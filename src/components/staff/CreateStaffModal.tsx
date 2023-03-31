@@ -1,20 +1,11 @@
 import "./create-staff.css";
-import { CheckBox, CloseRounded } from "@mui/icons-material";
-import {
-	Typography,
-	IconButton,
-	Divider,
-	Tooltip,
-	Autocomplete,
-	Button,
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import React, { useState } from "react";
+import { CloseRounded } from "@mui/icons-material";
+import { Typography, IconButton, Divider, Tooltip, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import { useState } from "react";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
+import { collection, addDoc } from "firebase/firestore/lite";
+import firestoredb from "../../../firebase-config";
 
 type CreateModalProps = {
 	open: boolean;
