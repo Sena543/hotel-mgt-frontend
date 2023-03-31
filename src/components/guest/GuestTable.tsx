@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 type GuestTableProps = {
 	lastName: string;
 	firstName: string;
-	roomID: string;
+	roomAssigned: string;
 	checkIn: string;
 	checkOut: string;
 	specialRequests: string;
@@ -44,7 +44,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 									{
 										lastName,
 										firstName,
-										roomID,
+										roomAssigned,
 										checkIn,
 										checkOut,
 										specialRequests,
@@ -52,7 +52,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 									}: GuestTableProps,
 									index: number
 								) => (
-									<StyledTableRow hover key={`${lastName}${roomID}-${index}`}>
+									<StyledTableRow hover key={`${lastName}${roomAssigned}-${index}`}>
 										<StyledTableCell>
 											<Link
 												className={"guest-name"}
@@ -63,7 +63,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 												</Typography>
 											</Link>
 										</StyledTableCell>
-										<StyledTableCell>{roomID}</StyledTableCell>
+										<StyledTableCell>{roomAssigned}</StyledTableCell>
 										<StyledTableCell>{checkIn}</StyledTableCell>
 										<StyledTableCell>{checkOut.toString()}</StyledTableCell>
 										<StyledTableCell>

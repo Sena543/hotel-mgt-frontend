@@ -63,7 +63,7 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
 									<TableCell>{facility}</TableCell>
 									<TableCell>
 										<Typography
-											className={status.toLocaleLowerCase()}
+											className={`${status && status.toLocaleLowerCase()}`}
 											style={{
 												display: "grid",
 												placeItems: "center",

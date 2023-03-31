@@ -10,7 +10,7 @@ import * as dayjs from "dayjs";
 type GuestsType = {
 	lastName: string;
 	firstName: string;
-	roomID: string;
+	roomAssigned: string;
 	checkIn: string | any;
 	checkOut: string | any;
 	specialRequests: string;
