@@ -54,12 +54,12 @@ function Staff() {
 		//useful if shift system is ran
 		if (selectedHeader === "active") {
 			return employeeData.filter(
-				({ schedule }: { schedule: string }) => schedule.includes(currentWeekDay) === true
+				({ workingDays }: { workingDays: string }) => workingDays.includes(currentWeekDay) === true
 			);
 		}
 		if (selectedHeader === "inactive") {
 			return employeeData.filter(
-				({ schedule }: { schedule: string }) => schedule.includes(currentWeekDay) === false
+				({ workingDays }: { workingDays: string }) => workingDays.includes(currentWeekDay) === false
 			);
 		}
 
@@ -109,7 +109,7 @@ function Staff() {
 									firstName,
 									jobTitle,
 									description,
-									schedule,
+									workingDays,
 									time,
 									// status,
 									contact,
@@ -118,13 +118,15 @@ function Staff() {
 									firstName: string;
 									jobTitle: string;
 									description: string;
-									schedule: string[];
+									workingDays: string[];
 									time: string;
 									contact: string;
 								}) => {
-									const status = schedule.includes(
-										new Date().toLocaleDateString("en-us", { weekday: "long" })
-									);
+									const status =
+										workingDays &&
+										workingDays.includes(
+											new Date().toLocaleDateString("en-us", { weekday: "long" })
+										);
 									return (
 										<StyledTableRow hover key={`${lastName} ${firstName}-${jobTitle}-${contact}`}>
 											<TableCell>{`${lastName} ${firstName}`}</TableCell>
@@ -133,7 +135,7 @@ function Staff() {
 												<Typography variant="caption">{description}</Typography>
 											</TableCell>
 											<TableCell>
-												<Typography>{schedule.join(", ")}</Typography>
+												<Typography>{workingDays && workingDays.join(", ")}</Typography>
 												<Typography variant="caption">{time}</Typography>
 											</TableCell>
 											<TableCell>{contact}</TableCell>
@@ -142,7 +144,8 @@ function Staff() {
 													className={`generic-status ${status ? "active" : "inactive"}`}
 												>
 													{/* <Typography className={status.toLocaleLowerCase()}> */}
-													{schedule.includes(
+													{workingDays &&
+													workingDays.includes(
 														new Date().toLocaleDateString("en-us", { weekday: "long" })
 													)
 														? "Active"
