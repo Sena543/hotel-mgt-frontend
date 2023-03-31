@@ -17,6 +17,8 @@ interface StaffDetails {
 	firstName: string;
 	email: string;
 	contact: string;
+	jobDescription: string;
+	jobTitle: string;
 	workingDays: string[];
 }
 
@@ -27,6 +29,8 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 		email: "",
 		contact: "",
 		workingDays: [],
+		jobDescription: "",
+		jobTitle: "",
 	});
 
 	const handleChange = (name: string, value: unknown) => {
@@ -142,6 +146,34 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 							value={staffDetails.contact}
 							className="custom-text-field contacts-field phone-number"
 							label="Phone Number"
+							margin="normal"
+							// error={!guestDetails.contact}
+							// helperText="Contact is required"
+							onChange={(e: any) => handleChange(e.target.name, e.target.value)}
+						/>
+					</div>
+
+					<div className="job-details-div">
+						<CustomTextField
+							name="jobTitle"
+							variant="outlined"
+							className="custom-text-field contacts-field email"
+							value={staffDetails.email}
+							fullWidth
+							// error={!guestDetails.email}
+							// helperText="email is required"
+							label="Position"
+							margin="normal"
+							onChange={(e: any) => handleChange(e.target.name, e.target.value)}
+						/>
+						<CustomTextField
+							name="jobDescription"
+							variant="outlined"
+							fullWidth
+							rows={4}
+							value={staffDetails.contact}
+							className="custom-text-field contacts-field phone-number"
+							label="Job Description"
 							margin="normal"
 							// error={!guestDetails.contact}
 							// helperText="Contact is required"
