@@ -100,7 +100,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 			<Divider />
 			<div className=" create-staff-form">
 				<div style={{}}>
-					<div className="name-div">
+					<div className="emp-name-div">
 						<CustomTextField
 							autoFocus
 							name="lastName"
@@ -126,7 +126,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 						/>
 					</div>
 
-					<div className="contact-div">
+					<div className="staff-contact-div emp-name-div">
 						<CustomTextField
 							name="email"
 							variant="outlined"
@@ -153,12 +153,12 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 						/>
 					</div>
 
-					<div className="job-details-div">
+					<div className="job-details-div ">
 						<CustomTextField
 							name="jobTitle"
 							variant="outlined"
 							className="custom-text-field contacts-field email"
-							value={staffDetails.email}
+							value={staffDetails.jobTitle}
 							fullWidth
 							// error={!guestDetails.email}
 							// helperText="email is required"
@@ -170,9 +170,10 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 							name="jobDescription"
 							variant="outlined"
 							fullWidth
-							rows={4}
-							value={staffDetails.contact}
-							className="custom-text-field contacts-field phone-number"
+							rows={3}
+							multiline
+							value={staffDetails.jobDescription}
+							className="custom-text-field contacts-field jobDescription"
 							label="Job Description"
 							margin="normal"
 							// error={!guestDetails.contact}
