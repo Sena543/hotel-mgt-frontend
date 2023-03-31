@@ -19,7 +19,8 @@
 		height: 70%;
 		transform: translate(15%, 15%);
 	}
-	.name-div {
+	.name-div,
+	.contact-div {
 		display: flex;
 		flex-direction: column;
 	}
@@ -37,7 +38,8 @@
 		gap: 1rem;
 	}
 
-	.name-div {
+	.name-div,
+	.contact-div {
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
@@ -48,6 +50,9 @@
 	}
 
 	.name-div > .custom-text-field:first-child {
+		padding-right: 1rem;
+	}
+	.contact-div > .custom-text-field:first-child {
 		padding-right: 1rem;
 	}
 }
