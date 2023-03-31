@@ -6,6 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 import Request from "../guest/Request";
 import "./guest-table.css";
+import dayjs from "dayjs";
 type GuestTableProps = {
 	lastName: string;
 	firstName: string;
@@ -21,6 +22,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 	const [open, setOpen] = useState<boolean>(false);
 
 	const headerList = ["Guest Name", "Room", "Check in", "Check out", "Requests", "Status"];
+
 	return (
 		<div>
 			{/* <GenericTable tableData={guests} showActionCol={true} /> */}
@@ -64,9 +66,6 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 										<StyledTableCell>{roomID}</StyledTableCell>
 										<StyledTableCell>{checkIn}</StyledTableCell>
 										<StyledTableCell>{checkOut.toString()}</StyledTableCell>
-										{/* <StyledTableCell>{checkIn.substring(0, 10)}</StyledTableCell>
-										<StyledTableCell>{checkOut.substring(0, 10)}</StyledTableCell> */}
-
 										<StyledTableCell>
 											<IconButton onClick={() => setOpen(true)}>
 												<MoreHorizRounded />
