@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import CreateGuestModal from "../../components/guest/CreateGuestModal";
 import GuestTable from "../../components/guest/GuestTable";
 import "./guests.css";
-import firestoredb from "../../../firebase-config";
-import { collection, getDocs, serverTimestamp } from "firebase/firestore/lite";
-import * as dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGuests } from "../../redux/slices/guestSlices";
+import { AppDispatch } from "../../redux/types";
 
 type GuestsType = {
 	lastName: string;
@@ -18,38 +18,27 @@ type GuestsType = {
 };
 function Guests() {
 	const theme = useTheme();
+	const dispatch = useDispatch<AppDispatch>();
+	const guestsList = useSelector((state: any) => state.guests.guestsData);
 	const [openModal, setOpenModal] = useState(false);
-	const [guests, setGuests] = useState<GuestsType[] | []>([]);
 
-	const guestCollectionRef = collection(firestoredb, "guests");
 	useEffect(() => {
-		const getGuest = async () => {
-			let returnedData: any = [];
-			const data = await getDocs(guestCollectionRef);
-			data.docs.map((doc) => {
-				console.log(doc.data()["checkIn"]);
-				returnedData.push({
-					...doc.data(),
-					// checkIn: new Date(dayjs.unix(doc.data().checkIn["seconds"]).toISOString()).toLocaleDateString(
-					// 	"en-GB",
-					// 	{
-					// 		timeZone: "UTC",
-					// 	}
-					// ),
-					// checkOut: new Date(dayjs.unix(doc.data().checkOut["seconds"]).toISOString()).toLocaleDateString(
-					// 	"en-GB",
-					// 	{
-					// 		timeZone: "utc",
-					// 	}
-					// ),
-				});
-			});
-			// console.log(returnedData);
-			setGuests(returnedData);
-		};
-		getGuest();
-	}, []);
-	// console.log(guests);
+		// const getGuest = async () => {
+		// 	let returnedData: any = [];
+		// 	const data = await getDocs(guestCollectionRef);
+		// 	data.docs.map((doc) => {
+		// 		// console.log(doc.data()["checkIn"]);
+		// 		returnedData.push({
+		// 			...doc.data(),
+		// 		});
+		// 	});
+		// 	// console.log(returnedData);
+		// 	setGuests(returnedData);
+		// };
+		// getGuest();
+		dispatch(fetchGuests());
+	}, [dispatch]);
+
 	return (
 		<div className="guest-container">
 			<div className="guest-title">
@@ -66,7 +55,8 @@ function Guests() {
 				</Button>
 			</div>
 
-			<GuestTable guestList={guests} />
+			<GuestTable guestList={guestsList} />
+			{/* <GuestTable guestList={guests} /> */}
 			<CreateGuestModal open={openModal} setOpenModal={setOpenModal} />
 		</div>
 	);
