@@ -5,7 +5,7 @@ export type GuestsType = {
 	checkIn: string | any;
 	checkOut: string | any;
 	specialRequests: string;
-	status: string;
+	status?: string;
 	email: string;
 	contact: string;
 };
