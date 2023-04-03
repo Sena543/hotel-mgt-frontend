@@ -25,7 +25,7 @@ export const fetchGuests = createAsyncThunk("fetch/guests", async () => {
 		});
 		return data;
 	} catch (error: any) {
-		console.log(error);
+		console.log(error.message);
 
 		return error.message;
 	}
@@ -47,6 +47,7 @@ export const guestSlice = createSlice({
 	initialState,
 	// initialState: [],
 	reducers: {
+		
 		createNewGuest: (state: any, action: PayloadAction<GuestsType>) => {
 			// createNewGuest: (state: WritableDraft<StateType>, action: PayloadAction<GuestsType>) => {
 			const guestDetails = {
@@ -88,8 +89,8 @@ export const guestSlice = createSlice({
 			// state = { ...state, guestsData: action.payload, status: "success" };
 			return state;
 		});
-		builder.addCase(addNewGuest.rejected, (state, action) => {
-			state = { ...state, status: "failed" };
+		builder.addCase(addNewGuest.rejected, (state, action: any) => {
+			state = { ...state, status: "failed", errorMessage: action.payload };
 			// state = { ...state, status: action.payload };
 			return state;
 		});

@@ -45,7 +45,6 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 	const [dateError, setDateError] = useState<DateValidationError | null>(null);
 	const dispatch = useDispatch<AppDispatch>();
 	const { status } = useSelector((state: any) => state.guests);
-	console.log(status);
 	const errorMessage = useMemo(() => {
 		switch (dateError) {
 			// case "maxDate":
@@ -77,8 +76,6 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 			}
 		}
 
-		// console.log(value);
-
 		setGuestDetails({
 			...guestDetails,
 			[name]: value,
@@ -95,7 +92,6 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 				guestDetails["checkOut"].get("month") + 1
 			}-${guestDetails["checkOut"].get("year")}`,
 		};
-		console.log(newGuestData);
 		dispatch(addNewGuest(newGuestData));
 	};
 
