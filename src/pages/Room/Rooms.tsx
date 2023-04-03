@@ -5,6 +5,9 @@ import firestoredb from "../../../firebase-config";
 import RoomHeader from "../../components/Room/RoomHeader";
 import RoomList from "../../components/Room/RoomList";
 import "./room.css";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/types";
+import { fetchAllRooms } from "../../redux/slices/roomSlicers";
 
 type RoomType = {
 	roomName: string;
@@ -20,6 +23,8 @@ function Rooms() {
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");
 	const [rooms, setRooms] = useState<RoomType[] | []>([]);
 	const useRoomCollectionRef = collection(firestoredb, "rooms");
+	const roomListData = useSelector((state: any) => state.rooms.roomListData);
+	const dispatch = useDispatch<AppDispatch>();
 	useEffect(() => {
 		async function getAllRooms() {
 			let returnedData: any = [];
@@ -32,12 +37,12 @@ function Rooms() {
 			setRooms(returnedData);
 		}
 		getAllRooms();
+		dispatch(fetchAllRooms());
 	}, []);
-	console.log(rooms);
 	return (
 		<Container className="room-container">
 			<RoomHeader selectedHeader={selectedHeader} setSelectedHeader={setSelectedHeader} />
-			<RoomList roomData={rooms} selectedHeader={selectedHeader} />
+			<RoomList roomData={roomListData} selectedHeader={selectedHeader} />
 		</Container>
 	);
 }
