@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GuestsType } from "../../constants/genericTypes";
 import { guests } from "../../services/guests";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { addDoc, collection, getDocs } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 
 type StateType = {
 	status: string;
-	guestData: GuestsType[];
+	guestsData: [] | GuestsType[];
 	errorMessage: string;
 };
-const initialState = {
+const initialState: StateType = {
 	status: "idle", // 'idle' | 'loading' | 'success'| 'failed
 	guestsData: [],
 	errorMessage: "",
@@ -31,16 +31,10 @@ export const fetchGuests = createAsyncThunk("fetch/guests", async () => {
 	}
 });
 
-export const addNewGuest = createAsyncThunk("post/new-guests", async () => {
+export const addNewGuest = createAsyncThunk("post/new-guests", async (newGuestData: GuestsType) => {
 	try {
-		const returnedData = await getDocs(collection(firestoredb, "guests"));
-		let data: any = [];
-		returnedData.docs.map((doc: any) => {
-			data.push({
-				...doc.data(),
-			});
-		});
-		return data;
+		await addDoc(collection(firestoredb, "guests"), newGuestData);
+		return newGuestData;
 	} catch (error: any) {
 		console.log(error);
 
@@ -53,9 +47,6 @@ export const guestSlice = createSlice({
 	initialState,
 	// initialState: [],
 	reducers: {
-		// fetchAllGuests: (state: any, action) => {
-		// 	state = action.payload;
-		// },
 		createNewGuest: (state: any, action: PayloadAction<GuestsType>) => {
 			// createNewGuest: (state: WritableDraft<StateType>, action: PayloadAction<GuestsType>) => {
 			const guestDetails = {
@@ -78,10 +69,26 @@ export const guestSlice = createSlice({
 			return state;
 		});
 		builder.addCase(fetchGuests.fulfilled, (state, action) => {
-			state = { ...state, guestsData: action.payload };
+			state = { ...state, guestsData: action.payload, status: "success" };
 			return state;
 		});
 		builder.addCase(fetchGuests.rejected, (state, action) => {
+			state = { ...state, status: "failed" };
+			// state = { ...state, status: action.payload };
+			return state;
+		});
+		builder.addCase(addNewGuest.pending, (state) => {
+			state = { ...state, status: "loading" };
+			return state;
+		});
+		builder.addCase(addNewGuest.fulfilled, (state, action: PayloadAction<GuestsType>) => {
+			// state.status = "success";
+			console.log(action.payload);
+			state = { ...state, guestsData: [...state.guestsData, action.payload], status: "success" };
+			// state = { ...state, guestsData: action.payload, status: "success" };
+			return state;
+		});
+		builder.addCase(addNewGuest.rejected, (state, action) => {
 			state = { ...state, status: "failed" };
 			// state = { ...state, status: action.payload };
 			return state;
