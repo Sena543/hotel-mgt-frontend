@@ -9,3 +9,14 @@ export type GuestsType = {
 	email: string;
 	contact: string;
 };
+
+export type StaffDetailsType = {
+	lastName: string;
+	firstName: string;
+	email: string;
+	contact: string;
+	jobDescription: string;
+	jobTitle: string;
+	workingDays: string[];
+	employeeID: string;
+};
