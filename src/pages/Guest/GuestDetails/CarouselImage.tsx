@@ -3,6 +3,7 @@ import React from "react";
 function CarouselImage({ imgUrl }: { imgUrl: string }) {
 	return (
 		<div
+			key={imgUrl}
 			style={{
 				display: "flex",
 				justifyContent: "center",
