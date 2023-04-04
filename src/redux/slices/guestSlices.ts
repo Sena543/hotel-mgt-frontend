@@ -14,7 +14,7 @@ const initialState: StateType = {
 	guestsData: [],
 	errorMessage: "",
 };
-export const fetchGuests = createAsyncThunk("fetch/guests", async () => {
+export const fetchGuests = createAsyncThunk("fetch/guests", async (_, thunkAPI) => {
 	try {
 		const returnedData = await getDocs(collection(firestoredb, "guests"));
 		let data: any = [];
@@ -27,18 +27,18 @@ export const fetchGuests = createAsyncThunk("fetch/guests", async () => {
 	} catch (error: any) {
 		console.log(error.message);
 
-		return error.message;
+		return thunkAPI.rejectWithValue(error.message);
 	}
 });
 
-export const addNewGuest = createAsyncThunk("post/new-guests", async (newGuestData: GuestsType) => {
+export const addNewGuest = createAsyncThunk("post/new-guests", async (newGuestData: GuestsType, thunkAPI) => {
 	try {
 		await addDoc(collection(firestoredb, "guests"), newGuestData);
 		return newGuestData;
 	} catch (error: any) {
 		console.log(error);
 
-		return error.message;
+		return thunkAPI.rejectWithValue(error.message);
 	}
 });
 
@@ -47,7 +47,6 @@ export const guestSlice = createSlice({
 	initialState,
 	// initialState: [],
 	reducers: {
-		
 		createNewGuest: (state: any, action: PayloadAction<GuestsType>) => {
 			// createNewGuest: (state: WritableDraft<StateType>, action: PayloadAction<GuestsType>) => {
 			const guestDetails = {

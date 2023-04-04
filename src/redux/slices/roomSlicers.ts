@@ -4,7 +4,7 @@ import firestoredb from "../../../firebase-config";
 
 const initialState = {
 	status: "idle", // 'idle' | 'loading' | 'success'| 'failed
-	roomListData: [],
+	roomList: [],
 	errorMessage: "",
 };
 
@@ -17,7 +17,7 @@ const getRawData = (returnedDBData: QuerySnapshot<DocumentData>) => {
 	});
 	return rawData;
 };
-export const fetchAllRooms = createAsyncThunk("fetch/rooms", async () => {
+export const fetchAllRooms = createAsyncThunk("fetch/rooms", async (_, thunkAPI) => {
 	try {
 		const returnedRoomsData = await getDocs(collection(firestoredb, "rooms"));
 		const returnedGuestsData = await getDocs(collection(firestoredb, "guests"));
@@ -28,7 +28,7 @@ export const fetchAllRooms = createAsyncThunk("fetch/rooms", async () => {
 	} catch (error: any) {
 		console.log(error.message);
 
-		return error.message;
+		return thunkAPI.rejectWithValue(error.message);
 	}
 });
 export const roomSlice = createSlice({
@@ -45,6 +45,9 @@ export const roomSlice = createSlice({
 		});
 		builder.addCase(fetchAllRooms.fulfilled, (state, action: PayloadAction<any>) => {
 			const { roomsData, guestsData } = action.payload;
+
+			//assign status of room to each room by looping over guests
+			//and checking if roomName == roomAssigned
 			roomsData.forEach((room: any) => {
 				guestsData.forEach((guest: any) => {
 					if (room.roomName === guest.roomAssigned) {
@@ -54,11 +57,12 @@ export const roomSlice = createSlice({
 					}
 				});
 			});
-			state = { ...state, roomListData: roomsData, status: "success" };
+			state = { ...state, roomList: roomsData, status: "success" };
 			return state;
 		});
-		builder.addCase(fetchAllRooms.rejected, (state, action) => {
-			state = { ...state, status: "failed" };
+
+		builder.addCase(fetchAllRooms.rejected, (state, action: PayloadAction<any>) => {
+			state = { ...state, status: "failed", errorMessage: action.payload };
 			return state;
 		});
 	},
