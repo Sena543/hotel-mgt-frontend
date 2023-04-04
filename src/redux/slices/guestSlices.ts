@@ -82,8 +82,6 @@ export const guestSlice = createSlice({
 			return state;
 		});
 		builder.addCase(addNewGuest.fulfilled, (state, action: PayloadAction<GuestsType>) => {
-			// state.status = "success";
-			console.log(action.payload);
 			state = { ...state, guestsData: [...state.guestsData, action.payload], status: "success" };
 			// state = { ...state, guestsData: action.payload, status: "success" };
 			return state;
