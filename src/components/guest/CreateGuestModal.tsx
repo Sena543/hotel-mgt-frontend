@@ -33,6 +33,7 @@ type CreateModalProps = {
 
 function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 	const { roomList: roomListData, status: roomLoadingStatus } = useSelector((state: any) => state.rooms);
+	const guestsList = useSelector((state: any) => state.guests.guestsData);
 	const { status } = useSelector((state: any) => state.guests);
 	const dispatch = useDispatch<AppDispatch>();
 
@@ -100,6 +101,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 	const submitGuestData = async () => {
 		const newGuestData = {
 			...guestDetails,
+			guestID: guestsList.length + 1,
 			roomAssigned: guestDetails.roomAssigned.roomName,
 			checkIn: `${guestDetails["checkIn"].get("date")}-${guestDetails["checkIn"].get("month") + 1}-${guestDetails[
 				"checkIn"
