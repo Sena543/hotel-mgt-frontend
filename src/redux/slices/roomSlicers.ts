@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDocs, collection, QuerySnapshot, DocumentData } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
+import { getRawData } from "../../utils/util-functions";
 
 const initialState = {
 	status: "idle", // 'idle' | 'loading' | 'success'| 'failed
@@ -8,15 +9,6 @@ const initialState = {
 	errorMessage: "",
 };
 
-const getRawData = (returnedDBData: QuerySnapshot<DocumentData>) => {
-	const rawData: any = [];
-	returnedDBData.docs.map((doc: any) => {
-		rawData.push({
-			...doc.data(),
-		});
-	});
-	return rawData;
-};
 export const fetchAllRooms = createAsyncThunk("fetch/rooms", async (_, thunkAPI) => {
 	try {
 		const returnedRoomsData = await getDocs(collection(firestoredb, "rooms"));
