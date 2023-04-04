@@ -21,22 +21,9 @@ type RoomType = {
 
 function Rooms() {
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");
-	const [rooms, setRooms] = useState<RoomType[] | []>([]);
-	const useRoomCollectionRef = collection(firestoredb, "rooms");
-	const roomListData = useSelector((state: any) => state.rooms.roomListData);
+	const roomListData = useSelector((state: any) => state.rooms.roomList);
 	const dispatch = useDispatch<AppDispatch>();
 	useEffect(() => {
-		async function getAllRooms() {
-			let returnedData: any = [];
-			const room_Data = await getDocs(useRoomCollectionRef);
-			room_Data.docs.forEach((doc) => returnedData.push({ ...doc.data() }));
-			// room_Data.docs.forEach((doc) => returnedData.push({ ...doc.data() }));
-			// room_Data.docs.forEach((doc) => console.log(doc.data()));
-			// setRooms(room_Data.docs.map((doc) => ({ ...doc.data() })));
-			// console.log(returnedData);
-			setRooms(returnedData);
-		}
-		getAllRooms();
 		dispatch(fetchAllRooms());
 	}, []);
 	return (
