@@ -62,6 +62,9 @@ export const guestSlice = createSlice({
 			state = { ...state, guestsData: newGuest };
 			return state;
 		},
+		resetStatus: (state) => {
+			state = { ...state, status: "idle" };
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchGuests.pending, (state) => {

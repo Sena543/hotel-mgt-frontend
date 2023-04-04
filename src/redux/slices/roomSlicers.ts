@@ -28,7 +28,9 @@ export const roomSlice = createSlice({
 	initialState,
 	// initialState: [],
 	reducers: {
-		getRooms: (state, action) => {},
+		resetStatus: (state) => {
+			state = { ...state, status: "idle" };
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchAllRooms.pending, (state) => {
