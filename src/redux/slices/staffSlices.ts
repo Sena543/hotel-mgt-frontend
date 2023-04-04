@@ -64,7 +64,6 @@ export const staffSlice = createSlice({
 			return state;
 		});
 		builder.addCase(createNewStaff.fulfilled, (state: any, action: PayloadAction<StaffDetailsType>) => {
-			console.log(action.payload);
 			state = { ...state, staffData: [...state.staffData, action.payload], status: "success" };
 			return state;
 		});
