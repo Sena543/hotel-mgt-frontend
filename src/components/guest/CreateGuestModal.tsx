@@ -114,10 +114,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<GenericModal className="create-guest-modal-container" open={open} setOpenModal={setOpenModal}>
-				<div
-					style={{ padding: "auto 10px" }}
-					className="guest-review-header generic-flex-justify-content-style"
-				>
+				<div style={{ padding: "auto 10px" }} className="guest-header">
 					<Typography fontWeight={"bolder"} fontSize="25px">
 						New Guest
 					</Typography>
@@ -176,7 +173,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								value={guestDetails.contact}
 								className="custom-text-field contacts-field phone-number"
 								label="Phone Number"
-								// margin="normal"
+								margin="normal"
 								onChange={(e: any) => handleChange(e.target.name, e.target.value)}
 								// error={!guestDetails.contact}
 								// helperText="Contact is required"
@@ -226,9 +223,10 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								}}
 								isOptionEqualToValue={(option, value) => option.roomName === value.roomName}
 								loading={roomLoadingStatus === "loading"}
-								className="auto-complete"
+								className="auto-complete custom-text-field contacts-field"
 								id="combo-box-demo"
 								sx={{ marginTop: "1em" }}
+								fullWidth
 								renderInput={(params: any) => (
 									<CustomTextField
 										className="custom-text-field contacts-field"

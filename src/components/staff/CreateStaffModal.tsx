@@ -39,7 +39,7 @@ interface StaffDetails {
 function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 	const dispatch = useDispatch<AppDispatch>();
 	const { status } = useSelector((state: any) => state.staff);
-	const [alertOpen, setAlertOpen] = useState<boolean>(true);
+	const [alertOpen, setAlertOpen] = useState<boolean>(false);
 	const [staffDetails, setStaffDetails] = useState<StaffDetails>({
 		lastName: "",
 		firstName: "",
