@@ -14,31 +14,18 @@ import "./staff.css";
 import { StyledTableCell, StyledTableRow } from "../../components/Table/TableComp";
 // import { employeeData } from "../../services/employee-data";
 import CreateStaffModal from "../../components/staff/CreateStaffModal";
-import { collection, getDocs } from "firebase/firestore/lite";
-import firestoredb from "../../../firebase-config";
+import { fetchAllStaff } from "../../redux/slices/staffSlices";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/types";
 
 function Staff() {
+	const dispatch = useDispatch<AppDispatch>();
+	const { staffData } = useSelector((state: any) => state.staff);
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");
 	const [openModal, setOpenModal] = useState(false);
-	const [employeeData, setEmployeeData] = useState([]);
-
-	const collectionRef = collection(firestoredb, "employees");
 
 	useEffect(() => {
-		const fectchData = async () => {
-			const data = await getDocs(collectionRef);
-			let returnedData: any = [];
-
-			data.docs.map((doc) => {
-				returnedData.push({
-					...doc.data(),
-				});
-			});
-
-			console.log(returnedData);
-			setEmployeeData(returnedData);
-		};
-		fectchData();
+		dispatch(fetchAllStaff());
 	}, []);
 
 	const headers = [
@@ -53,20 +40,19 @@ function Staff() {
 		//return which employees are active on the current day
 		//useful if shift system is ran
 		if (selectedHeader === "active") {
-			return employeeData.filter(
+			return staffData.filter(
 				({ workingDays }: { workingDays: string }) => workingDays.includes(currentWeekDay) === true
 			);
 		}
 		if (selectedHeader === "inactive") {
-			return employeeData.filter(
+			return staffData.filter(
 				({ workingDays }: { workingDays: string }) => workingDays.includes(currentWeekDay) === false
 			);
 		}
 
-		return employeeData;
+		return staffData;
 	};
 
-	console.log(employeeData);
 	return (
 		<div className="staff-container">
 			<div className="staff-list-div">
