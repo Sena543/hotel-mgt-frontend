@@ -7,6 +7,8 @@ import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 import Request from "../guest/Request";
 import "./guest-table.css";
 import dayjs from "dayjs";
+// import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+
 type GuestTableProps = {
 	lastName: string;
 	firstName: string;
@@ -23,6 +25,10 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 
 	const headerList = ["Guest Name", "Room", "Check in", "Check out", "Requests", "Status"];
 
+	const checkGuestStatus = (date: string) => {
+		return dayjs().isAfter(dayjs(date));
+	};
+	// console.log(dayjs().isSameOrAfter(dayjs("1-4-2023")));
 	return (
 		<div>
 			{/* <GenericTable tableData={guests} showActionCol={true} /> */}
@@ -71,7 +77,18 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 												<MoreHorizRounded />
 											</IconButton>
 										</StyledTableCell>
-										<StyledTableCell>{status}</StyledTableCell>
+										<StyledTableCell>
+											<Typography
+												className={`${checkGuestStatus(checkOut) ? "checkedOut" : "checkedIn"}`}
+												style={{
+													display: "grid",
+													placeItems: "center",
+													borderRadius: 5,
+												}}
+											>
+												{checkGuestStatus(checkOut) ? "Checked Out" : "Checked In"}
+											</Typography>
+										</StyledTableCell>
 										<Request request={specialRequests} open={open} setOpen={setOpen} />
 									</StyledTableRow>
 								)
