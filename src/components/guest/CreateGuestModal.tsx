@@ -18,12 +18,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { addDoc, collection } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewGuest } from "../../redux/slices/guestSlices";
 import { AppDispatch } from "../../redux/types";
+import { fetchAllRooms } from "../../redux/slices/roomSlicers";
 
 type CreateModalProps = {
 	open: boolean;
@@ -31,20 +32,30 @@ type CreateModalProps = {
 };
 
 function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
+	const { roomList: roomListData, status: roomLoadingStatus } = useSelector((state: any) => state.rooms);
+	const { status } = useSelector((state: any) => state.guests);
+	const dispatch = useDispatch<AppDispatch>();
+
+	const [inputValue, setInputValue] = useState("");
+	const [dateError, setDateError] = useState<DateValidationError | null>(null);
+
+	useEffect(() => {
+		if (roomListData.length === 0) {
+			dispatch(fetchAllRooms());
+		}
+	}, [dispatch]);
+
 	const [guestDetails, setGuestDetails] = useState({
 		lastName: "",
 		firstName: "",
 		email: "",
 		contact: "",
-		// checkIn: "2023-30-3", //today
 		checkIn: dayjs(), //today
 		checkOut: dayjs().add(1, "day"), //tomorrow
-		roomAssigned: "GR-R02",
+		roomAssigned: roomListData[0],
 		specialRequests: "",
 	});
-	const [dateError, setDateError] = useState<DateValidationError | null>(null);
-	const dispatch = useDispatch<AppDispatch>();
-	const { status } = useSelector((state: any) => state.guests);
+
 	const errorMessage = useMemo(() => {
 		switch (dateError) {
 			// case "maxDate":
@@ -82,9 +93,14 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 		});
 	};
 
+	const filterAvailable = () => {
+		return roomListData && roomListData.filter(({ status }: { status: string }) => status === "Available");
+	};
+
 	const submitGuestData = async () => {
 		const newGuestData = {
 			...guestDetails,
+			roomAssigned: guestDetails.roomAssigned.roomName,
 			checkIn: `${guestDetails["checkIn"].get("date")}-${guestDetails["checkIn"].get("month") + 1}-${guestDetails[
 				"checkIn"
 			].get("year")}`,
@@ -178,7 +194,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 								sx={{ marginTop: "2em" }}
 							/>
 							<DatePicker
-								disablePast
+								// disablePast
 								format="DD-MM-YYYY"
 								label="Check Out Date"
 								value={dayjs(guestDetails.checkOut, "DD-MM-YYYY")}
@@ -198,11 +214,20 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 						</div>
 						<div className="select-guest-room">
 							<Autocomplete
-								disablePortal
+								getOptionLabel={(option: any) => option.roomName}
+								options={filterAvailable()}
+								// value={guestDetails.roomAssigned}
+								onChange={(event: React.SyntheticEvent<Element, Event>, value: any) => {
+									handleDateChange("roomAssigned", value);
+								}}
+								inputValue={inputValue}
+								onInputChange={(event, newInputValue) => {
+									setInputValue(newInputValue);
+								}}
+								isOptionEqualToValue={(option, value) => option.roomName === value.roomName}
+								loading={roomLoadingStatus === "loading"}
 								className="auto-complete"
 								id="combo-box-demo"
-								// options={top100Films}
-								// sx={{ width: 300 }}
 								sx={{ marginTop: "1em" }}
 								renderInput={(params: any) => (
 									<CustomTextField
@@ -210,9 +235,19 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 										{...params}
 										fullWidth
 										label="Room"
+										InputProps={{
+											...params.InputProps,
+											endAdornment: (
+												<>
+													{roomLoadingStatus === "loading" ? (
+														<CircularProgress color="inherit" size={20} />
+													) : null}
+													{params.InputProps.endAdornment}
+												</>
+											),
+										}}
 									/>
 								)}
-								options={[]}
 							/>
 						</div>
 					</div>
