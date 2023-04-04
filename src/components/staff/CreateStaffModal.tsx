@@ -1,11 +1,25 @@
 import "./create-staff.css";
 import { CloseRounded } from "@mui/icons-material";
-import { Typography, IconButton, Divider, Tooltip, Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import {
+	Typography,
+	IconButton,
+	Divider,
+	Tooltip,
+	Button,
+	Checkbox,
+	FormControlLabel,
+	FormGroup,
+	CircularProgress,
+} from "@mui/material";
 import { useState } from "react";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
 import { collection, addDoc } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewStaff, resetStatus } from "../../redux/slices/staffSlices";
+import { AppDispatch } from "../../redux/types";
+import GenericAlert from "../Alert/Alert";
 
 type CreateModalProps = {
 	open: boolean;
@@ -23,6 +37,9 @@ interface StaffDetails {
 }
 
 function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
+	const dispatch = useDispatch<AppDispatch>();
+	const { status } = useSelector((state: any) => state.staff);
+	const [alertOpen, setAlertOpen] = useState<boolean>(true);
 	const [staffDetails, setStaffDetails] = useState<StaffDetails>({
 		lastName: "",
 		firstName: "",
@@ -53,13 +70,14 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 	};
 
 	const submitCreateEmployeeData = async () => {
-		const employeesCollectionRef = collection(firestoredb, "employees");
-
-		await addDoc(employeesCollectionRef, {
+		// const employeesCollectionRef = collection(firestoredb, "employees");
+		const empData = {
 			...staffDetails,
 			employeeID: `E-${new Date().getTime().toString().substr(-5)}`,
-		});
-		// console.log(addNewGuestData);
+		};
+		dispatch(createNewStaff(empData));
+		status === "success" ? setAlertOpen(true) : null;
+		dispatch(resetStatus());
 	};
 
 	const weekDays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -191,16 +209,16 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 					</div>
 				</div>
 				<div className="button-div">
-					<Button
-						// onClick={() => console.log(staffDetails)}
-						onClick={submitCreateEmployeeData}
-						variant="contained"
-						className="create-guest-button"
-					>
-						Create
-					</Button>
+					{status === "loading" ? (
+						<CircularProgress />
+					) : (
+						<Button onClick={submitCreateEmployeeData} variant="contained" className="create-guest-button">
+							Create
+						</Button>
+					)}
 				</div>
 			</div>
+			<GenericAlert open={alertOpen} severity="success" setOpen={setAlertOpen} message="Operation successfull" />
 		</GenericModal>
 	);
 }
