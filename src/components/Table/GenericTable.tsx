@@ -23,11 +23,12 @@ type GenericTableProps = {
 	tableData: any;
 	showActionCol?: boolean;
 	className?: string;
+	header: string[];
 };
 
-function GenericTable({ tableData, showActionCol, className }: GenericTableProps) {
+function GenericTable({ header, tableData, showActionCol, className }: GenericTableProps) {
 	const [open, setOpen] = useState<boolean>(false);
-	const header = Object.keys(tableData[0]).filter((item) => item !== "request");
+	// const header = Object.keys(tableData[0]).filter((item) => item !== "request");
 	return (
 		<TableContainer component={Paper} elevation={0} className={`room-table-container ${className}`}>
 			<Table>
