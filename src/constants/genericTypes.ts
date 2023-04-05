@@ -20,3 +20,11 @@ export type StaffDetailsType = {
 	workingDays: string[];
 	employeeID: string;
 };
+
+export type MenuItemType = {
+	menuType: string;
+	dishOrBev: string;
+	price: string;
+	dishType: string;
+	description: string;
+};
