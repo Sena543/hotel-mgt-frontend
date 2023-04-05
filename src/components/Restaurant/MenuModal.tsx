@@ -12,10 +12,15 @@ import {
 	FormLabel,
 	Radio,
 	RadioGroup,
+	CircularProgress,
 } from "@mui/material";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewMenuItem, resetStatus } from "../../redux/slices/restaurantSlice";
+import { AppDispatch } from "../../redux/types";
+import GenericAlert from "../Alert/Alert";
 
 type MenuModalProps = {
 	open: boolean;
@@ -25,28 +30,40 @@ type MenuModalProps = {
 const dish_type = ["Breakfast", "Lunch", "Dinner"];
 
 function MenuModal({ open, setOpenModal }: MenuModalProps) {
+	const { status, restaurantMealsList } = useSelector((state: any) => state.restaurant);
+	const [openAlert, setOpenAlert] = useState(false);
+	const dispatch = useDispatch<AppDispatch>();
 	const [menuItem, setMenuItem] = useState({
 		menuType: "dish",
 		dishOrBev: "",
 		price: "",
 		dishType: "Breakfast",
 		description: "",
+		dishId: restaurantMealsList.length + 1,
+		//TODO
+		//fix dishID not updating bug
 	});
 
 	const handleRadioChange = (name: string, value: string) => {
-		setMenuItem({ ...menuItem, [name]: value });
+		setMenuItem((prevState) => ({
+			...prevState,
+			[name]: value,
+			dishType: prevState.menuType === "beverage" ? "beverage" : "Breakfast",
+		}));
 	};
 
 	const submitData = () => {
-		console.log(menuItem);
-
-		// setMenuItem({
-		// 	menuType: "dish",
-		// 	dishOrBev: "",
-		// 	price: "",
-		// 	dishType: "Breakfast",
-		// 	description: "",
-		// });
+		dispatch(createNewMenuItem(menuItem));
+		setMenuItem({
+			menuType: "dish",
+			dishOrBev: "",
+			price: "",
+			dishType: "Breakfast",
+			description: "",
+			dishId: 0,
+		});
+		status === "success" ? setOpenAlert(() => true) : null;
+		dispatch(resetStatus());
 	};
 	return (
 		<GenericModal className="menu-modal-container" open={open} setOpenModal={setOpenModal}>
@@ -121,7 +138,7 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
 								)}
 							/>
 						</div>
-						<CustomTextField className="menu-modal-text-field" label="Description" rows={5} multiline />
+						{/* <CustomTextField className="menu-modal-text-field" label="Description" rows={5} multiline /> */}
 					</>
 				) : (
 					<>
@@ -159,26 +176,36 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
 								)}
 							/>
 						</div> */}
-						<CustomTextField
-							name="description"
-							value={menuItem.description}
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-								handleRadioChange(event.target.name, event.target.value)
-							}
-							className="menu-modal-text-field"
-							label="Description"
-							rows={5}
-							multiline
-						/>
 					</>
 				)}
 
+				<CustomTextField
+					name="description"
+					value={menuItem.description}
+					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+						handleRadioChange(event.target.name, event.target.value)
+					}
+					className="menu-modal-text-field"
+					label="Description"
+					rows={5}
+					multiline
+				/>
 				<div className="button-div">
-					<Button onClick={submitData} variant="contained" className="create-order-button">
-						Add
-					</Button>
+					{status === "loading" ? (
+						<CircularProgress />
+					) : (
+						<Button onClick={submitData} variant="contained" className="create-order-button">
+							Add
+						</Button>
+					)}
 				</div>
 			</div>
+			<GenericAlert
+				severity="success"
+				message="Operation completed successfully"
+				open={openAlert}
+				setOpen={setOpenAlert}
+			/>
 		</GenericModal>
 	);
 }
