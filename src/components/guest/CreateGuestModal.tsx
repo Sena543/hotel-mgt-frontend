@@ -1,14 +1,6 @@
 import "./create-guest.css";
 import { CloseRounded } from "@mui/icons-material";
-import {
-	Button,
-	Typography,
-	IconButton,
-	Divider,
-	Tooltip,
-	Autocomplete,
-	CircularProgress,
-} from "@mui/material";
+import { Button, Typography, IconButton, Divider, Tooltip, Autocomplete, CircularProgress } from "@mui/material";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -17,9 +9,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewGuest } from "../../redux/slices/guestSlices";
+import { addNewGuest, resetGuestStatus } from "../../redux/slices/guestSlices";
 import { AppDispatch } from "../../redux/types";
 import { fetchAllRooms } from "../../redux/slices/roomSlicers";
+import { createNewBookingHistory, resetStatus } from "../../redux/slices/bookingSlices";
 
 type CreateModalProps = {
 	open: boolean;
@@ -105,7 +98,19 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
 				guestDetails["checkOut"].get("month") + 1
 			}-${guestDetails["checkOut"].get("year")}`,
 		};
+
+		const newBookingData = {
+			bookingID: `${new Date().getTime().toString().substring(-6)}`,
+			roomID: newGuestData.roomAssigned,
+			checkIn: newGuestData.checkIn,
+			checkOut: newGuestData.checkOut,
+			guestID: newGuestData.guestID,
+			mealOrderID: [],
+		};
 		dispatch(addNewGuest(newGuestData));
+		dispatch(createNewBookingHistory(newBookingData));
+		dispatch(resetStatus());
+		dispatch(resetGuestStatus());
 	};
 
 	return (
