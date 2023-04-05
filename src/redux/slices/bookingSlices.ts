@@ -1,8 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getDocs, collection, addDoc } from "firebase/firestore/lite";
+import { getDocs, collection, addDoc, getDoc, where, query } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
-import { StaffDetailsType } from "../../constants/genericTypes";
+import { BookingHistoryType } from "../../constants/genericTypes";
 
 const initialState = {
 	status: "idle", // 'idle' | 'loading' | 'success'| 'failed
@@ -12,12 +12,13 @@ const initialState = {
 
 export const fetchGuestBookingHistory = createAsyncThunk(
 	"fetch/booking-history",
-	async function fetchStaff(_, thunkAPI) {
+	async function fetchStaff(guestID, thunkAPI) {
 		try {
-			const returnedGuestsData = await getDocs(collection(firestoredb, "booking"));
-			const staffData: any = getRawData(returnedGuestsData);
+			const historyQuery = query(collection(firestoredb, "booking"), where("guestID", "==", guestID));
+			const returnedGuestsData = await getDocs(historyQuery);
+			const bookingHistoryData: any = getRawData(returnedGuestsData);
 
-			return staffData;
+			return bookingHistoryData;
 		} catch (error: any) {
 			console.log(error.message);
 
@@ -28,7 +29,7 @@ export const fetchGuestBookingHistory = createAsyncThunk(
 
 export const createNewBookingHistory = createAsyncThunk(
 	"create/booking-history",
-	async function fetchStaff(newBookingHistoryData: StaffDetailsType, thunkAPI) {
+	async function fetchStaff(newBookingHistoryData: BookingHistoryType, thunkAPI) {
 		try {
 			await addDoc(collection(firestoredb, "booking"), newBookingHistoryData);
 			return newBookingHistoryData;
@@ -67,7 +68,7 @@ export const bookingSlice = createSlice({
 			state = { ...state, status: "loading" };
 			return state;
 		});
-		builder.addCase(createNewBookingHistory.fulfilled, (state: any, action: PayloadAction<StaffDetailsType>) => {
+		builder.addCase(createNewBookingHistory.fulfilled, (state: any, action: PayloadAction<BookingHistoryType>) => {
 			state = { ...state, staffData: [...state.staffData, action.payload], status: "success" };
 			return state;
 		});

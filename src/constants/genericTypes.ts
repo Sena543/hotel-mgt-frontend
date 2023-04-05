@@ -28,3 +28,12 @@ export type MenuItemType = {
 	dishType: string;
 	description: string;
 };
+
+export type BookingHistoryType = {
+	bookingID: string;
+	guestID: string;
+	roomID: string;
+	checkIn: string;
+	checkOut: string;
+	mealOrderID?: string[];
+};
