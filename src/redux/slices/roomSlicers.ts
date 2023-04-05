@@ -61,4 +61,6 @@ export const roomSlice = createSlice({
 		});
 	},
 });
+
+export const { resetStatus } = roomSlice.actions;
 export default roomSlice.reducer;

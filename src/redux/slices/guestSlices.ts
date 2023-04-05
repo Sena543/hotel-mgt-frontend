@@ -62,7 +62,7 @@ export const guestSlice = createSlice({
 			state = { ...state, guestsData: newGuest };
 			return state;
 		},
-		resetStatus: (state) => {
+		resetGuestStatus: (state) => {
 			state = { ...state, status: "idle" };
 		},
 	},
@@ -97,5 +97,5 @@ export const guestSlice = createSlice({
 	},
 });
 
-export const { createNewGuest } = guestSlice.actions;
+export const { createNewGuest, resetGuestStatus } = guestSlice.actions;
 export default guestSlice.reducer;
