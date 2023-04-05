@@ -1,12 +1,11 @@
 import "./create-guest.css";
-import { CleanHands, CloseRounded } from "@mui/icons-material";
+import { CloseRounded } from "@mui/icons-material";
 import {
 	Button,
 	Typography,
 	IconButton,
 	Divider,
 	Tooltip,
-	TextField,
 	Autocomplete,
 	CircularProgress,
 } from "@mui/material";
@@ -16,11 +15,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateValidationError, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-
 import { useEffect, useMemo, useState } from "react";
-import { addDoc, collection } from "firebase/firestore/lite";
-import firestoredb from "../../../firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewGuest } from "../../redux/slices/guestSlices";
 import { AppDispatch } from "../../redux/types";
