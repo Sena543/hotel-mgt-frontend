@@ -2,12 +2,20 @@ import "./menu.css";
 import { Typography, Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuModal from "../../../components/Restaurant/MenuModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteForeverRounded } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { fetchRestaurantMenu } from "../../../redux/slices/restaurantSlice";
+import { AppDispatch } from "../../../redux/types";
 
 // www.benitos.com/menu/
 function Menu() {
+	const dispatch = useDispatch<AppDispatch>();
 	const [open, setModalOpen] = useState(false);
+
+	useEffect(() => {
+		dispatch(fetchRestaurantMenu());
+	});
 	const meals = [
 		{
 			meal: "Chicken Taco",
