@@ -73,7 +73,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 		// const employeesCollectionRef = collection(firestoredb, "employees");
 		const empData = {
 			...staffDetails,
-			employeeID: `E-${new Date().getTime().toString().substr(-5)}`,
+			employeeID: `E-${new Date().getTime().toString().substring(-5)}`,
 		};
 		dispatch(createNewStaff(empData));
 		status === "success" ? setAlertOpen(true) : null;
