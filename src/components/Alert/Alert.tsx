@@ -30,7 +30,7 @@ function GenericAlert({ open, setOpen, severity, message }: AlertProps) {
 			anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
 			TransitionComponent={GrowTransition}
 		>
-			<Alert onClose={handleClose} variant="outlined" severity={severity}>
+			<Alert onClose={handleClose} variant="filled" severity={severity}>
 				{message}
 			</Alert>
 		</Snackbar>
