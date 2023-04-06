@@ -15,6 +15,7 @@ function Restuarant() {
 		{ guestid: 4, guestname: "Robert Lewandowski", dishordered: "Rice", price: 100 },
 	];
 
+	const header = ['Guest ID', 'Guest Name', 'Dish Ordered', 'Price']
 	return (
 		<div className="restaurant-container">
 			<div className="restaurant-header">
@@ -30,7 +31,7 @@ function Restuarant() {
 				</div>
 			</div>
 			<div className="guest-restuarant-orders">
-				<GenericTable tableData={restaurantList} />
+				<GenericTable header={header} tableData={restaurantList} />
 			</div>
 			<OrderModal open={open} setOpenModal={setOpenModal} />
 		</div>
