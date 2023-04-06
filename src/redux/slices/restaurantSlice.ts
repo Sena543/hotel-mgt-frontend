@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getDocs, collection, addDoc } from "firebase/firestore/lite";
+import { getDocs, collection, addDoc, deleteDoc, doc } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
 import { MenuItemType } from "../../constants/genericTypes";
@@ -37,6 +37,19 @@ export const createNewMenuItem = createAsyncThunk(
 	}
 );
 
+export const deleteMenuItem = createAsyncThunk(
+	"delete/new-menu-item",
+	async function fetchStaff(dishId: string, thunkAPI) {
+		try {
+			await deleteDoc(doc(firestoredb, "restaurant", dishId));
+			return dishId;
+		} catch (error: any) {
+			console.log(error);
+
+			return thunkAPI.rejectWithValue(error.message);
+		}
+	}
+);
 export const restaurantSlice = createSlice({
 	name: "booking",
 	initialState,
@@ -73,6 +86,27 @@ export const restaurantSlice = createSlice({
 			return state;
 		});
 		builder.addCase(createNewMenuItem.rejected, (state, action: any) => {
+			state = { ...state, status: "failed", errorMessage: action.payload };
+			// state = { ...state, status: action.payload };
+			return state;
+		});
+
+		builder.addCase(deleteMenuItem.pending, (state) => {
+			state = { ...state, status: "loading" };
+			return state;
+		});
+		builder.addCase(deleteMenuItem.fulfilled, (state: any, action: PayloadAction<any>) => {
+			let restaurantMenu = state.restaurantMealsList;
+			restaurantMenu = restaurantMenu.filter(({ dishId }: { dishId: string }) => dishId === action.payload);
+
+			state = {
+				...state,
+				restaurantMealsList: restaurantMenu,
+				status: "success",
+			};
+			return state;
+		});
+		builder.addCase(deleteMenuItem.rejected, (state, action: any) => {
 			state = { ...state, status: "failed", errorMessage: action.payload };
 			// state = { ...state, status: action.payload };
 			return state;
