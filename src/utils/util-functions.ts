@@ -9,3 +9,9 @@ export const getRawData = (returnedDBData: QuerySnapshot<DocumentData>) => {
 	});
 	return rawData;
 };
+
+export function filterMenuItems(data: any, dishType: string, menuType: string) {
+	return data.filter(
+		(item: any) => item.dishType.toLowerCase() === dishType && item.menuType.toLowerCase() === menuType
+	);
+}
