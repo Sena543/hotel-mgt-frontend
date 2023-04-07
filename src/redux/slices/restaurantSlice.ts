@@ -27,7 +27,8 @@ export const createNewMenuItem = createAsyncThunk(
 	"create/new-menu-item",
 	async function fetchStaff(newMenuItemData: MenuItemType, thunkAPI) {
 		try {
-			await addDoc(collection(firestoredb, "restaurant"), newMenuItemData);
+			const newData = await addDoc(collection(firestoredb, "restaurant"), newMenuItemData);
+			newMenuItemData.rawDocID = newData.id;
 			return newMenuItemData;
 		} catch (error: any) {
 			console.log(error);
@@ -45,7 +46,6 @@ export const deleteMenuItem = createAsyncThunk(
 			return dishId;
 		} catch (error: any) {
 			console.log(error);
-
 			return thunkAPI.rejectWithValue(error.message);
 		}
 	}
@@ -97,7 +97,7 @@ export const restaurantSlice = createSlice({
 		});
 		builder.addCase(deleteMenuItem.fulfilled, (state: any, action: PayloadAction<any>) => {
 			let restaurantMenu = state.restaurantMealsList;
-			restaurantMenu = restaurantMenu.filter(({ dishId }: { dishId: string }) => dishId === action.payload);
+			restaurantMenu = restaurantMenu.filter(({ rawDocID }: { rawDocID: string }) => rawDocID !== action.payload);
 
 			state = {
 				...state,
