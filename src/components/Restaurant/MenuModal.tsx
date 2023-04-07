@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewMenuItem, resetStatus } from "../../redux/slices/restaurantSlice";
 import { AppDispatch } from "../../redux/types";
@@ -44,11 +44,12 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
 		//fix dishID not updating bug
 	});
 
+	useEffect(() => {}, [restaurantMealsList, dispatch]);
 	const handleRadioChange = (name: string, value: string) => {
 		setMenuItem((prevState) => ({
 			...prevState,
 			[name]: value,
-			dishType: prevState.menuType === "beverage" ? "beverage" : "Breakfast",
+			menuType: prevState.menuType === "beverage" ? "beverage" : "dish",
 		}));
 	};
 
