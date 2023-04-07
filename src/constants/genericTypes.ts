@@ -22,6 +22,7 @@ export type StaffDetailsType = {
 };
 
 export type MenuItemType = {
+	rawDocID?: string;
 	menuType: string;
 	dishOrBev: string;
 	price: string;
