@@ -95,8 +95,8 @@ function Menu() {
 	// console.log("restaurant", restaurantMealsList);
 	// console.log("bevs", beverage);
 
-	const deleteItemFromMenu = (dishId: any) => {
-		// dispatch(deleteMenuItem(dishId));
+	const deleteItemFromMenu = (dishId: string) => {
+		dispatch(deleteMenuItem(dishId));
 		//TODO
 		//delete menu item
 	};
@@ -109,10 +109,11 @@ function Menu() {
 							{
 								price,
 								// dishType,
-								// dishId,
+								dishId,
 								// description,
 								// menuType,
 								dishOrBev,
+								rawDocID,
 							}: {
 								price: string;
 								dishType: string;
@@ -120,6 +121,7 @@ function Menu() {
 								description: string;
 								menuType: string;
 								dishOrBev: string;
+								rawDocID: string;
 							},
 							index: number
 						) => (
@@ -128,7 +130,7 @@ function Menu() {
 								<span className="element-sep"></span>
 								<Typography variant="h4">{price}</Typography>
 								<div className="delete-menu-item-icon">
-									<IconButton onClick={() => deleteItemFromMenu(index)}>
+									<IconButton onClick={() => deleteItemFromMenu(rawDocID)}>
 										<DeleteForeverRounded />
 									</IconButton>
 								</div>
@@ -163,7 +165,7 @@ function Menu() {
 					<div className="food-header">
 						<h2>Dinner</h2>
 					</div>
-					{/* <div className="food-list">{renderMealsAndPrices(dinner)}</div> */}
+					<div className="food-list">{renderMealsAndPrices(dinner)}</div>
 					<div className="beverages-sides-container">
 						{/* <div className="food-header sides-beverages-div">
 							<h2>Sides</h2>
