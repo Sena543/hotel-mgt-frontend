@@ -5,6 +5,7 @@ export const getRawData = (returnedDBData: QuerySnapshot<DocumentData>) => {
 	returnedDBData.docs.map((doc: any) => {
 		rawData.push({
 			...doc.data(),
+			rawDocID: doc.id,
 		});
 	});
 	return rawData;
