@@ -1,8 +1,13 @@
 import "./order-modal.css";
 import GenericModal from "../Modal/GenericModal";
-import { Autocomplete, Button, Divider, IconButton, Tooltip, Typography } from "@mui/material";
+import { Autocomplete, Button, CircularProgress, Divider, IconButton, Tooltip, Typography } from "@mui/material";
 import { CloseRounded } from "@mui/icons-material";
 import CustomTextField from "../TextInput/CustomTextField";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGuests } from "../../redux/slices/guestSlices";
+import { AppDispatch } from "../../redux/types";
+import { useEffect, useState } from "react";
+import { fetchRestaurantMenu } from "../../redux/slices/restaurantSlice";
 
 type OrderModalProps = {
 	open: boolean;
@@ -33,6 +38,32 @@ const top100Films = [
 ];
 
 function OrderModal({ open, setOpenModal }: OrderModalProps) {
+	const [guestOrder, setGuestOrder] = useState({
+		guestId: "",
+		roomId: "",
+		mealId: "",
+		price: "",
+		beverageId: "",
+		beveragePrice: "",
+	});
+
+	const dispatch = useDispatch<AppDispatch>();
+	const { guestsData } = useSelector((state: any) => state.guests);
+	const { restaurantMealsList } = useSelector((state: any) => state.restaurant);
+
+	useEffect(() => {
+		if (!guestsData.length) {
+			dispatch(fetchGuests());
+		}
+		if (!restaurantMealsList.length) {
+			dispatch(fetchRestaurantMenu());
+		}
+	}, [dispatch]);
+
+	const beverages = restaurantMealsList.filter(({ menuType }: { menuType: string }) => menuType === "beverage");
+	const meals = restaurantMealsList.filter(({ menuType }: { menuType: string }) => menuType === "dish");
+
+	
 	return (
 		<GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
 			<div className="order-modal-header">
@@ -48,33 +79,72 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 				<div className="guest-details-order">
 					<Autocomplete
 						disablePortal
+						loading={guestsData && guestsData.length === 0}
+						// isOptionEqualToValue={(option, value) => option.title === value.title}
+						getOptionLabel={(option: any) => `${option.firstName} ${option.lastName}`}
 						id="combo-box-demo"
-						options={top100Films}
+						options={guestsData}
 						sx={{ width: 300 }}
 						renderInput={(params) => (
-							<CustomTextField {...params} className="custom-text-field-order-modal" label="Guest Name" />
+							<CustomTextField
+								{...params}
+								label="Guest Name"
+								InputProps={{
+									...params.InputProps,
+									endAdornment: (
+										<>
+											{guestsData && guestsData.length === 0 ? (
+												<CircularProgress color="inherit" size={20} />
+											) : null}
+											{params.InputProps.endAdornment}
+										</>
+									),
+								}}
+							/>
 						)}
 					/>
-					<CustomTextField label="Guest ID" className="custom-text-field-order-modal" />
+					<CustomTextField
+						value={guestOrder.guestId}
+						label="Guest ID"
+						className="custom-text-field-order-modal"
+					/>
 					{/* <CustomTextField label="Room ID" /> */}
 				</div>
 
 				<div className="guest-details-order">
 					<CustomTextField
 						className="custom-text-field-order-modal"
+						value={guestOrder.roomId}
 						label="Room ID"
-						style={{ width: "56%" }}
+						style={{ width: "100%" }}
 					/>
 				</div>
 
 				<div className="guest-details-order ">
 					<Autocomplete
 						disablePortal
+						loading={restaurantMealsList && restaurantMealsList.length === 0}
+						// isOptionEqualToValue={(option, value) => option.title === value.title}
+						getOptionLabel={(option: any) => option.dishOrBev}
 						id="combo-box-demo"
-						options={top100Films}
+						options={meals}
 						sx={{ width: 300 }}
 						renderInput={(params) => (
-							<CustomTextField {...params} className="custom-text-field-order-modal" label="Meal" />
+							<CustomTextField
+								{...params}
+								label="Meals"
+								InputProps={{
+									...params.InputProps,
+									endAdornment: (
+										<>
+											{restaurantMealsList && restaurantMealsList.length === 0 ? (
+												<CircularProgress color="inherit" size={20} />
+											) : null}
+											{params.InputProps.endAdornment}
+										</>
+									),
+								}}
+							/>
 						)}
 					/>
 					<CustomTextField className="custom-text-field-order-modal" label="Price" />
@@ -82,11 +152,28 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 				<div className="guest-details-order ">
 					<Autocomplete
 						disablePortal
+						loading={restaurantMealsList && restaurantMealsList.length === 0}
+						// isOptionEqualToValue={(option, value) => option.title === value.title}
+						getOptionLabel={(option: any) => option.dishOrBev}
 						id="combo-box-demo"
-						options={top100Films}
+						options={beverages}
 						sx={{ width: 300 }}
 						renderInput={(params) => (
-							<CustomTextField {...params} className="custom-text-field-order-modal" label="Beverage" />
+							<CustomTextField
+								{...params}
+								label="Beverages"
+								InputProps={{
+									...params.InputProps,
+									endAdornment: (
+										<>
+											{restaurantMealsList && restaurantMealsList.length === 0 ? (
+												<CircularProgress color="inherit" size={20} />
+											) : null}
+											{params.InputProps.endAdornment}
+										</>
+									),
+								}}
+							/>
 						)}
 					/>
 					<CustomTextField className="custom-text-field-order-modal" label="Price" />
