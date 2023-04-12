@@ -40,11 +40,12 @@ const top100Films = [
 function OrderModal({ open, setOpenModal }: OrderModalProps) {
 	const [guestOrder, setGuestOrder] = useState({
 		guestId: "",
+		guestName: "",
 		roomId: "",
 		mealId: "",
-		price: "",
 		beverageId: "",
-		beveragePrice: "",
+		mealprice: 0,
+		beveragePrice: 0,
 	});
 
 	const dispatch = useDispatch<AppDispatch>();
@@ -63,7 +64,19 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 	const beverages = restaurantMealsList.filter(({ menuType }: { menuType: string }) => menuType === "beverage");
 	const meals = restaurantMealsList.filter(({ menuType }: { menuType: string }) => menuType === "dish");
 
-	
+	const guestDetailHanlder = (selectedData: any) => {
+		// const guestRoomId = guestsData.filter(({lastName, firstName})=>)
+		setGuestOrder((prevState) => ({
+			...prevState,
+			guestId: selectedData.guestID,
+			guestName: `${selectedData.firstName} ${selectedData.lastName}`,
+			roomId: "",
+		}));
+	};
+
+	const dishPriceHandler = (name: string, value: any) => {
+		setGuestOrder((prevState) => ({ ...prevState, [name]: Number(value) }));
+	};
 	return (
 		<GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
 			<div className="order-modal-header">
@@ -80,7 +93,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 					<Autocomplete
 						disablePortal
 						loading={guestsData && guestsData.length === 0}
-						// isOptionEqualToValue={(option, value) => option.title === value.title}
+						// isOptionEqualToValue={(option, value) => option.firstName=== value.guestName.split('')[0]}
 						getOptionLabel={(option: any) => `${option.firstName} ${option.lastName}`}
 						id="combo-box-demo"
 						options={guestsData}
@@ -147,7 +160,13 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 							/>
 						)}
 					/>
-					<CustomTextField className="custom-text-field-order-modal" label="Price" />
+					<CustomTextField
+						className="custom-text-field-order-modal"
+						value={guestOrder.mealprice}
+						name="mealPrice"
+						onChange={(event) => dishPriceHandler(event.target.name, event.target.value)}
+						label="Meal Price"
+					/>
 				</div>
 				<div className="guest-details-order ">
 					<Autocomplete
@@ -176,7 +195,12 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
 							/>
 						)}
 					/>
-					<CustomTextField className="custom-text-field-order-modal" label="Price" />
+					<CustomTextField
+						name="beveragePrice"
+						onChange={(event) => dishPriceHandler(event.target.name, event.target.value)}
+						className="custom-text-field-order-modal"
+						label="Price"
+					/>
 				</div>
 				<div className="button-div">
 					<Button
