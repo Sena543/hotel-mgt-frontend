@@ -1,9 +1,9 @@
 import React from "react";
 
-function CarouselImage({ imgUrl }: { imgUrl: string }) {
+function CarouselImage({ index, imgUrl, key }: { index: number; imgUrl: string; key?: string }) {
 	return (
 		<div
-			key={imgUrl}
+			key={`${imgUrl}-${index}`}
 			style={{
 				display: "flex",
 				justifyContent: "center",
