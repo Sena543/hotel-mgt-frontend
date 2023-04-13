@@ -34,7 +34,7 @@ export default createBrowserRouter([
 				// element: <Guests />,
 				children: [
 					{ path: "/guests", element: <Guests /> },
-					{ path: "guest_details/:name", element: <GuestDetails /> },
+					{ path: "guest_details/:name/:guestID", element: <GuestDetails /> },
 				],
 			},
 			// { path: "guests/guest_details/:name", element: <GuestDetails /> },

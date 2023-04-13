@@ -6,9 +6,19 @@ import CurrentBooking from "./CurrentBooking";
 import { StyledTableCell, StyledTableRow } from "../../../components/Table/TableComp";
 import { roomData } from "../../../services/roomList";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../redux/types";
+import { useEffect } from "react";
+import { fetchGuestBookingHistory } from "../../../redux/slices/bookingSlices";
 
 function GuestDetails() {
-	const { name } = useParams();
+	const { name, guestID } = useParams();
+	// const data = useSelector()
+	const dispatch = useDispatch<AppDispatch>();
+
+	useEffect(() => {
+		dispatch(fetchGuestBookingHistory(Number(guestID)));
+	}, []);
 	const tableHeadList = ["Room Name", "Bed Type", "Room Facility", "Book Date"];
 	return (
 		<div className="guest-details-container">
@@ -53,7 +63,7 @@ function GuestDetails() {
 								<TableHead>
 									<TableRow>
 										{tableHeadList.map((name) => (
-											<StyledTableCell>{name.toLocaleUpperCase()}</StyledTableCell>
+											<StyledTableCell key={name}>{name.toLocaleUpperCase()}</StyledTableCell>
 										))}
 									</TableRow>
 								</TableHead>
