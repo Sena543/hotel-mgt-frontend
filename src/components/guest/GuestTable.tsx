@@ -17,6 +17,7 @@ type GuestTableProps = {
 	checkOut: string;
 	specialRequests: string;
 	status: string;
+	guestID: string;
 };
 
 // function GuestTable({ guestList }: GuestTableProps[]) {
@@ -55,6 +56,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 										checkOut,
 										specialRequests,
 										status,
+										guestID,
 									}: GuestTableProps,
 									index: number
 								) => (
@@ -62,7 +64,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
 										<StyledTableCell>
 											<Link
 												className={"guest-name"}
-												to={`guest_details/${lastName} ${firstName}`}
+												to={`guest_details/${lastName} ${firstName}/${guestID}`}
 											>
 												<Typography>
 													{lastName} {firstName}
