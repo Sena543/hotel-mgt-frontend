@@ -10,22 +10,25 @@ const initialState = {
 	errorMessage: "",
 };
 
-export const fetchRestaurantMenu = createAsyncThunk("fetch/restaurant-meals", async function fetchStaff(_, thunkAPI) {
-	try {
-		const returnedMenuData = await getDocs(collection(firestoredb, "restaurant"));
-		const menuData: any = getRawData(returnedMenuData);
+export const fetchRestaurantMenu = createAsyncThunk(
+	"fetch/restaurant-meals",
+	async function fetchAllRestaurantMenu(_, thunkAPI) {
+		try {
+			const returnedMenuData = await getDocs(collection(firestoredb, "restaurant"));
+			const menuData: any = getRawData(returnedMenuData);
 
-		return menuData;
-	} catch (error: any) {
-		console.log(error.message);
+			return menuData;
+		} catch (error: any) {
+			console.log(error.message);
 
-		return thunkAPI.rejectWithValue(error.message);
+			return thunkAPI.rejectWithValue(error.message);
+		}
 	}
-});
+);
 
 export const createNewMenuItem = createAsyncThunk(
 	"create/new-menu-item",
-	async function fetchStaff(newMenuItemData: MenuItemType, thunkAPI) {
+	async function createNewMenuItem(newMenuItemData: MenuItemType, thunkAPI) {
 		try {
 			const newData = await addDoc(collection(firestoredb, "restaurant"), newMenuItemData);
 			newMenuItemData.rawDocID = newData.id;
@@ -40,7 +43,7 @@ export const createNewMenuItem = createAsyncThunk(
 
 export const deleteMenuItem = createAsyncThunk(
 	"delete/new-menu-item",
-	async function fetchStaff(dishId: string, thunkAPI) {
+	async function deleteMenuItem(dishId: string, thunkAPI) {
 		try {
 			await deleteDoc(doc(firestoredb, "restaurant", dishId));
 			return dishId;

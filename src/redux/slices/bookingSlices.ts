@@ -12,7 +12,8 @@ const initialState = {
 
 export const fetchGuestBookingHistory = createAsyncThunk(
 	"fetch/booking-history",
-	async function fetchStaff(guestID, thunkAPI) {
+	// async function fetchGuestBookingHistory(guestID, thunkAPI) {
+	async (guestID, thunkAPI) => {
 		try {
 			const historyQuery = query(collection(firestoredb, "booking"), where("guestID", "==", guestID));
 			const returnedGuestsData = await getDocs(historyQuery);
@@ -29,7 +30,7 @@ export const fetchGuestBookingHistory = createAsyncThunk(
 
 export const createNewBookingHistory = createAsyncThunk(
 	"create/booking-history",
-	async function fetchStaff(newBookingHistoryData: BookingHistoryType, thunkAPI) {
+	async function createBookingHistory(newBookingHistoryData: BookingHistoryType, thunkAPI) {
 		try {
 			await addDoc(collection(firestoredb, "booking"), newBookingHistoryData);
 			return newBookingHistoryData;
