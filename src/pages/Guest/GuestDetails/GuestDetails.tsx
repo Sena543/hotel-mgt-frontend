@@ -11,15 +11,60 @@ import { AppDispatch } from "../../../redux/types";
 import { useEffect } from "react";
 import { fetchGuestBookingHistory } from "../../../redux/slices/bookingSlices";
 
+const prepareBookingHistory = (bookingHistory: any, roomData: any) => {
+	// bh = new booking history variable
+	let bh: any = [];
+
+	bookingHistory.forEach((historyElement: any) => {
+		roomData.forEach((roomElement: any) => {
+			if (roomElement.roomName === historyElement.roomID) {
+				bh.push({
+					...historyElement,
+					bedType: roomElement.bedType,
+					facility: roomElement.facility,
+				});
+			}
+		});
+	});
+	return bh;
+};
 function GuestDetails() {
 	const { name, guestID } = useParams();
-	// const data = useSelector()
 	const dispatch = useDispatch<AppDispatch>();
-
+	const { bookingHistory } = useSelector((state: any) => state.booking);
+	const { roomList: rooms } = useSelector((state: any) => state.rooms);
 	useEffect(() => {
 		dispatch(fetchGuestBookingHistory(Number(guestID)));
 	}, []);
+
+	//TODO write a test for the line below
+	const selectedGuestDetails = useSelector(
+		//gets the current booking of the guest
+		(state: any) => state.guests.guestsData.filter((guest: any) => guest.guestID === Number(guestID))[0]
+	);
 	const tableHeadList = ["Room Name", "Bed Type", "Room Facility", "Book Date"];
+
+	const preparedBookingHistoryData = prepareBookingHistory(bookingHistory, rooms);
+	console.log(preparedBookingHistoryData);
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+
+	const dateObjFunction = (passedDate: string) => {
+		return new Date(passedDate);
+	};
+
 	return (
 		<div className="guest-details-container">
 			<div className="booking-history-div">
@@ -41,7 +86,7 @@ function GuestDetails() {
 				</div>
 				<div className="guest-profile-card">
 					<GenericDashCards>
-						<GuestProfile />
+						<GuestProfile profileDetails={selectedGuestDetails} />
 					</GenericDashCards>
 				</div>
 
@@ -68,27 +113,31 @@ function GuestDetails() {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{roomData.map(
+									{/* {roomData.map( */}
+									{preparedBookingHistoryData.map(
 										({
-											roomName,
+											roomID,
 											bedType,
 											facility,
 											status,
-											period,
+											// period,
+											checkIn,
+											checkOut,
 										}: {
-											roomName: string;
+											roomID: string;
 											bedType: string;
 											facility: string;
 											status: string;
-											period: string;
+											checkIn: string;
+											checkOut: string;
 										}) => (
-											<StyledTableRow hover>
-												<TableCell>{roomName}</TableCell>
+											<StyledTableRow hover key={`${roomID}-${bedType}`}>
+												<TableCell>{roomID}</TableCell>
 												<TableCell>{bedType}</TableCell>
 												<TableCell>{facility}</TableCell>
 												<TableCell>
 													<Typography
-														className={status.toLocaleLowerCase()}
+														// className={status.toLocaleLowerCase()}
 														style={{
 															display: "grid",
 															placeItems: "center",
@@ -99,7 +148,11 @@ function GuestDetails() {
 														{status}
 													</Typography>
 													<Typography variant="caption" display="block">
-														{period}
+														{`
+														${months[dateObjFunction(checkIn).getMonth()]} ${dateObjFunction(checkIn).getDay()} - ${dateObjFunction(
+															checkOut
+														).getDay()}
+													`}
 													</Typography>
 												</TableCell>
 											</StyledTableRow>
