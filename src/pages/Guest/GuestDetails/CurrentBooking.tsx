@@ -14,9 +14,18 @@ import {
 } from "@mui/icons-material";
 import CarouselImage from "./CarouselImage";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/types";
 
+const breakPoints = [
+	{ width: 1, itemsToShow: 1 },
+	{ width: 550, itemsToShow: 2.5, itemsToScroll: 1 },
+	{ width: 768, itemsToShow: 3.5 },
+	{ width: 1200, itemsToShow: 4.5 },
+];
 const fontSize = 15;
 function CurrentBooking() {
+	const dispatch = useDispatch<AppDispatch>();
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const imgs = [
@@ -62,11 +71,11 @@ function CurrentBooking() {
 					Current Booking
 				</Typography>
 			</div>
-			<Carousel itemsToShow={2.2}>
-				{imgs.map(({ url }) => (
-					<CarouselImage imgUrl={url} />
+			{/* <Carousel itemsToShow={2.3}>
+				{imgs.map(({ url }, index) => (
+					<CarouselImage key={url} imgUrl={url} index={index} />
 				))}
-			</Carousel>
+			</Carousel> */}
 			<div>
 				<div className="facilities-div">
 					<Typography>Room Facilities</Typography>
