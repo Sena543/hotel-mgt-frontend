@@ -86,7 +86,7 @@ function GuestDetails() {
 			<div className="guest-details-booking">
 				<div className="current-booking-card">
 					<GenericDashCards>
-						<CurrentBooking />
+						<CurrentBooking bookingDetails={preparedBookingHistoryData[0]}/>
 					</GenericDashCards>
 				</div>
 				<div className="guest-profile-card">
