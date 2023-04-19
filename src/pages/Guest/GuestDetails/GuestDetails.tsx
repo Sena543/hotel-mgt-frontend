@@ -47,7 +47,7 @@ function GuestDetails() {
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
         dispatch(fetchGuestBookingHistory(Number(guestID)));
-    }, []);
+    }, [dispatch]);
 
     const { bookingHistory } = useSelector((state: any) => state.booking);
     const { roomList: rooms } = useSelector((state: any) => state.rooms);
@@ -61,24 +61,13 @@ function GuestDetails() {
     const tableHeadList = ["Room Name", "Bed Type", "Room Facility", "Book Date"];
 
     const preparedBookingHistoryData = prepareBookingHistory(bookingHistory, rooms);
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
 
     const dateObjFunction = (passedDate: string) => {
         return new Date(passedDate);
-        // return new Intl.DateTimeFormat('en-gb', {month:'short'}).format(new Date(passedDate));
+    };
+
+    const monthFormatterFunction = (passedDate: string) => {
+        return new Intl.DateTimeFormat("en-US", { month: "short" }).format(new Date(passedDate));
     };
 
     return (
@@ -167,24 +156,18 @@ function GuestDetails() {
                                                     </Typography>
                                                     <Typography variant="caption" display="block">
                                                         {`
-														${months[dateObjFunction(checkIn).getMonth()]} ${dateObjFunction(
-                                                            checkIn
-                                                        ).getDay()}${dateWithOrdinal(
-                                                            dateObjFunction(checkIn).getDay()
-                                                        )} - ${
-                                                            months[
-                                                                dateObjFunction(checkOut).getMonth()
-                                                            ]
-                                                        } ${dateObjFunction(
+														${monthFormatterFunction(checkIn)} ${dateObjFunction(checkIn).getDate()}${dateWithOrdinal(
+                                                            dateObjFunction(checkIn).getDate()
+                                                        )} - ${monthFormatterFunction(
                                                             checkOut
-                                                        ).getDay()}${dateWithOrdinal(
-                                                            dateObjFunction(checkOut).getDay()
-                                                        )}
+                                                        )} ${dateObjFunction(
+                                                            checkOut
+                                                        ).getDate()}${dateWithOrdinal(
+                                                            dateObjFunction(checkOut).getDate()
+                                                        )} 
 													`}
 
-                                                        {/* {
-														console.log(dateObjFunction(checkIn))
-													} */}
+                                                        {/* {console.log(checkOut)} */}
                                                     </Typography>
                                                 </TableCell>
                                             </StyledTableRow>
