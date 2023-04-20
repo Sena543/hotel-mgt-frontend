@@ -28,6 +28,10 @@ const prepareBookingHistory = (bookingHistory: any, roomData: any) => {
 	});
 	return bh;
 };
+
+
+function dateWithOrdinal(n: number){return["st","nd","rd"][((n+90)%100-10)%10-1]||"th"}
+
 function GuestDetails() {
 	const { name, guestID } = useParams();
 	const dispatch = useDispatch<AppDispatch>();
@@ -63,6 +67,7 @@ function GuestDetails() {
 
 	const dateObjFunction = (passedDate: string) => {
 		return new Date(passedDate);
+		// return new Intl.DateTimeFormat('en-gb', {month:'short'}).format(new Date(passedDate));
 	};
 
 	return (
@@ -149,11 +154,15 @@ function GuestDetails() {
 													</Typography>
 													<Typography variant="caption" display="block">
 														{`
-														${months[dateObjFunction(checkIn).getMonth()]} ${dateObjFunction(checkIn).getDay()} - ${dateObjFunction(
+														${months[dateObjFunction(checkIn).getMonth()]} ${dateObjFunction(checkIn).getDay()}${dateWithOrdinal(dateObjFunction(checkIn).getDay())} - ${months[dateObjFunction(checkOut).getMonth()]} ${dateObjFunction(
 															checkOut
-														).getDay()}
+														).getDay()}${dateWithOrdinal(dateObjFunction(checkOut).getDay())}
 													`}
-													</Typography>
+													
+													{/* {
+														console.log(dateObjFunction(checkIn))
+													} */}
+													</Typography> 
 												</TableCell>
 											</StyledTableRow>
 										)
