@@ -53,7 +53,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         roomId: "",
         mealId: "",
         beverageId: "",
-        mealprice: 0,
+        mealPrice: 0,
         beveragePrice: 0,
     });
 
@@ -89,6 +89,15 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
             guestId: selectedData?.guestID,
             guestName: `${selectedData?.firstName} ${selectedData?.lastName}`,
             roomId: selectedData?.roomAssigned,
+        }));
+    };
+
+    const mealOrBeveraheHanlder = (idKey: string, priceKey: string, selectedData: any) => {
+        // console.log("food:", { idKey, priceKey, selectedData });
+        setGuestOrder((prevState) => ({
+            ...prevState,
+            [idKey]: selectedData?.dishId,
+            [priceKey]: selectedData?.price,
         }));
     };
 
@@ -164,6 +173,12 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                         disablePortal
                         loading={restaurantMealsList && restaurantMealsList.length === 0}
                         // isOptionEqualToValue={(option, value) => option.title === value.title}
+                        onChange={(event: React.SyntheticEvent<Element, Event>, value: any) => {
+                            mealOrBeveraheHanlder("mealId", "mealPrice", value);
+                        }}
+                        onInputChange={(event, newInputValue) =>
+                            setGuestOrder({ ...guestOrder, mealId: newInputValue })
+                        }
                         getOptionLabel={(option: any) => option.dishOrBev}
                         id="combo-box-demo"
                         options={meals}
@@ -189,7 +204,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                     />
                     <CustomTextField
                         className="custom-text-field-order-modal"
-                        value={guestOrder.mealprice}
+                        value={guestOrder.mealPrice}
                         name="mealPrice"
                         onChange={(event) =>
                             dishPriceHandler(event.target.name, event.target.value)
@@ -203,6 +218,12 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                         loading={restaurantMealsList && restaurantMealsList.length === 0}
                         // isOptionEqualToValue={(option, value) => option.title === value.title}
                         getOptionLabel={(option: any) => option.dishOrBev}
+                        onChange={(event: React.SyntheticEvent<Element, Event>, value: any) => {
+                            mealOrBeveraheHanlder("beverageId", "beveragePrice", value);
+                        }}
+                        onInputChange={(event, newInputValue) =>
+                            setGuestOrder({ ...guestOrder, beverageId: newInputValue })
+                        }
                         id="combo-box-demo"
                         options={beverages}
                         sx={{ width: 300 }}
@@ -227,6 +248,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                     />
                     <CustomTextField
                         name="beveragePrice"
+                        value={guestOrder.beveragePrice}
                         onChange={(event) =>
                             dishPriceHandler(event.target.name, event.target.value)
                         }
