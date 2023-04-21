@@ -97,10 +97,13 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         setGuestOrder((prevState) => ({
             ...prevState,
             [idKey]: selectedData?.dishId,
-            [priceKey]: selectedData?.price,
+            [priceKey]: Number(selectedData?.price),
         }));
     };
 
+    const submitGuestOrder = () => {
+        console.log(guestOrder);
+    };
     const dishPriceHandler = (name: string, value: any) => {
         setGuestOrder((prevState) => ({ ...prevState, [name]: Number(value) }));
     };
@@ -259,7 +262,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                 <div className="button-div">
                     <Button
                         // style={{ width: "80% !important" }}
-                        // onClick={() => console.log(staffDetails)}
+                        onClick={submitGuestOrder}
                         variant="contained"
                         className="create-order-button"
                     >
