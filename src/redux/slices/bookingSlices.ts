@@ -166,10 +166,11 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             fetchAllGuestBookingHistory.fulfilled,
-            (state: any, action: PayloadAction<BookingHistoryType>) => {
+            (state: any, action: PayloadAction<[BookingHistoryType]>) => {
                 state = {
                     ...state,
-                    bookingHistory: [...state.bookingHistory, action.payload],
+                    bookingHistory: [...action.payload],
+                    // bookingHistory: [...state.bookingHistory, ...action.payload],
                     status: "success",
                 };
                 return state;
