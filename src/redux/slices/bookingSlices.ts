@@ -20,6 +20,22 @@ const initialState = {
     errorMessage: "",
 };
 
+export const fetchAllGuestBookingHistory = createAsyncThunk(
+    "fetch/all-booking-history",
+    async (_, thunkAPI) => {
+        try {
+            const returnedGuestsData = await getDocs(collection(firestoredb, "booking"));
+            const bookingHistoryData: any = getRawData(returnedGuestsData);
+
+            return bookingHistoryData;
+        } catch (error: any) {
+            console.log(error.message);
+
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
 export const fetchGuestBookingHistory = createAsyncThunk(
     "fetch/booking-history",
     // async function fetchGuestBookingHistory(guestID, thunkAPI) {
@@ -104,12 +120,13 @@ export const bookingSlice = createSlice({
             (state: any, action: PayloadAction<BookingHistoryType>) => {
                 state = {
                     ...state,
-                    staffData: [...state.staffData, action.payload],
+                    bookingHistory: [...state.bookingHistory, action.payload],
                     status: "success",
                 };
                 return state;
             }
         );
+
         builder.addCase(createNewBookingHistory.rejected, (state, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             // state = { ...state, status: action.payload };
@@ -124,7 +141,7 @@ export const bookingSlice = createSlice({
             (state: any, action: PayloadAction<BookingHistoryType>) => {
                 state = {
                     ...state,
-                    staffData: [...state.staffData, action.payload],
+                    bookingHistory: [...state.bookingHistory, action.payload],
                     status: "success",
                 };
                 return state;
@@ -135,6 +152,29 @@ export const bookingSlice = createSlice({
             // state = { ...state, status: action.payload };
             return state;
         });
+
+        builder.addCase(
+            fetchAllGuestBookingHistory.rejected,
+            (state, action: PayloadAction<any>) => {
+                state = { ...state, status: "failed", errorMessage: action.payload };
+                return state;
+            }
+        );
+        builder.addCase(fetchAllGuestBookingHistory.pending, (state) => {
+            state = { ...state, status: "loading" };
+            return state;
+        });
+        builder.addCase(
+            fetchAllGuestBookingHistory.fulfilled,
+            (state: any, action: PayloadAction<BookingHistoryType>) => {
+                state = {
+                    ...state,
+                    bookingHistory: [...state.bookingHistory, action.payload],
+                    status: "success",
+                };
+                return state;
+            }
+        );
     },
 });
 
