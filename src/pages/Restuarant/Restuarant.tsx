@@ -15,7 +15,6 @@ function Restuarant() {
     const [open, setOpenModal] = useState(false);
     const [openMenu, setOpenMenuModal] = useState(false);
 
-    console.log(bookingHistory);
     useEffect(() => {
         if (bookingHistory.length === 0) {
             dispatch(fetchAllGuestBookingHistory());

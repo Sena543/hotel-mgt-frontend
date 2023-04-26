@@ -75,8 +75,10 @@ export const createNewGuestMealOrder = createAsyncThunk(
     "create/new-guest-order",
     async function createGuestMealOrder(orderData: any, thunkAPI) {
         try {
-            await updateDoc(doc(firestoredb, "booking", orderData.rawDocID), {
-                mealOrderID: arrayUnion(orderData),
+            const { data, rawDocID } = orderData;
+            console.log("raw", rawDocID);
+            await updateDoc(doc(firestoredb, "booking", rawDocID), {
+                mealOrderID: arrayUnion(data),
             });
             // await addDoc(collection(firestoredb, "booking"), orderData);
             return orderData;

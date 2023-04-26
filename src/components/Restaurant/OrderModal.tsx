@@ -17,6 +17,7 @@ import { AppDispatch } from "../../redux/types";
 import { useEffect, useState } from "react";
 import { fetchRestaurantMenu } from "../../redux/slices/restaurantSlice";
 import { fetchAllRooms } from "../../redux/slices/roomSlicers";
+import { createNewGuestMealOrder } from "../../redux/slices/bookingSlices";
 
 type OrderModalProps = {
     open: boolean;
@@ -62,7 +63,9 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
     const { roomList: roomData } = useSelector((state: any) => state.rooms);
 
     const { restaurantMealsList } = useSelector((state: any) => state.restaurant);
+    const { bookingHistory } = useSelector((state: any) => state.booking);
 
+    // console.log(bookingHistory);
     useEffect(() => {
         if (guestsData.length === 0) {
             dispatch(fetchGuests());
@@ -97,15 +100,19 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         setGuestOrder((prevState) => ({
             ...prevState,
             [idKey]: selectedData?.dishId,
-            [priceKey]: Number(selectedData?.price),
+            [priceKey]: isNaN(Number(selectedData?.price)) ? 0 : Number(selectedData?.price),
         }));
     };
 
     const submitGuestOrder = () => {
-        console.log(guestOrder);
+        const getRawDocID = bookingHistory.filter(
+            ({ guestID }: { guestID: string }) => guestID === guestOrder.guestId
+        )[0];
+        // console.log(getRawDocID.rawDocID);
+        dispatch(createNewGuestMealOrder({ data: guestOrder, rawDocID: getRawDocID.rawDocID }));
     };
     const dishPriceHandler = (name: string, value: any) => {
-        setGuestOrder((prevState) => ({ ...prevState, [name]: Number(value) }));
+        setGuestOrder((prevState) => ({ ...prevState, [name]: isNaN(value) ? 0 : Number(value) }));
     };
     return (
         <GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
@@ -175,6 +182,9 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                     <Autocomplete
                         disablePortal
                         loading={restaurantMealsList && restaurantMealsList.length === 0}
+                        isOptionEqualToValue={(option, value) =>
+                            option.dishOrBev === value.dishOrBev
+                        }
                         // isOptionEqualToValue={(option, value) => option.title === value.title}
                         onChange={(event: React.SyntheticEvent<Element, Event>, value: any) => {
                             mealOrBeveraheHanlder("mealId", "mealPrice", value);
@@ -219,7 +229,9 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                     <Autocomplete
                         disablePortal
                         loading={restaurantMealsList && restaurantMealsList.length === 0}
-                        // isOptionEqualToValue={(option, value) => option.title === value.title}
+                        isOptionEqualToValue={(option, value) =>
+                            option.dishOrBev === value.dishOrBev
+                        }
                         getOptionLabel={(option: any) => option.dishOrBev}
                         onChange={(event: React.SyntheticEvent<Element, Event>, value: any) => {
                             mealOrBeveraheHanlder("beverageId", "beveragePrice", value);
