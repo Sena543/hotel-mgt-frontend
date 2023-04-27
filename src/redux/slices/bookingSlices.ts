@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import {
     getDocs,
     collection,
@@ -38,7 +38,6 @@ export const fetchAllGuestBookingHistory = createAsyncThunk(
 
 export const fetchGuestBookingHistory = createAsyncThunk(
     "fetch/booking-history",
-    // async function fetchGuestBookingHistory(guestID, thunkAPI) {
     async (guestID: number, thunkAPI) => {
         try {
             const historyQuery = query(
@@ -76,7 +75,6 @@ export const createNewGuestMealOrder = createAsyncThunk(
     async function createGuestMealOrder(orderData: any, thunkAPI) {
         try {
             const { data, rawDocID } = orderData;
-            console.log("raw", rawDocID);
             await updateDoc(doc(firestoredb, "booking", rawDocID), {
                 mealOrderID: arrayUnion(data),
             });
@@ -140,13 +138,33 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             createNewGuestMealOrder.fulfilled,
-            (state: any, action: PayloadAction<BookingHistoryType>) => {
-                state = {
-                    ...state,
-                    bookingHistory: [...state.bookingHistory, action.payload],
-                    status: "success",
-                };
-                return state;
+            (state: any, action: PayloadAction<any>) => {
+                const { rawDocID, data } = action.payload;
+
+                let currentState = JSON.parse(JSON.stringify(current(state))); //makes the state mutable
+
+                console.log(data, "data");
+                console.log(Object.getOwnPropertyDescriptors(currentState));
+                let findBookingOrder = currentState.bookingHistory.filter(
+                    (hist: any) => hist.rawDocID === rawDocID
+                )[0];
+                const indexOfBooking = currentState.bookingHistory.findIndex(
+                    (element: any) => element.rawDocID === rawDocID
+                );
+
+                if (findBookingOrder?.mealOrderID.length === 0) {
+                    findBookingOrder.mealOrderID = [data];
+                } else {
+                    // findBookingOrder.mealOrderID.push(data);
+                    const newDataUpdate = [...findBookingOrder.mealOrderID, data];
+                    findBookingOrder.mealOrderID = newDataUpdate;
+                }
+                // console.log(findBookingOrder);
+                console.log(currentState.bookingHistory, "bh");
+                currentState.bookingHistory[indexOfBooking].mealOrderID =
+                    findBookingOrder.mealOrderID;
+
+                return currentState;
             }
         );
         builder.addCase(createNewGuestMealOrder.rejected, (state, action: any) => {
