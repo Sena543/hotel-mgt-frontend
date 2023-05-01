@@ -7,19 +7,31 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/types";
 import { fetchAllGuestBookingHistory } from "../../redux/slices/bookingSlices";
+import RestaurantTable from "../../components/Restaurant/RestaurantTable";
 
+type TableData<T> = {
+    [K in keyof T]: T[K];
+};
 function Restuarant() {
     const dispatch = useDispatch<AppDispatch>();
     const { bookingHistory } = useSelector((state: any) => state.booking);
     // const bookingHistoryData = useSelector((state: any) => console.log(state));
     const [open, setOpenModal] = useState(false);
+    const [mealOrderHistory, setMealOrderHistory] = useState();
     const [openMenu, setOpenMenuModal] = useState(false);
 
     useEffect(() => {
         if (bookingHistory.length === 0) {
             dispatch(fetchAllGuestBookingHistory());
         }
-    }, []);
+
+        let mealOrders: any = [];
+        bookingHistory.forEach((booking: any) => {
+            // booking['totalPrice'] =
+            booking.mealOrderID.forEach((meal: any) => mealOrders.push(meal));
+        });
+        setMealOrderHistory(mealOrders);
+    }, [bookingHistory, dispatch]);
     const restaurantList = [
         { guestid: 1, guestname: "Bruce Wayne", dishordered: "Rice", price: 100 },
         { guestid: 2, guestname: "Lionel Messi", dishordered: "Rice", price: 100 },
@@ -27,7 +39,7 @@ function Restuarant() {
         { guestid: 4, guestname: "Robert Lewandowski", dishordered: "Rice", price: 100 },
     ];
 
-    const header = ["Guest ID", "Guest Name", "Dish Ordered", "Price"];
+    const header = ["Guest ID", "Guest Name", "Dish Ordered", "Total Price"];
     return (
         <div className="restaurant-container">
             <div className="restaurant-header">
@@ -43,8 +55,10 @@ function Restuarant() {
                 </div>
             </div>
             <div className="guest-restuarant-orders">
-                <GenericTable header={header} tableData={restaurantList} />
+                {/* <GenericTable header={header} tableData={restaurantList} /> */}
+                <RestaurantTable tableData={mealOrderHistory} />
             </div>
+
             <OrderModal open={open} setOpenModal={setOpenModal} />
         </div>
     );
