@@ -56,7 +56,6 @@ export const staffSlice = createSlice({
         });
         builder.addCase(fetchAllStaff.fulfilled, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "sucess", staffData: action.payload };
-            toast.success("Success");
             return state;
         });
 
@@ -77,7 +76,8 @@ export const staffSlice = createSlice({
                     staffData: [...state.staffData, action.payload],
                     status: "success",
                 };
-                toast.success("Success");
+                toast.success("Success: New Staff Member Data saved");
+
                 return state;
             }
         );

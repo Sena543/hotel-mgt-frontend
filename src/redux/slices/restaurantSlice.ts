@@ -69,8 +69,6 @@ export const restaurantSlice = createSlice({
         });
         builder.addCase(fetchRestaurantMenu.fulfilled, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "sucess", restaurantMealsList: action.payload };
-
-            toast.success("Success");
             return state;
         });
 
@@ -91,7 +89,7 @@ export const restaurantSlice = createSlice({
                     restaurantMealsList: [...state.restaurantMealsList, action.payload],
                     status: "success",
                 };
-                toast.success("Success");
+                toast.success("Success: Menu item created");
                 return state;
             }
         );
@@ -118,7 +116,7 @@ export const restaurantSlice = createSlice({
                 restaurantMealsList: restaurantMenu,
                 status: "success",
             };
-            toast.success("Success");
+            toast.success("Success: Menu item deleted");
             return state;
         });
         builder.addCase(deleteMenuItem.rejected, (state, action: any) => {

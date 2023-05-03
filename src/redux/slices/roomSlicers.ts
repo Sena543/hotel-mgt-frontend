@@ -60,7 +60,6 @@ export const roomSlice = createSlice({
                 });
             }
             state = { ...state, roomList: roomsData, status: "success" };
-            toast.success("Success");
             return state;
         });
 

@@ -105,7 +105,7 @@ export const bookingSlice = createSlice({
         builder.addCase(fetchGuestBookingHistory.fulfilled, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "sucess", bookingHistory: action.payload };
 
-            toast.success("Success");
+            // toast.success("Success");
             return state;
         });
 
@@ -125,7 +125,7 @@ export const bookingSlice = createSlice({
                     bookingHistory: [...state.bookingHistory, action.payload],
                     status: "success",
                 };
-                toast.success("Success");
+                // toast.success("Success");
                 return state;
             }
         );
@@ -168,7 +168,7 @@ export const bookingSlice = createSlice({
                 currentState.bookingHistory[indexOfBooking].mealOrderID =
                     findBookingOrder.mealOrderID;
 
-                toast.success("Success");
+                toast.success("Success: Meal order saved");
                 return currentState;
             }
         );
@@ -200,7 +200,6 @@ export const bookingSlice = createSlice({
                     // bookingHistory: [...state.bookingHistory, ...action.payload],
                     status: "success",
                 };
-                toast.success("Success");
                 return state;
             }
         );

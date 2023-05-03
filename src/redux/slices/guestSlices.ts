@@ -77,7 +77,6 @@ export const guestSlice = createSlice({
         });
         builder.addCase(fetchGuests.fulfilled, (state, action) => {
             state = { ...state, guestsData: action.payload, status: "success" };
-            toast.success("Success");
             return state;
         });
         builder.addCase(fetchGuests.rejected, (state, action) => {
@@ -97,7 +96,7 @@ export const guestSlice = createSlice({
                 status: "success",
             };
             // state = { ...state, guestsData: action.payload, status: "success" };
-            toast.success("Success");
+            toast.success("Success: Guest created");
             return state;
         });
         builder.addCase(addNewGuest.rejected, (state, action: any) => {
