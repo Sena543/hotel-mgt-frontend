@@ -2,6 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getDocs, collection, QuerySnapshot, DocumentData } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
+import dayjs from "dayjs";
 
 const initialState = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
@@ -45,7 +46,7 @@ export const roomSlice = createSlice({
 
             roomsData.forEach((room: any) => {
                 guestsData.forEach((guest: any) => {
-                    if (room.roomName === guest.roomAssigned) {
+                    if (room.roomName === guest.roomAssigned && dayjs().isBefore(guest.checkOut)) {
                         room["status"] = "Booked";
                     } else {
                         room["status"] = "Available";
