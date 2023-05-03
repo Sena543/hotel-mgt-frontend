@@ -3,6 +3,7 @@ import { getDocs, collection, QuerySnapshot, DocumentData } from "firebase/fires
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
 import dayjs from "dayjs";
+import { toast } from "react-toastify";
 
 const initialState = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
@@ -59,11 +60,13 @@ export const roomSlice = createSlice({
                 });
             }
             state = { ...state, roomList: roomsData, status: "success" };
+            toast.success("Success");
             return state;
         });
 
         builder.addCase(fetchAllRooms.rejected, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
+            toast.warn(`Error ${state.errorMessage}`);
             return state;
         });
     },

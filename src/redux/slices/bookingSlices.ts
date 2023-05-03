@@ -13,6 +13,7 @@ import {
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
 import { BookingHistoryType } from "../../constants/genericTypes";
+import { toast } from "react-toastify";
 
 const initialState = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
@@ -104,6 +105,7 @@ export const bookingSlice = createSlice({
         builder.addCase(fetchGuestBookingHistory.fulfilled, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "sucess", bookingHistory: action.payload };
 
+            toast.success("Success");
             return state;
         });
 
@@ -123,6 +125,7 @@ export const bookingSlice = createSlice({
                     bookingHistory: [...state.bookingHistory, action.payload],
                     status: "success",
                 };
+                toast.success("Success");
                 return state;
             }
         );
@@ -130,6 +133,7 @@ export const bookingSlice = createSlice({
         builder.addCase(createNewBookingHistory.rejected, (state, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             // state = { ...state, status: action.payload };
+            toast.warn(`Error ${state.errorMessage}`);
             return state;
         });
         builder.addCase(createNewGuestMealOrder.pending, (state) => {
@@ -164,12 +168,14 @@ export const bookingSlice = createSlice({
                 currentState.bookingHistory[indexOfBooking].mealOrderID =
                     findBookingOrder.mealOrderID;
 
+                toast.success("Success");
                 return currentState;
             }
         );
         builder.addCase(createNewGuestMealOrder.rejected, (state, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             // state = { ...state, status: action.payload };
+            toast.warn(`Error ${state.errorMessage}`);
             return state;
         });
 
@@ -177,6 +183,7 @@ export const bookingSlice = createSlice({
             fetchAllGuestBookingHistory.rejected,
             (state, action: PayloadAction<any>) => {
                 state = { ...state, status: "failed", errorMessage: action.payload };
+                toast.warn(`Error ${state.errorMessage}`);
                 return state;
             }
         );
@@ -193,6 +200,7 @@ export const bookingSlice = createSlice({
                     // bookingHistory: [...state.bookingHistory, ...action.payload],
                     status: "success",
                 };
+                toast.success("Success");
                 return state;
             }
         );
