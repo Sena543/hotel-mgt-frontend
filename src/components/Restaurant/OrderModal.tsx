@@ -62,7 +62,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
     const { guestsData } = useSelector((state: any) => state.guests);
     const { roomList: roomData } = useSelector((state: any) => state.rooms);
 
-    const { restaurantMealsList } = useSelector((state: any) => state.restaurant);
+    const { restaurantMealsList, status } = useSelector((state: any) => state.restaurant);
     const { bookingHistory } = useSelector((state: any) => state.booking);
 
     // console.log(bookingHistory);
@@ -272,14 +272,18 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                     />
                 </div>
                 <div className="button-div">
-                    <Button
-                        // style={{ width: "80% !important" }}
-                        onClick={submitGuestOrder}
-                        variant="contained"
-                        className="create-order-button"
-                    >
-                        Create
-                    </Button>
+                    {status === "loading" ? (
+                        <CircularProgress />
+                    ) : (
+                        <Button
+                            // style={{ width: "80% !important" }}
+                            onClick={submitGuestOrder}
+                            variant="contained"
+                            className="create-order-button"
+                        >
+                            Create
+                        </Button>
+                    )}
                 </div>
             </div>
         </GenericModal>
