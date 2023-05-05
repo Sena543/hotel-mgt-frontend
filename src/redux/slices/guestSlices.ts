@@ -5,12 +5,13 @@ import { addDoc, collection, getDocs } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { toast } from "react-toastify";
 
-type StateType = {
+export type GuestStateType = {
     status: string;
     guestsData: [] | GuestsType[];
     errorMessage: string;
 };
-const initialState: StateType = {
+
+const initialState: GuestStateType = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     guestsData: [],
     errorMessage: "",
