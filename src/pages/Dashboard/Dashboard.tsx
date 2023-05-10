@@ -24,6 +24,7 @@ import isToday from "dayjs/plugin/isToday";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { GuestsType } from "../../constants/genericTypes";
+import { groupAndCount } from "../../utils/util-functions";
 
 dayjs.extend(isToday);
 dayjs.extend(isSameOrAfter);
@@ -121,22 +122,32 @@ function Dashboard() {
     const prepareData = (guestDataParam: GuestsType[]) => {
         let prepedData: PreparedData[] = [];
         guestDataParam &&
-            guestDataParam.map(({ checkOut }: GuestsType) => {
+            guestDataParam.map(({ checkIn, checkOut }: GuestsType) => {
                 let pieDateObj = { id: "", label: "", value: 0, color: "hsl(270, 70%, 50%)" };
-                if (dayjs().isSameOrBefore(checkOut)) {
+                if (dayjs(checkIn).isToday()) {
+                    // if (dayjs().isSameOrBefore(checkOut)) {
                     pieDateObj["id"] = "Checked In";
                     pieDateObj["label"] = "Checked In";
-                    pieDateObj["value"] = 1;
-                } else {
+                    pieDateObj["value"] = pieDateObj.value + 1;
+                }
+                if (dayjs(checkOut).isToday()) {
                     pieDateObj["id"] = "Checked Out";
                     pieDateObj["label"] = "Checked Out";
-                    pieDateObj["value"] = 1;
+                    pieDateObj["value"] = pieDateObj.value + 1;
                 }
+
+                // else {
+                //     pieDateObj["id"] = "Checked Out";
+                //     pieDateObj["label"] = "Checked Out";
+                //     pieDateObj["value"] = 1;
+                // }
                 prepedData.push(pieDateObj);
             });
 
         return prepedData;
     };
+
+    // console.log(groupAndCount(guestsData));
 
     return (
         <>

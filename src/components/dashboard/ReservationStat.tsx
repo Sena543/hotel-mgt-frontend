@@ -12,13 +12,13 @@ import { lineGraphData } from "../../services/lineGraphData";
 import { Typography, useTheme } from "@mui/material";
 import "./styles/reservation-stat.css";
 import { GuestsType } from "../../constants/genericTypes";
+import { groupAndCount } from "../../utils/util-functions";
 
 const PURPLE_LINE_GRAPH_COLOR = "#80529d";
 const YELLOW_LINE_GRAPH_COLOR = "#f6ae44";
 function ReservationStat({ guestData }: { guestData: GuestsType[] }) {
     const theme = useTheme();
 
-    console.log(guestData);
     return (
         <GenericDashCards>
             <div className="reservation-stat-container">
@@ -70,7 +70,7 @@ function ReservationStat({ guestData }: { guestData: GuestsType[] }) {
                     <AreaChart
                         width={930}
                         height={400}
-                        data={lineGraphData}
+                        data={groupAndCount(guestData)}
                         margin={{
                             top: 10,
                             right: 30,
