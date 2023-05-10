@@ -17,7 +17,7 @@
       lg: 1200,
       xl: 1536 */
 
-/* Small devices (portrait tablets and large phones, 900px and down) */
+/* Small devices (portrait tablets and large phones, 900px and up) */
 @media only screen and (min-width: 701px) {
 	.sidebar {
 		display: block;
