@@ -9,15 +9,24 @@ import {
 	TableCell,
 	Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./staff.css";
 import { StyledTableCell, StyledTableRow } from "../../components/Table/TableComp";
-import { employeeData } from "../../services/employee-data";
+// import { employeeData } from "../../services/employee-data";
 import CreateStaffModal from "../../components/staff/CreateStaffModal";
+import { fetchAllStaff } from "../../redux/slices/staffSlices";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/types";
 
 function Staff() {
+	const dispatch = useDispatch<AppDispatch>();
+	const { staffData } = useSelector((state: any) => state.staff);
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");
 	const [openModal, setOpenModal] = useState(false);
+
+	useEffect(() => {
+		dispatch(fetchAllStaff());
+	}, []);
 
 	const headers = [
 		{ name: "All Employees", value: "all" },
@@ -31,17 +40,17 @@ function Staff() {
 		//return which employees are active on the current day
 		//useful if shift system is ran
 		if (selectedHeader === "active") {
-			return employeeData.filter(
-				({ schedule }: { schedule: string }) => schedule.split(", ").includes(currentWeekDay) === true
+			return staffData.filter(
+				({ workingDays }: { workingDays: string }) => workingDays.includes(currentWeekDay) === true
 			);
 		}
 		if (selectedHeader === "inactive") {
-			return employeeData.filter(
-				({ schedule }: { schedule: string }) => schedule.split(", ").includes(currentWeekDay) === false
+			return staffData.filter(
+				({ workingDays }: { workingDays: string }) => workingDays.includes(currentWeekDay) === false
 			);
 		}
 
-		return employeeData;
+		return staffData;
 	};
 
 	return (
@@ -82,34 +91,37 @@ function Staff() {
 						{filterEmployees() &&
 							filterEmployees().map(
 								({
-									name,
+									lastName,
+									firstName,
 									jobTitle,
 									description,
-									schedule,
+									workingDays,
 									time,
 									// status,
 									contact,
 								}: {
-									name: string;
+									lastName: string;
+									firstName: string;
 									jobTitle: string;
 									description: string;
-									schedule: string;
+									workingDays: string[];
 									time: string;
-									// status: string;
 									contact: string;
 								}) => {
-									const status = schedule
-										.split(", ")
-										.includes(new Date().toLocaleDateString("en-us", { weekday: "long" }));
+									const status =
+										workingDays &&
+										workingDays.includes(
+											new Date().toLocaleDateString("en-us", { weekday: "long" })
+										);
 									return (
-										<StyledTableRow hover key={`${name}-${jobTitle}-${contact}`}>
-											<TableCell>{name}</TableCell>
+										<StyledTableRow hover key={`${lastName} ${firstName}-${jobTitle}-${contact}`}>
+											<TableCell>{`${lastName} ${firstName}`}</TableCell>
 											<TableCell>
 												<Typography>{jobTitle}</Typography>
 												<Typography variant="caption">{description}</Typography>
 											</TableCell>
 											<TableCell>
-												<Typography>{schedule}</Typography>
+												<Typography>{workingDays && workingDays.join(", ")}</Typography>
 												<Typography variant="caption">{time}</Typography>
 											</TableCell>
 											<TableCell>{contact}</TableCell>
@@ -118,11 +130,10 @@ function Staff() {
 													className={`generic-status ${status ? "active" : "inactive"}`}
 												>
 													{/* <Typography className={status.toLocaleLowerCase()}> */}
-													{schedule
-														.split(", ")
-														.includes(
-															new Date().toLocaleDateString("en-us", { weekday: "long" })
-														)
+													{workingDays &&
+													workingDays.includes(
+														new Date().toLocaleDateString("en-us", { weekday: "long" })
+													)
 														? "Active"
 														: "Inactive"}
 												</Typography>

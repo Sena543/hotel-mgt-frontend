@@ -1,12 +1,19 @@
 import { Paper, TableContainer, TableCell, TableHead, TableRow, Table, TableBody, Typography } from "@mui/material";
-import { tableCellClasses } from "@mui/material/TableCell";
 
-import { styled } from "@mui/material/styles";
 import "./roomList.css";
-import { roomData } from "../../services/roomList";
+// import { roomData } from "../../services/roomList";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 
-function RoomList({ selectedHeader }: { selectedHeader: string }) {
+interface RoomInterface {
+	roomName: string;
+	bedType: string;
+	facility: string;
+	status: string;
+	// status: "Booked" | "Available";
+	// period: string;
+}
+
+function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomData: RoomInterface[] }) {
 	const tableHeadList = ["Room Name", "Bed Type", "Facility", "Status"];
 
 	const filterEmployees = () => {
@@ -17,9 +24,6 @@ function RoomList({ selectedHeader }: { selectedHeader: string }) {
 		if (selectedHeader === "available") {
 			return roomData.filter(({ status }: { status: string }) => status === "Available");
 		}
-		// if (selectedHeader === "inactive") {
-		// 	return roomData.filter(({ status }: { status: string }) => status === "Pending");
-		// }
 
 		return roomData;
 	};
@@ -31,9 +35,9 @@ function RoomList({ selectedHeader }: { selectedHeader: string }) {
 					<TableHead>
 						<TableRow>
 							{tableHeadList.map((name) => (
-								<StyledTableCell>
+								<StyledTableCell key={name}>
 									{name.toLocaleUpperCase()}
-									{/* <Typography variant="h6">{name}</Typography> */}
+									{/* <Typography variant="h6">{name.toLocaleUpperCase()}</Typography> */}
 								</StyledTableCell>
 							))}
 						</TableRow>
@@ -45,13 +49,13 @@ function RoomList({ selectedHeader }: { selectedHeader: string }) {
 								bedType,
 								facility,
 								status,
-								period,
-							}: {
+							}: // period,
+							{
 								roomName: string;
 								bedType: string;
 								facility: string;
 								status: string;
-								period: string;
+								// period: string;
 							}) => (
 								<StyledTableRow hover key={`${roomName}-${bedType}`}>
 									<TableCell>{roomName}</TableCell>
@@ -59,7 +63,7 @@ function RoomList({ selectedHeader }: { selectedHeader: string }) {
 									<TableCell>{facility}</TableCell>
 									<TableCell>
 										<Typography
-											className={status.toLocaleLowerCase()}
+											className={`${status && status.toLocaleLowerCase()}`}
 											style={{
 												display: "grid",
 												placeItems: "center",
@@ -69,9 +73,9 @@ function RoomList({ selectedHeader }: { selectedHeader: string }) {
 										>
 											{status}
 										</Typography>
-										<Typography variant="caption" display="block">
+										{/* <Typography variant="caption" display="block">
 											{period}
-										</Typography>
+										</Typography> */}
 									</TableCell>
 								</StyledTableRow>
 							)

@@ -1,7 +1,7 @@
 .generic-status {
 	display: grid;
 	place-items: center;
-	width: 70%;
+	/* width: 70%; */
 	border-radius: 5px;
 }
 
