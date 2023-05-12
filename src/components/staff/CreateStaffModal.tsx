@@ -1,20 +1,25 @@
 import "./create-staff.css";
-import { CheckBox, CloseRounded } from "@mui/icons-material";
+import { CloseRounded } from "@mui/icons-material";
 import {
 	Typography,
 	IconButton,
 	Divider,
 	Tooltip,
-	Autocomplete,
 	Button,
 	Checkbox,
 	FormControlLabel,
 	FormGroup,
+	CircularProgress,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import React, { useState } from "react";
+import { useState } from "react";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
+import { collection, addDoc } from "firebase/firestore/lite";
+import firestoredb from "../../../firebase-config";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewStaff, resetStatus } from "../../redux/slices/staffSlices";
+import { AppDispatch } from "../../redux/types";
+import GenericAlert from "../Alert/Alert";
 
 type CreateModalProps = {
 	open: boolean;
@@ -26,16 +31,23 @@ interface StaffDetails {
 	firstName: string;
 	email: string;
 	contact: string;
+	jobDescription: string;
+	jobTitle: string;
 	workingDays: string[];
 }
 
 function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
+	const dispatch = useDispatch<AppDispatch>();
+	const { status } = useSelector((state: any) => state.staff);
+	const [alertOpen, setAlertOpen] = useState<boolean>(false);
 	const [staffDetails, setStaffDetails] = useState<StaffDetails>({
 		lastName: "",
 		firstName: "",
 		email: "",
 		contact: "",
 		workingDays: [],
+		jobDescription: "",
+		jobTitle: "",
 	});
 
 	const handleChange = (name: string, value: unknown) => {
@@ -55,6 +67,17 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 		}
 
 		handleChange("workingDays", workingDays);
+	};
+
+	const submitCreateEmployeeData = async () => {
+		// const employeesCollectionRef = collection(firestoredb, "employees");
+		const empData = {
+			...staffDetails,
+			employeeID: `E-${new Date().getTime().toString().substring(-5)}`,
+		};
+		dispatch(createNewStaff(empData));
+		status === "success" ? setAlertOpen(true) : null;
+		dispatch(resetStatus());
 	};
 
 	const weekDays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -93,9 +116,9 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 				</Tooltip>
 			</div>
 			<Divider />
-			<div className="create-guest-form create-staff-form">
+			<div className=" create-staff-form">
 				<div style={{}}>
-					<div className="name-div">
+					<div className="emp-name-div">
 						<CustomTextField
 							autoFocus
 							name="lastName"
@@ -121,7 +144,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 						/>
 					</div>
 
-					<div className="contact-div">
+					<div className="staff-contact-div emp-name-div">
 						<CustomTextField
 							name="email"
 							variant="outlined"
@@ -148,6 +171,35 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 						/>
 					</div>
 
+					<div className="job-details-div ">
+						<CustomTextField
+							name="jobTitle"
+							variant="outlined"
+							className="custom-text-field contacts-field email"
+							value={staffDetails.jobTitle}
+							fullWidth
+							// error={!guestDetails.email}
+							// helperText="email is required"
+							label="Position"
+							margin="normal"
+							onChange={(e: any) => handleChange(e.target.name, e.target.value)}
+						/>
+						<CustomTextField
+							name="jobDescription"
+							variant="outlined"
+							fullWidth
+							rows={3}
+							multiline
+							value={staffDetails.jobDescription}
+							className="custom-text-field contacts-field jobDescription"
+							label="Job Description"
+							margin="normal"
+							// error={!guestDetails.contact}
+							// helperText="Contact is required"
+							onChange={(e: any) => handleChange(e.target.name, e.target.value)}
+						/>
+					</div>
+
 					<div className="select-working-days">
 						{/* <div className="working-days"> */}
 						<FormGroup row className="working-days">
@@ -157,15 +209,16 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
 					</div>
 				</div>
 				<div className="button-div">
-					<Button
-						onClick={() => console.log(staffDetails)}
-						variant="contained"
-						className="create-guest-button"
-					>
-						Create
-					</Button>
+					{status === "loading" ? (
+						<CircularProgress />
+					) : (
+						<Button onClick={submitCreateEmployeeData} variant="contained" className="create-guest-button">
+							Create
+						</Button>
+					)}
 				</div>
 			</div>
+			<GenericAlert open={alertOpen} severity="success" setOpen={setAlertOpen} message="Operation successfull" />
 		</GenericModal>
 	);
 }

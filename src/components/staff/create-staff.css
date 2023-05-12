@@ -16,8 +16,13 @@
 @media only screen and (max-width: 700px) {
 	.create-staff-modal-container {
 		width: 80%;
-		height: 70%;
-		transform: translate(15%, 15%);
+		min-height: 70%;
+		transform: translate(15%, 5%);
+	}
+	.emp-name-div,
+	.staff-contact-div {
+		display: flex;
+		flex-direction: column;
 	}
 }
 
@@ -25,21 +30,42 @@
 	/* and (max-width: 1200px) { */
 	.create-staff-modal-container {
 		width: 50%;
-		height: 70%;
+		min-height: 70%;
 		transform: translate(55%, 20%);
 		background: white;
 		border-radius: 10px;
 		border: 2px solid rgb(108, 105, 105);
 		gap: 1rem;
 	}
+
+	.emp-name-div,
+	.staff-contact-div {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+
+	.emp-name-div > .custom-text-field {
+		width: 65%;
+	}
+
+	.emp-name-div > .custom-text-field:first-child {
+		padding-right: 1rem;
+	}
+	.staff-contact-div > .custom-text-field:first-child {
+		padding-right: 1rem;
+	}
 }
+
 .select-working-days {
 	/* outline: 2px solid hotpink; */
-	margin: 2rem auto;
 	/* width: 100%; */
+	margin: 2rem auto;
+	padding-top: 1em;
 }
 
 .create-staff-form {
 	display: grid;
 	place-items: center;
+	padding: 0.5rem 1rem;
 }

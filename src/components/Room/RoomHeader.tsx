@@ -14,7 +14,7 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 		{ name: "Available Rooms", value: "available" },
 		{ name: "Booked Rooms", value: "booked" },
 	];
-	console.log(selectedHeader);
+	// console.log(selectedHeader);
 	return (
 		<div className="room-header-container">
 			{/* <div className="room"> */}
