@@ -8,3 +8,11 @@
 .guest-name {
 	text-decoration: none;
 }
+
+.checkedOut {
+	background-color: rgba(190, 223, 213, 255);
+}
+
+.checkedIn {
+	background-color: rgba(245, 241, 214, 255);
+}
