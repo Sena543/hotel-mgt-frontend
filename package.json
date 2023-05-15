@@ -1,45 +1,45 @@
 {
-	"name": "hotel-mgt-frontend",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"homepage": "https://sena543.github.io/hotel-mgt-frontend/",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d dist"
-	},
-	"dependencies": {
-		"@emotion/react": "^11.10.6",
-		"@emotion/styled": "^11.10.6",
-		"@mui/icons-material": "^5.11.16",
-		"@mui/material": "^5.11.6",
-
-		"@mui/x-date-pickers": "^6.1.0",
-
-		"dayjs": "^1.11.7",
-		"firebase": "^9.18.0",
-		"localforage": "^1.10.0",
-		"match-sorter": "^6.3.1",
-		"react": "^18.2.0",
-		"react-calendar": "^4.0.0",
-		"react-dom": "^18.2.0",
-		"react-elastic-carousel": "^0.11.5",
-		"react-router-dom": "^6.10.0",
-		"recharts": "^2.5.0",
-		"sort-by": "^1.2.0",
-		"styled-components": "^5.3.10"
-
-	},
-	"devDependencies": {
-		"@types/react": "^18.2.6",
-		"@types/react-calendar": "^3.9.0",
-		"@types/react-dom": "^18.0.9",
-		"@vitejs/plugin-react": "^3.0.0",
-		"gh-pages": "^5.0.0",
-		"typescript": "^5.0.4",
-		"vite": "^4.3.5"
-	}
+    "name": "hotel-mgt-frontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "homepage": "https://sena543.github.io/hotel-mgt-frontend/",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.11.6",
+        "@mui/x-date-pickers": "^6.1.0",
+        "dayjs": "^1.11.7",
+        "firebase": "^9.18.0",
+        "localforage": "^1.10.0",
+        "match-sorter": "^6.3.1",
+        "react": "^18.2.0",
+        "react-calendar": "^4.0.0",
+        "react-dom": "^18.2.0",
+        "react-elastic-carousel": "^0.11.5",
+        "react-router-dom": "^6.10.0",
+        "recharts": "^2.5.0",
+        "sort-by": "^1.2.0",
+        "styled-components": "^5.3.10",
+        "react-redux": "^8.0.5",
+        "react-toastify": "^9.1.2",
+        "@reduxjs/toolkit": "^1.9.3"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.6",
+        "@types/react-calendar": "^3.9.0",
+        "@types/react-dom": "^18.0.9",
+        "@vitejs/plugin-react": "^3.0.0",
+        "gh-pages": "^5.0.0",
+        "typescript": "^5.0.4",
+        "vite": "^4.3.5"
+    }
 }
