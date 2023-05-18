@@ -85,11 +85,16 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
                     Current Booking
                 </Typography>
             </div>
-            {/* <Carousel itemsToShow={2.3}>
-				{imgs.map(({ url }, index) => (
-					<CarouselImage key={url} imgUrl={url} index={index} />
-				))}
-			</Carousel> */}
+            <Carousel
+                className="carousel-container"
+                itemsToShow={2.3}
+                itemsToScroll={2}
+                isRTL={false}
+            >
+                {imgs.map(({ url }, index) => (
+                    <CarouselImage key={url} imgUrl={url} index={index} />
+                ))}
+            </Carousel>
             <div>
                 <div className="facilities-div">
                     <Typography>Room Facilities</Typography>
