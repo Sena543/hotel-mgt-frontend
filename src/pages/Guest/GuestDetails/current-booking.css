@@ -1,48 +1,48 @@
 .current-booking-container {
-	/* width: 100%; */
-	/* height: 100%; */
-	padding: 0;
+    /* width: 100%; */
+    /* height: 100%; */
+    padding: 0;
 }
 
-.current-booking-container > div img {
-	/* width: 65%; */
+/* .current-booking-container > div img {
+	width: 65%;
 	height: 90%;
 	margin: 4px;
-	/* background-color: rebeccapurple; */
+	background-color: rebeccapurple;
 	border-radius: 10px;
-}
+} */
 
 .facilities-div {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: auto 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto 15px;
 }
 
 .booking-history-div {
-	display: flex;
-	justify-content: flex-start;
-	width: 100%;
-	margin: 20px;
-	margin: 5px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 20px;
+    margin: 5px;
 }
 
 .room-details-div {
-	margin: 10px;
+    margin: 10px;
 }
 
 .room-details {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-	margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .room-image-container {
-	margin: 2px;
-	display: flex;
-	flex-direction: row;
-	/* height: 50%; */
-	/* background-color: brown; */
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    /* height: 50%; */
+    /* background-color: brown; */
 }
