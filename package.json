@@ -9,39 +9,42 @@
         "build": "vite build",
         "preview": "vite preview",
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d dist"
+        "deploy": "gh-pages -d dist",
+        "test": "vitest"
     },
     "dependencies": {
-		"@emotion/react": "^11.10.6",
-		"@emotion/styled": "^11.10.6",
-		"@mui/icons-material": "^5.11.0",
-		"@mui/material": "^5.11.6",
- 
-    "@mui/x-date-pickers": "^6.0.0",
-		"@reduxjs/toolkit": "^1.9.3",
-
-		"dayjs": "^1.11.7",
-		"firebase": "^9.18.0",
-		"localforage": "^1.10.0",
-		"match-sorter": "^6.3.1",
-		"react": "^18.2.0",
-		"react-calendar": "^4.0.0",
-		"react-dom": "^18.2.0",
-		"react-elastic-carousel": "^0.11.5",
- 
-    "react-redux": "^8.0.5",
-		"react-router-dom": "^6.8.0",
-		"react-toastify": "^9.1.2",
-		"recharts": "^2.3.2",
-    "styled-components": "^5.3.9"
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@mui/icons-material": "^5.11.0",
+        "@mui/material": "^5.11.6",
+        "@mui/x-date-pickers": "^6.0.0",
+        "@reduxjs/toolkit": "^1.9.3",
+        "dayjs": "^1.11.7",
+        "firebase": "^9.18.0",
+        "localforage": "^1.10.0",
+        "match-sorter": "^6.3.1",
+        "react": "^18.2.0",
+        "react-calendar": "^4.0.0",
+        "react-dom": "^18.2.0",
+        "react-elastic-carousel": "^0.11.5",
+        "react-redux": "^8.0.5",
+        "react-router-dom": "^6.8.0",
+        "react-toastify": "^9.1.2",
+        "recharts": "^2.3.2",
+        "styled-components": "^5.3.9"
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
+        "@types/istanbul-lib-coverage": "^2.0.4",
         "@types/react": "^18.2.6",
         "@types/react-calendar": "^3.9.0",
         "@types/react-dom": "^18.0.9",
         "@vitejs/plugin-react": "^3.0.0",
         "gh-pages": "^5.0.0",
+        "jsdom": "^22.0.0",
         "typescript": "^5.0.4",
-        "vite": "^4.3.5"
+        "vite": "^4.3.5",
+        "vitest": "^0.31.1"
     }
 }
