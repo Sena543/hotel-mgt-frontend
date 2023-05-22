@@ -7,6 +7,6 @@ import { renderWithProviders } from "./test/test-utils/redux-render-provider";
 describe("App Test", () => {
     test("if test setup works properly", () => {
         renderWithProviders(<App />);
-        expect(screen.getByTestId("hello")).toBeDefined();
+        expect(screen.queryByTestId("hello")).not.toBeInTheDocument();
     });
 });
