@@ -65,8 +65,8 @@ function ReservationStat({ guestData }: { guestData: GuestsType[] }) {
                     </div>
                 </div>
             </div>
-            <div style={{ width: "100%", height: "96%", display: "flex" }}>
-                <ResponsiveContainer width="100%">
+            <div style={{ width: "99%", height: "99%", display: "flex" }}>
+                <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                         width={930}
                         height={400}
