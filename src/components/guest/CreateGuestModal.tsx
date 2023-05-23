@@ -148,7 +148,7 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
                     <Typography fontWeight={"bolder"} fontSize="25px">
                         New Guest
                     </Typography>
-                    <Tooltip title="Close">
+                    <Tooltip data-testid="close-icon" title="Close">
                         <IconButton onClick={() => setOpenModal(false)}>
                             <CloseRounded />
                         </IconButton>
