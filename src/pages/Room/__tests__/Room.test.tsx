@@ -4,33 +4,6 @@ import { render, screen } from "@testing-library/react";
 import { roomData } from "../../../services/roomList";
 import RoomList, { RoomInterface } from "../../../components/Room/RoomList";
 
-// We use msw to intercept the network request during the test,
-// and return the response 'John Smith' after 150ms
-// when receiving a get request to the `/api/user` endpoint
-// export const handlers = [
-
-// ];
-
-// const server = setupServer(...handlers);
-
-// // Enable API mocking before tests.
-// beforeAll(() => server.listen());
-
-// // Reset any runtime request handlers we may add during the tests.
-// afterEach(() => server.resetHandlers());
-
-// // Disable API mocking after the tests are done.
-// afterAll(() => server.close());
-
-const MockRooms = ({
-    selectedHeader,
-    roomData,
-}: {
-    selectedHeader: string;
-    roomData: RoomInterface[];
-}) => {
-    return <RoomList selectedHeader={selectedHeader} roomData={roomData} />;
-};
 describe("Room Test suit", () => {
     it("Tests if room page renders", () => {
         renderWithProviders(<Rooms />);
