@@ -43,6 +43,7 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
         //TODO
         //fix dishID not updating bug
     });
+    const [showErr, setShowErr] = useState(false);
 
     useEffect(() => {}, [restaurantMealsList, dispatch]);
     const handleRadioChange = (name: string, value: string) => {
@@ -54,6 +55,10 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
     };
 
     const submitData = () => {
+        if (menuItem.dishOrBev === "" || menuItem.price === "") {
+            setShowErr(true);
+            return;
+        }
         dispatch(createNewMenuItem(menuItem));
         setMenuItem({
             menuType: "dish",
@@ -108,6 +113,11 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
                                 handleRadioChange(event.target.name, event.target.value)
                             }
                             value={menuItem.dishOrBev}
+                            error={!menuItem.dishOrBev && showErr}
+                            required
+                            helperText={
+                                menuItem.dishOrBev === "" && showErr ? "Field is required" : null
+                            }
                             className="menu-modal-text-field"
                         />
                         <CustomTextField
@@ -116,6 +126,11 @@ function MenuModal({ open, setOpenModal }: MenuModalProps) {
                                 handleRadioChange(event.target.name, event.target.value)
                             }
                             name="price"
+                            error={!menuItem.price && showErr}
+                            required
+                            helperText={
+                                menuItem.price === "" && showErr ? "Field is required" : null
+                            }
                             value={menuItem.price}
                             className="menu-modal-text-field"
                         />
