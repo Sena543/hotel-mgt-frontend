@@ -58,6 +58,22 @@ type PreparedData = {
 //     console.log(prepedData);
 //     return prepareData;
 // };
+const updateBookingCount = (guestsData: GuestsType[]) => {
+    let newBooking: GuestsType[] = [];
+    let scheduled: GuestsType[] = [];
+    let checkIn: GuestsType[] = [];
+    let checkOut: GuestsType[] = [];
+
+    guestsData.map((guest: any) => {
+        if (dayjs(guest.checkIn).isToday()) {
+            checkIn.push(guest);
+        }
+        if (dayjs().isSameOrAfter(guest.checkOut)) {
+            checkOut.push(guest);
+        }
+    });
+    return { newBooking, checkIn, checkOut, scheduled };
+};
 function Dashboard() {
     const { guestsData } = useSelector((state: RootState): GuestStateType => state.guests);
     const dispatch = useDispatch<AppDispatch>();
@@ -72,27 +88,14 @@ function Dashboard() {
 
     useEffect(() => {
         if (guestsData.length === 0) dispatch(fetchGuests());
-        let newBooking: GuestsType[] = [];
-        let scheduled: GuestsType[] = [];
-        let checkIn: GuestsType[] = [];
-        let checkOut: GuestsType[] = [];
-
-        guestsData.map((guest: any) => {
-            if (dayjs(guest.checkIn).isToday()) {
-                checkIn.push(guest);
-            }
-            if (dayjs().isSameOrAfter(guest.checkOut)) {
-                checkOut.push(guest);
-            }
-        });
 
         setbookingCount((prevState: typeof bookingCount) => ({
             ...prevState,
-            newBooking,
-            scheduled,
-            checkIn,
+            ...updateBookingCount(guestsData),
         }));
-    }, [dispatch]);
+        // console.log(bookingCount);
+    }, [dispatch, guestsData]);
+
     const glanceData = [
         {
             name: "New Booking",
