@@ -21,16 +21,7 @@ export function filterMenuItems(data: any, dishType: string, menuType: string) {
     );
 }
 
-export function groupAndCount(
-    // <
-    //     T extends {
-    //         name: string;
-    //         checkIn: number;
-    //         checkOut: number;
-    //     }
-    // >
-    guests: GuestsType[]
-) {
+export function groupAndCount(guests: GuestsType[]) {
     let grouped: {
         name: string;
         checkIn: number;
@@ -56,6 +47,6 @@ export function groupAndCount(
         grouped.push(monthObj);
     });
     return grouped.sort((a, b) => {
-        return new Date(b.checkOut).getTime() - new Date(a.checkOut).getTime();
+        return new Date(a.checkOut).getTime() - new Date(b.checkOut).getTime();
     });
 }
