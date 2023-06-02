@@ -45,26 +45,26 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
         {
             url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
         },
-        {
-            url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/14656123/pexels-photo-14656123.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
+        // {
+        //     url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+        // },
         {
             url: "https://images.pexels.com/photos/14656123/pexels-photo-14656123.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
         },
         {
-            url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+            url: "https://images.pexels.com/photos/13748895/pexels-photo-13748895.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+        },
+        // {
+        //     url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+        // },
+        {
+            url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+        },
+        {
+            url: "https://images.pexels.com/photos/14656124/pexels-photo-14656124.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+        },
+        {
+            url: "https://images.pexels.com/photos/13748835/pexels-photo-13748835.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
         },
     ];
 
