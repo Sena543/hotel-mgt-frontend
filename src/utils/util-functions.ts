@@ -3,8 +3,8 @@ import { GuestsType } from "../constants/genericTypes";
 import months from "../services/months";
 import dayjs from "dayjs";
 
-export const getRawData = (returnedDBData: QuerySnapshot<DocumentData>) => {
-    const rawData: any = [];
+export const getRawData = <T>(returnedDBData: QuerySnapshot<DocumentData>): T[] => {
+    const rawData: T[] = [];
     returnedDBData.docs.map((doc: any) => {
         rawData.push({
             ...doc.data(),
