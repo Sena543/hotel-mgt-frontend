@@ -2,7 +2,7 @@ import { vi } from "vitest";
 import { renderWithProviders } from "../../../test/test-utils/redux-render-provider";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { roomData } from "../../../services/roomList";
-import RoomList, { RoomInterface } from "../../../components/Room/RoomList";
+import RoomList, { RoomType } from "../../../components/Room/RoomList";
 import Guests from "../Guests";
 import CreateGuestModal from "../../../components/guest/CreateGuestModal";
 

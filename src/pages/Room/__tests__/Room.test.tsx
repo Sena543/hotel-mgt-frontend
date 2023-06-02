@@ -2,7 +2,7 @@ import { renderWithProviders } from "../../../test/test-utils/redux-render-provi
 import Rooms from "../Rooms";
 import { render, screen } from "@testing-library/react";
 import { roomData } from "../../../services/roomList";
-import RoomList, { RoomInterface } from "../../../components/Room/RoomList";
+import RoomList, { RoomType } from "../../../components/Room/RoomList";
 
 describe("Room Test suit", () => {
     it("Tests if room page renders", () => {

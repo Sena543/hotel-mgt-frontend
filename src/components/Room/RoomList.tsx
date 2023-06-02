@@ -13,25 +13,20 @@ import "./roomList.css";
 // import { roomData } from "../../services/roomList";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 
-export interface RoomInterface {
+export type RoomType = {
     roomName: string;
     bedType: string;
     facility: string;
     status: string;
+    rawDocID: string;
     // status: "Booked" | "Available";
     // period: string;
-}
+};
 
-function RoomList({
-    selectedHeader,
-    roomData,
-}: {
-    selectedHeader: string;
-    roomData: RoomInterface[];
-}) {
+function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomData: RoomType[] }) {
     const tableHeadList = ["Room Name", "Bed Type", "Facility", "Status"];
 
-    const filterEmployees = () => {
+    const filterRooms = () => {
         //filter rooms by availability status
         if (selectedHeader === "booked") {
             return roomData.filter(({ status }: { status: string }) => status === "Booked");
@@ -58,21 +53,9 @@ function RoomList({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filterEmployees().map(
-                            ({
-                                roomName,
-                                bedType,
-                                facility,
-                                status,
-                            }: // period,
-                            {
-                                roomName: string;
-                                bedType: string;
-                                facility: string;
-                                status: string;
-                                // period: string;
-                            }) => (
-                                <StyledTableRow hover key={`${roomName}-${bedType}`}>
+                        {filterRooms().map(
+                            ({ roomName, bedType, facility, status, rawDocID }) => (
+                                <StyledTableRow hover key={rawDocID}>
                                     <TableCell>{roomName}</TableCell>
                                     <TableCell>{bedType}</TableCell>
                                     <TableCell>{facility}</TableCell>
