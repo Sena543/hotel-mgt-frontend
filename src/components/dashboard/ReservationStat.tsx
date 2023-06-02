@@ -16,7 +16,15 @@ import { groupByMonthAndCount } from "../../utils/util-functions";
 
 const PURPLE_LINE_GRAPH_COLOR = "#80529d";
 const YELLOW_LINE_GRAPH_COLOR = "#f6ae44";
-function ReservationStat({ guestData }: { guestData: GuestsType[] }) {
+function ReservationStat({
+    guestData,
+    checkIn,
+    checkOut,
+}: {
+    guestData: GuestsType[];
+    checkIn: Number;
+    checkOut: Number;
+}) {
     const theme = useTheme();
 
     return (
@@ -42,7 +50,7 @@ function ReservationStat({ guestData }: { guestData: GuestsType[] }) {
                         }}
                     >
                         <Typography fontWeight="bold" fontSize={20} style={{ marginRight: "5px" }}>
-                            123
+                            {checkIn.toString()}
                         </Typography>
                         <Typography style={{ color: "gray", fontSize: "13px" }}>
                             Check in
@@ -57,7 +65,7 @@ function ReservationStat({ guestData }: { guestData: GuestsType[] }) {
                         }}
                     >
                         <Typography fontWeight="bold" fontSize={20} style={{ marginRight: "5px" }}>
-                            22
+                            {checkOut.toString()}
                         </Typography>
                         <Typography style={{ color: "gray", fontSize: "13px" }}>
                             Check out

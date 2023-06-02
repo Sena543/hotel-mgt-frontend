@@ -170,7 +170,7 @@ function Dashboard() {
                     <DashPieChart pieChartData={prepareData(guestsData)} />
                 </div>
                 <div className="grid-col-span-3_row-span-2 grid-mobile-col-span-2">
-                    <ReservationStat guestData={guestsData} />
+                    <ReservationStat guestData={guestsData} checkIn={bookingCount.checkIn.length} checkOut={bookingCount.checkOut.length}/>
                 </div>
                 <div className="grid-mobile-col-span-2">
                     <AvailableRooms />
