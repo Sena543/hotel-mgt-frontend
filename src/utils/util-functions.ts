@@ -21,32 +21,32 @@ export function filterMenuItems(data: any, dishType: string, menuType: string) {
     );
 }
 
-export function groupAndCount(guests: GuestsType[]) {
-    let grouped: {
-        name: string;
-        checkIn: number;
-        checkOut: number;
-    }[] = [];
+export function groupByMonthAndCount(guests: GuestsType[]) {
+    const groupAndCount = Array.from(months, (month) => {
+        return { name: month, checkIn: 0, checkOut: 0 };
+    });
 
     guests.forEach((guest: GuestsType) => {
-        let monthObj = {
-            name: "",
-            checkIn: 0,
-            checkOut: 0,
-        };
-        const monthNumber: Number = guest["checkOut"].split("-")[0];
-        //add spaces to check in and check out so they render properly
-        monthObj["checkIn"] = dayjs().isSameOrAfter(guest.checkIn)
-            ? monthObj.checkIn + 1
-            : monthObj.checkIn;
-        monthObj["checkOut"] = dayjs().isSameOrAfter(guest.checkOut)
-            ? monthObj.checkOut + 1
-            : monthObj.checkOut;
-        monthObj["name"] = months[Number(monthNumber) - 1];
+        const checkInmonthNumber = Number(guest["checkIn"].split("-")[0]) - 1;
+        const checkOutmonthNumber = Number(guest["checkOut"].split("-")[0]) - 1;
 
-        grouped.push(monthObj);
+        groupAndCount[checkInmonthNumber].checkIn = dayjs().isSameOrAfter(guest.checkIn)
+            ? groupAndCount[checkInmonthNumber].checkIn + 1
+            : groupAndCount[checkInmonthNumber].checkIn;
+
+        groupAndCount[checkOutmonthNumber].checkOut = dayjs().isSameOrAfter(guest.checkOut)
+            ? groupAndCount[checkOutmonthNumber].checkOut + 1
+            : groupAndCount[checkOutmonthNumber].checkOut;
     });
-    return grouped.sort((a, b) => {
-        return new Date(a.checkOut).getTime() - new Date(b.checkOut).getTime();
-    });
+
+    return groupAndCount.slice(0, new Date().getMonth() + 1);
 }
+//todo
+//filter rooms that have been checked into
+//months still not rendering properly
+
+//possible solutions
+/**
+ * use month number to index months array and use results on the grouped and count array
+ * use month number directly on the groupedAndCount array
+ */
