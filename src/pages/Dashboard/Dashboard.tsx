@@ -24,7 +24,6 @@ import isToday from "dayjs/plugin/isToday";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { GuestsType } from "../../constants/genericTypes";
-import { groupAndCount } from "../../utils/util-functions";
 
 dayjs.extend(isToday);
 dayjs.extend(isSameOrAfter);
