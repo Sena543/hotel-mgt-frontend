@@ -4,6 +4,7 @@ import { guests } from "../../services/guests";
 import { addDoc, collection, getDocs } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { toast } from "react-toastify";
+import { getRawData } from "../../utils/util-functions";
 
 export type GuestStateType = {
     status: string;
@@ -19,12 +20,8 @@ const initialState: GuestStateType = {
 export const fetchGuests = createAsyncThunk("fetch/guests", async (_, thunkAPI) => {
     try {
         const returnedData = await getDocs(collection(firestoredb, "guests"));
-        let data: any = [];
-        returnedData.docs.map((doc: any) => {
-            data.push({
-                ...doc.data(),
-            });
-        });
+        const data = getRawData<GuestsType>(returnedData);
+
         return data;
     } catch (error: any) {
         console.log(error.message);

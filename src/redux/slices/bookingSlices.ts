@@ -3,7 +3,6 @@ import {
     getDocs,
     collection,
     addDoc,
-    getDoc,
     where,
     query,
     updateDoc,
@@ -15,7 +14,12 @@ import { getRawData } from "../../utils/util-functions";
 import { BookingHistoryType } from "../../constants/genericTypes";
 import { toast } from "react-toastify";
 
-const initialState = {
+interface BookingState {
+    status: "idle" | "loading" | "success" | "failed";
+    bookingHistory: BookingHistoryType[];
+    errorMessage: string;
+}
+const initialState: BookingState = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     bookingHistory: [],
     errorMessage: "",
@@ -26,7 +30,7 @@ export const fetchAllGuestBookingHistory = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const returnedGuestsData = await getDocs(collection(firestoredb, "booking"));
-            const bookingHistoryData: any = getRawData(returnedGuestsData);
+            const bookingHistoryData = getRawData<BookingHistoryType>(returnedGuestsData);
 
             return bookingHistoryData;
         } catch (error: any) {
@@ -46,8 +50,7 @@ export const fetchGuestBookingHistory = createAsyncThunk(
                 where("guestID", "==", guestID)
             );
             const returnedGuestsData = await getDocs(historyQuery);
-            const bookingHistoryData: any = getRawData(returnedGuestsData);
-
+            const bookingHistoryData = getRawData<BookingHistoryType>(returnedGuestsData);
             return bookingHistoryData;
         } catch (error: any) {
             console.log(error.message);
@@ -59,7 +62,7 @@ export const fetchGuestBookingHistory = createAsyncThunk(
 
 export const createNewBookingHistory = createAsyncThunk(
     "create/booking-history",
-    async function createBookingHistory(orderData: any, thunkAPI) {
+    async function createBookingHistory(orderData: BookingHistoryType, thunkAPI) {
         try {
             await addDoc(collection(firestoredb, "booking"), orderData);
             return orderData;
@@ -73,7 +76,10 @@ export const createNewBookingHistory = createAsyncThunk(
 
 export const createNewGuestMealOrder = createAsyncThunk(
     "create/new-guest-order",
-    async function createGuestMealOrder(orderData: any, thunkAPI) {
+    async function createGuestMealOrder(
+        orderData: { data: BookingHistoryType; rawDocID: string },
+        thunkAPI
+    ) {
         try {
             const { data, rawDocID } = orderData;
             await updateDoc(doc(firestoredb, "booking", rawDocID), {
@@ -102,15 +108,20 @@ export const bookingSlice = createSlice({
             state = { ...state, status: "loading" };
             return state;
         });
-        builder.addCase(fetchGuestBookingHistory.fulfilled, (state, action: PayloadAction<any>) => {
-            state = { ...state, status: "sucess", bookingHistory: action.payload };
+        builder.addCase(
+            fetchGuestBookingHistory.fulfilled,
+            (state, action: PayloadAction<BookingHistoryType[]>) => {
+                state = { ...state, status: "success", bookingHistory: action.payload };
 
-            // toast.success("Success");
-            return state;
-        });
+                // toast.success("Success");
+                return state;
+            }
+        );
 
         builder.addCase(fetchGuestBookingHistory.rejected, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
+            //original
+            // state = { ...state, status: "failed", errorMessage: action.payload };
             return state;
         });
         builder.addCase(createNewBookingHistory.pending, (state) => {
@@ -193,7 +204,7 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             fetchAllGuestBookingHistory.fulfilled,
-            (state: any, action: PayloadAction<[BookingHistoryType]>) => {
+            (state: any, action: PayloadAction<BookingHistoryType[]>) => {
                 state = {
                     ...state,
                     bookingHistory: [...action.payload],
