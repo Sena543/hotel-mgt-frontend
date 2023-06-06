@@ -53,8 +53,12 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filterRooms().map(
-                            ({ roomName, bedType, facility, status, rawDocID }) => (
+                        {filterRooms()
+                            .slice()
+                            .sort((a, b) =>
+                                a.roomName > b.roomName ? 1 : b.roomName > a.roomName ? -1 : 0
+                            )
+                            .map(({ roomName, bedType, facility, status, rawDocID }) => (
                                 <StyledTableRow hover key={rawDocID}>
                                     <TableCell>{roomName}</TableCell>
                                     <TableCell>{bedType}</TableCell>
@@ -76,8 +80,7 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
 										</Typography> */}
                                     </TableCell>
                                 </StyledTableRow>
-                            )
-                        )}
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
