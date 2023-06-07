@@ -3,9 +3,21 @@ import { getDocs, collection, QuerySnapshot, DocumentData } from "firebase/fires
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { toast } from "react-toastify";
+import { GuestsType } from "../../constants/genericTypes";
+import { RoomType } from "../../components/Room/RoomList";
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
-const initialState = {
+type RoomStateType = {
+    status: "idle" | "loading" | "success" | "failed";
+    roomList: RoomType[];
+    errorMessage: string;
+};
+
+const initialState: RoomStateType = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     roomList: [],
     errorMessage: "",
@@ -15,8 +27,8 @@ export const fetchAllRooms = createAsyncThunk("fetch/rooms", async (_, thunkAPI)
     try {
         const returnedRoomsData = await getDocs(collection(firestoredb, "rooms"));
         const returnedGuestsData = await getDocs(collection(firestoredb, "guests"));
-        let roomsData: any = getRawData(returnedRoomsData);
-        let guestsData: any = getRawData(returnedGuestsData);
+        let roomsData = getRawData<RoomType>(returnedRoomsData);
+        let guestsData = getRawData<GuestsType>(returnedGuestsData);
 
         return { roomsData, guestsData };
     } catch (error: any) {
@@ -25,12 +37,13 @@ export const fetchAllRooms = createAsyncThunk("fetch/rooms", async (_, thunkAPI)
         return thunkAPI.rejectWithValue(error.message);
     }
 });
+
 export const roomSlice = createSlice({
     name: "rooms",
     initialState,
     // initialState: [],
     reducers: {
-        resetStatus: (state) => {
+        resetRoomStatus: (state) => {
             state = { ...state, status: "idle" };
         },
     },
@@ -39,26 +52,31 @@ export const roomSlice = createSlice({
             state = { ...state, status: "loading" };
             return state;
         });
-        builder.addCase(fetchAllRooms.fulfilled, (state, action: PayloadAction<any>) => {
+        builder.addCase(fetchAllRooms.fulfilled, (state, action) => {
             const { roomsData, guestsData } = action.payload;
+            let availableRooms = roomsData.map((room) => room.roomName);
 
-            //assign status of room to each room by looping over guests
-            //and checking if roomName == roomAssigned
-
-            roomsData.forEach((room: any) => {
-                guestsData.forEach((guest: any) => {
-                    if (room.roomName === guest.roomAssigned && dayjs().isBefore(guest.checkOut)) {
-                        room["status"] = "Booked";
-                    } else {
-                        room["status"] = "Available";
-                    }
-                });
+            // Iterate over all the guests and remove any rooms from
+            // the availableRooms array that are occupied
+            guestsData.forEach((guest) => {
+                if (
+                    availableRooms.includes(guest.roomAssigned) &&
+                    dayjs().isBefore(dayjs(guest.checkOut))
+                ) {
+                    // Remove the occupied room from the available list
+                    availableRooms = availableRooms.filter((room) => room !== guest.roomAssigned);
+                }
             });
-            if (guestsData.length === 0) {
-                roomsData.forEach((room: any) => {
+
+            // Update the status of each room based on those that are available
+            // and those that are not.
+            roomsData.forEach((room) => {
+                if (availableRooms.includes(room.roomName)) {
                     room["status"] = "Available";
-                });
-            }
+                } else {
+                    room["status"] = "Booked";
+                }
+            });
             state = { ...state, roomList: roomsData, status: "success" };
             return state;
         });
@@ -71,5 +89,5 @@ export const roomSlice = createSlice({
     },
 });
 
-export const { resetStatus } = roomSlice.actions;
+export const { resetRoomStatus: resetStatus } = roomSlice.actions;
 export default roomSlice.reducer;
