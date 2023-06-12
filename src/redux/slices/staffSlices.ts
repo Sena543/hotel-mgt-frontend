@@ -5,7 +5,12 @@ import { getRawData } from "../../utils/util-functions";
 import { StaffDetailsType } from "../../constants/genericTypes";
 import { toast } from "react-toastify";
 
-const initialState = {
+type StaffState = {
+    status: "idle" | "loading" | "success" | "failed";
+    staffData: StaffDetailsType[];
+    errorMessage: string;
+};
+const initialState: StaffState = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     staffData: [],
     errorMessage: "",
@@ -16,7 +21,7 @@ export const fetchAllStaff = createAsyncThunk(
     async function fetchStaff(_, thunkAPI) {
         try {
             const returnedGuestsData = await getDocs(collection(firestoredb, "employees"));
-            const staffData: any = getRawData(returnedGuestsData);
+            const staffData = getRawData<StaffDetailsType>(returnedGuestsData);
 
             return staffData;
         } catch (error: any) {
@@ -55,7 +60,7 @@ export const staffSlice = createSlice({
             return state;
         });
         builder.addCase(fetchAllStaff.fulfilled, (state, action: PayloadAction<any>) => {
-            state = { ...state, status: "sucess", staffData: action.payload };
+            state = { ...state, status: "success", staffData: action.payload };
             return state;
         });
 

@@ -5,7 +5,13 @@ import { getRawData } from "../../utils/util-functions";
 import { MenuItemType } from "../../constants/genericTypes";
 import { toast } from "react-toastify";
 
-const initialState = {
+type RestaurantType = {
+    status: "idle" | "loading" | "success" | "failed";
+    restaurantMealsList: MenuItemType[];
+    errorMessage: string;
+};
+
+const initialState: RestaurantType = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     restaurantMealsList: [],
     errorMessage: "",
@@ -16,7 +22,7 @@ export const fetchRestaurantMenu = createAsyncThunk(
     async function fetchAllRestaurantMenu(_, thunkAPI) {
         try {
             const returnedMenuData = await getDocs(collection(firestoredb, "restaurant"));
-            const menuData: any = getRawData(returnedMenuData);
+            const menuData = getRawData<MenuItemType>(returnedMenuData);
 
             return menuData;
         } catch (error: any) {
@@ -67,8 +73,8 @@ export const restaurantSlice = createSlice({
             state = { ...state, status: "loading" };
             return state;
         });
-        builder.addCase(fetchRestaurantMenu.fulfilled, (state, action: PayloadAction<any>) => {
-            state = { ...state, status: "sucess", restaurantMealsList: action.payload };
+        builder.addCase(fetchRestaurantMenu.fulfilled, (state, action) => {
+            state = { ...state, status: "success", restaurantMealsList: action.payload };
             return state;
         });
 
@@ -83,7 +89,7 @@ export const restaurantSlice = createSlice({
         });
         builder.addCase(
             createNewMenuItem.fulfilled,
-            (state: any, action: PayloadAction<MenuItemType>) => {
+            (state, action: PayloadAction<MenuItemType>) => {
                 state = {
                     ...state,
                     restaurantMealsList: [...state.restaurantMealsList, action.payload],
@@ -105,8 +111,9 @@ export const restaurantSlice = createSlice({
             state = { ...state, status: "loading" };
             return state;
         });
-        builder.addCase(deleteMenuItem.fulfilled, (state: any, action: PayloadAction<any>) => {
+        builder.addCase(deleteMenuItem.fulfilled, (state: any, action: PayloadAction<string>) => {
             let restaurantMenu = state.restaurantMealsList;
+            
             restaurantMenu = restaurantMenu.filter(
                 ({ rawDocID }: { rawDocID: string }) => rawDocID !== action.payload
             );

@@ -49,7 +49,7 @@ export const guestSlice = createSlice({
     initialState,
     // initialState: [],
     reducers: {
-        createNewGuest: (state: any, action: PayloadAction<GuestsType>) => {
+        createNewGuest: (state: GuestStateType, action: PayloadAction<GuestsType>) => {
             // createNewGuest: (state: WritableDraft<StateType>, action: PayloadAction<GuestsType>) => {
             const guestDetails = {
                 lastName: action.payload.lastName,
@@ -60,7 +60,7 @@ export const guestSlice = createSlice({
                 checkOut: action.payload.checkOut,
                 roomAssigned: action.payload.roomAssigned,
             };
-            const newGuest = [...state.guestData, guestDetails];
+            const newGuest = [...state.guestsData, guestDetails];
             state = { ...state, guestsData: newGuest };
             return state;
         },
