@@ -2,6 +2,7 @@ import { QuerySnapshot, DocumentData } from "firebase/firestore/lite";
 import { GuestsType } from "../constants/genericTypes";
 import months from "../services/months";
 import dayjs from "dayjs";
+// import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 
 export const getRawData = <T>(returnedDBData: QuerySnapshot<DocumentData>): T[] => {
     const rawData: T[] = [];
@@ -40,6 +41,10 @@ export function groupByMonthAndCount(guests: GuestsType[]) {
     });
 
     return groupAndCount.slice(0, new Date().getMonth() + 1);
+}
+
+export function checkGuestStatus(date: string) {
+    return dayjs().isAfter(dayjs(date));
 }
 //todo
 //filter rooms that have been checked into
