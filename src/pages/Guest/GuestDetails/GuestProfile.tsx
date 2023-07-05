@@ -4,6 +4,7 @@ import { Icon, Typography } from "@mui/material";
 // import imgSvg from "../../../assets/react.svg";
 import profile from "../../../assets/images/profile.jpg";
 import { GuestsType } from "../../../constants/genericTypes";
+import { checkGuestStatus } from "../../../utils/util-functions";
 
 function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
     return (
@@ -17,7 +18,21 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                     >{`${profileDetails?.lastName} ${profileDetails?.firstName}`}</Typography>
                 </div>
             </div>
-            <div style={{ width: "70%" }}>
+            <div>
+                <Typography
+                    className={`${
+                        checkGuestStatus(profileDetails.checkOut) ? "checkedOut" : "checkedIn"
+                    }`}
+                    style={{
+                        display: "grid",
+                        placeItems: "center",
+                        borderRadius: 5,
+                    }}
+                >
+                    {checkGuestStatus(profileDetails.checkOut) ? "Checked Out" : "Checked In"}
+                </Typography>
+            </div>
+            <div style={{}}>
                 <div className="display-flex-flex-direction-row">
                     <Icon>
                         <PhoneOutlined />
@@ -30,7 +45,34 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                     </Icon>
                     <Typography>{profileDetails?.email}</Typography>
                 </div>
-                <div></div>
+            </div>
+            <div style={{ width: "90%" }}>
+                <Typography style={{ fontSize: "15px", fontWeight: "bold" }}>
+                    Bill Summary
+                </Typography>
+                <div>
+                    <div className="guest-charges">
+                        <Typography>Room charges</Typography>
+                        <Typography>20000</Typography>
+                    </div>
+                    <div className="guest-charges">
+                        <Typography>Taxes</Typography>
+                        <Typography>122323</Typography>
+                    </div>
+                    <div className="guest-charges">
+                        <Typography>Amount Due</Typography>
+                        <Typography style={{ fontWeight: "bold" }}>19899823</Typography>
+                    </div>
+                </div>
+            </div>
+            <div style={{ width: "90%" }}>
+                <Typography style={{ fontSize: "15px", fontWeight: "bold" }}>
+                    Payment Details
+                </Typography>
+                <div className="guest-charges payment-mode">
+                    <Typography>Bill settled</Typography>
+                    <Typography style={{}}>Yes</Typography>
+                </div>
             </div>
         </div>
     );
