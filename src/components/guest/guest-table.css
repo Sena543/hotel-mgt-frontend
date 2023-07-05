@@ -1,18 +1,20 @@
 @media only screen and (max-width: 700px) {
-	.guest-table-container {
-		margin-top: 5%;
-		width: 100%;
-	}
+    .guest-table-container {
+        margin-top: 5%;
+        width: 100%;
+    }
 }
 
 .guest-name {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .checkedOut {
-	background-color: rgba(190, 223, 213, 255);
+    background-color: rgba(190, 223, 213, 255);
+    width: 110%;
 }
 
 .checkedIn {
-	background-color: rgba(245, 241, 214, 255);
+    background-color: rgba(245, 241, 214, 255);
+    width: 110%;
 }

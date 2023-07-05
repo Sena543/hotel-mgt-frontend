@@ -1,7 +1,7 @@
 import GenericDashCards from "../Cards/GenericDashCards";
 
 function AvailableRooms() {
-	return <GenericDashCards>AvailableRooms</GenericDashCards>;
+    return <GenericDashCards>Guest In House</GenericDashCards>;
 }
 
 export default AvailableRooms;
