@@ -14,24 +14,25 @@ function Login() {
     };
     return (
         <div className="login-root">
+            {/* <div> */}
             <div>
-                <div>
-                    <Typography variant="h3">Login</Typography>
-                </div>
-                {/* <div> */}
+                <Typography variant="h3">Login</Typography>
+            </div>
+            {/* <div> */}
+            <div className="form-root-layout">
                 <div className="login-form">
                     <CustomTextField
                         autoFocus
                         name="useremail"
                         variant="outlined"
-                        className="custom-text-field"
+                        className="custom-login-text-field"
                         label="Email"
                         margin="normal"
                     />
                     <CustomTextField
                         name="password"
                         variant="outlined"
-                        className="custom-text-field"
+                        className="custom-login-text-field"
                         label="Password"
                         margin="normal"
                         type={showPassword ? "text" : "password"}
@@ -50,11 +51,13 @@ function Login() {
                             ),
                         }}
                     />
-                    <Button variant="contained">Login</Button>
+                    <Button variant="contained" className="login-button">
+                        Login
+                    </Button>
                 </div>
-                <a href="google.com">Google</a>
-                {/* <Link to={"sign-up"}>Sign up</Link> */}
+                <Link to={"/sign-up"}>Sign up</Link>
             </div>
+            {/* </div> */}
         </div>
     );
 }
