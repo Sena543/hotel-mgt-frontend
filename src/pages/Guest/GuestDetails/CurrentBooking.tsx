@@ -107,15 +107,15 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
                         <div
                             style={{
                                 backgroundColor: "#79c5f7",
-                                borderRadius: "60px",
+                                borderRadius: "50px",
                                 width: "100%",
-                                height: "60px",
+                                height: "50px",
                                 display: "grid",
                                 placeItems: "center",
                             }}
                         >
                             <VpnKeyOutlined
-                                sx={{ fontSize: 30, margin: "0.5em", color: "white" }}
+                                sx={{ margin: "0.1em", fontSize: 25, color: "white" }}
                             />
                         </div>
                         <div style={{ marginLeft: "5px" }}>
