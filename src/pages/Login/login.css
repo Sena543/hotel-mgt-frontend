@@ -1,20 +1,34 @@
 .login-root {
-    /* display: grid; */
-    /* place-items: center; */
-    position: relative;
-    left: 30%;
-    top: 10rem;
-    background-color: #fff;
-    width: 40%;
-    height: 40dvh;
+    display: grid;
+    place-items: center;
+    /* width: 90%; */
+    /* height: 100%; */
+}
+
+.form-root-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     border-radius: 5px;
+    align-items: center;
+    width: 45%;
+    height: 60%;
+    margin: 10% auto;
     box-shadow: 4px 7px 20px 2px #d1d1d1;
+}
+
+.custom-login-text-field {
+    width: 90%;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     width: 90%;
     margin: 2%;
+}
+
+.login-button {
+    width: 70%;
 }
