@@ -1,0 +1,41 @@
+.signup-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-image-div {
+    position: fixed;
+    width: 50vw;
+    height: 100vh; /* 50% of the view-height */
+    top: 0%;
+    left: 0%;
+}
+
+.left-image {
+    width: 100%;
+    height: 100%;
+}
+
+.signup-root-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    margin-left: 5%;
+    width: 30%;
+}
+
+.signup-form {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    width: 100%;
+}
+
+.custom-signup-text-field {
+    width: 100%;
+}
