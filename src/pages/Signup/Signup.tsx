@@ -7,6 +7,20 @@ import { useState } from "react";
 
 function Signup() {
     const [showPassword, setShowPassword] = useState(false);
+    // const [state, dispatch] = useReducer(signUpUserReducerFunction, companyDetailsState);
+    const [companyDetails, setCompanyDetails] = useState({
+        fullName: "",
+        email: "",
+        companyName: "",
+        phoneNumber: "",
+        comments: "",
+    });
+
+    const handleChangeEvent = (name: string, value: string) => {
+        setCompanyDetails((prevState) => {
+            return { ...prevState, [name]: value };
+        });
+    };
 
     const handleClickshowPassword = () => setShowPassword((showPassword) => !showPassword);
 
@@ -34,11 +48,14 @@ function Signup() {
                         <CustomTextField
                             // autoFocus
                             key={fieldName}
-                            name="useremail"
+                            name={fieldName}
                             variant="outlined"
                             className="custom-signup-text-field"
                             label={name}
                             margin="normal"
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                            ) => handleChangeEvent(e.target.name, e.target.value)}
                         />
                     ))}
                     {/* <CustomTextField
@@ -71,7 +88,11 @@ function Signup() {
                             ),
                         }}
                     />
-                    <Button variant="contained" className="login-button">
+                    <Button
+                        variant="contained"
+                        onClick={() => console.log(companyDetails)}
+                        className="login-button"
+                    >
                         Sign up
                     </Button>
                 </div>
