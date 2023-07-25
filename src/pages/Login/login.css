@@ -11,8 +11,8 @@
     justify-content: space-evenly;
     border-radius: 5px;
     align-items: center;
-    width: 45%;
-    height: 60%;
+    width: 40%;
+    height: 65%;
     margin: 10% auto;
     box-shadow: 4px 7px 20px 2px #d1d1d1;
 }
@@ -25,10 +25,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     width: 90%;
     margin: 2%;
+    height: 30vh;
 }
 
 .login-button {
     width: 70%;
+}
+
+.signup-link {
+    text-decoration: none;
 }

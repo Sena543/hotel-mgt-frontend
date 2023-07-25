@@ -55,7 +55,9 @@ function Login() {
                         Login
                     </Button>
                 </div>
-                <Link to={"/sign-up"}>Sign up</Link>
+                <Link className="signup-link" to={"/sign-up"}>
+                    Sign up
+                </Link>
             </div>
             {/* </div> */}
         </div>
