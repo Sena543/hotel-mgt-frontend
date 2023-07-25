@@ -10,25 +10,25 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     return (
-        <div className="App" data-testid="hello">
-            <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                    <RouterProvider router={routes} />
-                </ThemeProvider>
-                <ToastContainer
-                    position="bottom-center"
-                    autoClose={4000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
-            </Provider>
-        </div>
+            <div className="App" data-testid="hello">
+                <Provider store={store}>
+                    <ThemeProvider theme={theme}>
+                        <RouterProvider router={routes} />
+                    </ThemeProvider>
+                    <ToastContainer
+                        position="bottom-center"
+                        autoClose={4000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                    />
+                </Provider>
+            </div>
     );
 }
 

@@ -1,14 +1,15 @@
 :root {
-	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 24px;
-	font-weight: 400;
-	--defaultPrimaryColor: #80529d;
-	--defaultSecondaryColor: #f6ae44;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 24px;
+    font-weight: 400;
+    --defaultPrimaryColor: #80529d;
+    --defaultSecondaryColor: #f6ae44;
 
-	/* color-scheme: light dark; */
-	/* color: rgba(255, 255, 255, 0.87); */
+    width: 100vw;
+    /* color-scheme: light dark; */
+    /* color: rgba(255, 255, 255, 0.87); */
 
-	/* text-rendering: optimizeLegibility;
+    /* text-rendering: optimizeLegibility;
 	font-synthesis: none;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -26,13 +27,13 @@ a:hover {
 */
 
 body {
-	background-color: #ebecf0 !important;
+    background-color: #ebecf0 !important;
 
-	margin: auto;
-	/* display: flex; */
-	/* place-items: center; */
-	/* min-width: 320px; */
-	min-height: 100vh;
+    margin: auto;
+    /* display: flex; */
+    /* place-items: center; */
+    /* min-width: 320px; */
+    min-height: 100vh;
 }
 
 /*
