@@ -1,5 +1,5 @@
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { InputAdornment, IconButton, Button } from "@mui/material";
+import { InputAdornment, IconButton, Button, Typography } from "@mui/material";
 import CustomTextField from "../../components/TextInput/CustomTextField";
 import "./signup.css";
 import { Link } from "react-router-dom";
@@ -43,6 +43,11 @@ function Signup() {
                 />
             </div>
             <div className="signup-root-div">
+                <div>
+                    <Typography variant="h1" style={{ color: "#80529d" }}>
+                        Sign Up
+                    </Typography>
+                </div>
                 <div className="signup-form">
                     {textFieldNames.map(({ fieldName, name }) => (
                         <CustomTextField
@@ -98,7 +103,10 @@ function Signup() {
                 </div>
 
                 <div>
-                    Got an account? <Link to={"/sign-in"}>Login</Link>
+                    Got an account?{" "}
+                    <Link style={{ textDecoration: "none", color: "#80529d" }} to={"/sign-in"}>
+                        Login
+                    </Link>
                 </div>
             </div>
         </div>
