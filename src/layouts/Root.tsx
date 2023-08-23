@@ -6,7 +6,7 @@ import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
 
 function RootLayout() {
-    const signedIn = false;
+    const signedIn = true;
     return (
         <>
             {signedIn ? (
