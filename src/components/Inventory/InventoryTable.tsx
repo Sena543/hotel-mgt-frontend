@@ -58,12 +58,13 @@ function InventoryTable() {
                             ) => (
                                 <StyledTableRow key={`${index}`} hover>
                                     <StyledTableCell>
-                                        <Link
+                                        {/* <Link
                                             to={`/${itemNo}-${name}`}
                                             style={{ textDecoration: "none" }}
                                         >
                                             {itemNo}
-                                        </Link>
+                                        </Link> */}
+                                        {itemNo}
                                     </StyledTableCell>
                                     <StyledTableCell>{name}</StyledTableCell>
                                     <StyledTableCell>{location}</StyledTableCell>
