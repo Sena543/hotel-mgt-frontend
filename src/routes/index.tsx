@@ -4,6 +4,7 @@ import GenericLayout from "../layouts/GenericLayout";
 import Menu from "../pages/Restuarant/Menu/Menu";
 import Signup from "../pages/Signup/Signup";
 import Login from "../pages/Login/Login";
+import Inventory from "../pages/Inventory/Inventory";
 const RootLayout = lazy(() => import("../layouts/Root"));
 const Booking = lazy(() => import("../pages/Booking/Booking"));
 const Restuarant = lazy(() => import("../pages/Restuarant/Restuarant"));
@@ -53,6 +54,10 @@ export default createBrowserRouter([
             {
                 path: "employees",
                 element: <Staff />,
+            },
+            {
+                path: "inventory",
+                element: <Inventory />,
             },
         ],
     },
