@@ -7,10 +7,10 @@ import Signup from "../pages/Signup/Signup";
 import { useSelector } from "react-redux";
 
 function RootLayout() {
-	// const signedIn = localStorage.getItem("role");
+	const signedIn = localStorage.getItem("role");
 	const navigate = useNavigate();
 	const user = useSelector((state: any) => state.auth.authData);
-	if (user.email.length === 0) {
+	if (signedIn) {
 		navigate("/login");
 	}
 	return (

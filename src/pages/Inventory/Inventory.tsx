@@ -4,24 +4,26 @@ import underConstruction from "../../assets/svgs/Under construction-amico.svg";
 import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import InventoryTable from "../../components/Inventory/InventoryTable";
+import { useSelector } from "react-redux";
 
 function Inventory() {
-    return (
-        <div>
-            <div className="restaurant-header">
-                <Typography style={{}} fontSize={30} fontWeight="bold">
-                    Inventory
-                </Typography>
+	const user = useSelector((state: any) => state.auth.authData);
+	return (
+		<div>
+			<div className="restaurant-header">
+				<Typography style={{}} fontSize={30} fontWeight="bold">
+					Inventory
+				</Typography>
 
-                <div className="header-button-div">
-                    <Link className="menu-link" to={"/restaurant/menu"}>
-                        <Button>View Menu</Button>
-                    </Link>
-                    <Button onClick={() => {}}>Add Item</Button>
-                </div>
-            </div>
-            <InventoryTable />
-            {/* <div>
+				<div className="header-button-div">
+					<Link className="menu-link" to={"/restaurant/menu"}>
+						<Button>View Menu</Button>
+					</Link>
+					{user.role === "ADMIN" ? <Button onClick={() => {}}>Add Item</Button> : null}
+				</div>
+			</div>
+			<InventoryTable />
+			{/* <div>
                 <img
                     className="constructionImage"
                     src={underConstruction}
@@ -29,8 +31,8 @@ function Inventory() {
                 />
                 <Typography>This page is under construction. Please, check back later</Typography>
             </div> */}
-        </div>
-    );
+		</div>
+	);
 }
 
 export default Inventory;
