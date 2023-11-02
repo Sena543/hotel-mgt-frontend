@@ -20,17 +20,25 @@ import {
 	Hidden,
 	IconButton,
 	useTheme,
+	Button,
 } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { Link } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/types";
+import { signOutUser } from "../../redux/slices/authSlice";
+import { Bounce } from "react-activity";
+import "react-activity/dist/Bounce.css";
 type SidebarProps = {
 	window?: () => Window;
 };
 function Sidebar({ window }: SidebarProps) {
 	const theme = useTheme();
+	const dispatch = useDispatch<AppDispatch>();
+	const auth = useSelector((state: any) => state.auth);
 	const [selectedIndex, setSelectedIndex] = useState<number>(0);
 	const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -50,7 +58,7 @@ function Sidebar({ window }: SidebarProps) {
 	];
 
 	const drawer = (
-		<List>
+		<List style={{ height: "92%" }}>
 			{sidebarNavLinks.map(({ name, link, icon }, index) => (
 				<ListItem key={link}>
 					<Link
@@ -141,6 +149,16 @@ function Sidebar({ window }: SidebarProps) {
 								</ListItem>
 							))}
 						</List> */}
+						<Button
+							style={{ margin: "auto 5%" }}
+							disabled={auth.status === "loading"}
+							onClick={() => {
+								dispatch(signOutUser());
+							}}
+							variant="contained"
+						>
+							{auth.status === "loading" ? <Bounce /> : "Sign Out"}
+						</Button>
 					</Drawer>
 				</Hidden>
 			</div>
