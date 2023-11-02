@@ -12,6 +12,7 @@ import {
 	signOut,
 } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
+import { Password } from "@mui/icons-material";
 
 interface AuthState {
 	status: "idle" | "loading" | "success" | "failed";
@@ -39,6 +40,22 @@ export const loginWithEmailAndPassword = createAsyncThunk(
 			const getUser = await getDocs(query(collection(firestoredb, "users"), where("email", "==", user.email)));
 			const userData = getRawData(getUser);
 			return userData[0];
+		} catch (error) {
+			console.log(error);
+		}
+	}
+);
+
+export const createNewUser = createAsyncThunk(
+	"createNewUser",
+	async function createNewUser(userCred: { name: string; email: string; password: string; role: string }) {
+		try {
+			const newUser = await createUserWithEmailAndPassword(auth, userCred.email, userCred.password);
+			const user = newUser.user;
+			await addDoc(collection(firestoredb, "users"), {
+				email: user.email,
+				role: userCred.role,
+			});
 		} catch (error) {
 			console.log(error);
 		}
