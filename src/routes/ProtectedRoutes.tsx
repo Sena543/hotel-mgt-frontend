@@ -1,24 +1,17 @@
-import { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
-import GenericLayout from "../layouts/GenericLayout";
+import { Dashboard, Inventory } from "@mui/icons-material";
 import Menu from "../pages/Restuarant/Menu/Menu";
-import Signup from "../pages/Signup/Signup";
-import Login from "../pages/Login/Login";
-import Inventory from "../pages/Inventory/Inventory";
+import GenericLayout from "../layouts/GenericLayout";
+import RootLayout from "../layouts/Root";
 import Admin from "../pages/Admin/Admin";
-import ProtectedRoutes from "./ProtectedRoutes";
-import PublicRoutes from "./PublicRoutes";
-const RootLayout = lazy(() => import("../layouts/Root"));
-const Booking = lazy(() => import("../pages/Booking/Booking"));
-const Restuarant = lazy(() => import("../pages/Restuarant/Restuarant"));
-const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
-const GuestDetails = lazy(() => import("../pages/Guest/GuestDetails/GuestDetails"));
-const Guests = lazy(() => import("../pages/Guest/Guests"));
-const Rooms = lazy(() => import("../pages/Room/Rooms"));
-const Staff = lazy(() => import("../pages/Staff/Staff"));
+import Booking from "../pages/Booking/Booking";
+import GuestDetails from "../pages/Guest/GuestDetails/GuestDetails";
+import Guests from "../pages/Guest/Guests";
+import Restuarant from "../pages/Restuarant/Restuarant";
+import Rooms from "../pages/Room/Rooms";
+import Staff from "../pages/Staff/Staff";
 
-export default createBrowserRouter([
-	{
+function ProtectedRoutes() {
+	return {
 		path: "/",
 		element: <RootLayout />,
 		children: [
@@ -67,7 +60,7 @@ export default createBrowserRouter([
 				element: <Admin />,
 			},
 		],
-	},
-	{ path: "sign-up", element: <Signup /> },
-	{ path: "/sign-in", element: <Login /> },
-]);
+	};
+}
+
+export default ProtectedRoutes;
