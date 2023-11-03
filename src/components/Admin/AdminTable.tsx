@@ -7,7 +7,7 @@ type AdminTableProp = {
     tableData: UserType[];
 };
 function AdminTable({ tableData }: AdminTableProp) {
-    const header = ["Full Name", "Email", "Role"];
+    const header = ["Email", "Role"];
 
     return (
         <TableContainer>
@@ -39,7 +39,7 @@ function AdminTable({ tableData }: AdminTableProp) {
                                 index: number
                             ) => (
                                 <StyledTableRow key={`${index}-${email}`} hover>
-                                    <StyledTableCell>{name}</StyledTableCell>
+                                    {/* <StyledTableCell>{name}</StyledTableCell> */}
                                     <StyledTableCell>{email}</StyledTableCell>
                                     <StyledTableCell>{role}</StyledTableCell>
                                 </StyledTableRow>
