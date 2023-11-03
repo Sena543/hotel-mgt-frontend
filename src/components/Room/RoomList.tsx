@@ -12,6 +12,7 @@ import {
 import "./roomList.css";
 // import { roomData } from "../../services/roomList";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
+import { Link } from "react-router-dom";
 
 export type RoomType = {
     roomName: string;
@@ -60,7 +61,14 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
                             )
                             .map(({ roomName, bedType, facility, status, rawDocID }) => (
                                 <StyledTableRow hover key={rawDocID}>
-                                    <TableCell>{roomName}</TableCell>
+                                    <TableCell>
+                                        <Link
+                                            style={{ textDecoration: "none" }}
+                                            to={`/rooms/roomdetails/${roomName}`}
+                                        >
+                                            <Typography>{roomName}</Typography>
+                                        </Link>
+                                    </TableCell>
                                     <TableCell>{bedType}</TableCell>
                                     <TableCell>{facility}</TableCell>
                                     <TableCell>
