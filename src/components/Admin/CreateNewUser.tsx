@@ -16,6 +16,9 @@ import {
 } from "@mui/material";
 import CustomTextField from "../TextInput/CustomTextField";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createNewUser } from "../../redux/slices/authSlice";
+import { AppDispatch } from "../../redux/types";
 
 type CreateUserProps = {
 	open: boolean;
@@ -23,6 +26,7 @@ type CreateUserProps = {
 };
 
 function CreateNewUser({ open, setOpenModal }: CreateUserProps) {
+	const dispatch = useDispatch<AppDispatch>();
 	const [userCredentials, setUserCredentials] = useState({
 		fullName: "",
 		email: "",
@@ -40,6 +44,17 @@ function CreateNewUser({ open, setOpenModal }: CreateUserProps) {
 				[name]: value,
 			};
 		});
+	};
+
+	const submit = () => {
+		dispatch(
+			createNewUser({
+				name: userCredentials.fullName,
+				email: userCredentials.email,
+				role: userCredentials.role,
+				password: userCredentials.password,
+			})
+		);
 	};
 	return (
 		<GenericModal className="order-modal-container" open={open} setOpenModal={setOpenModal}>
@@ -93,7 +108,7 @@ function CreateNewUser({ open, setOpenModal }: CreateUserProps) {
 						<FormControlLabel value="USER" control={<Radio />} label="User" />
 					</RadioGroup>
 				</FormControl>
-				<Button style={{ width: "60%" }} variant="contained">
+				<Button onClick={() => submit()} style={{ width: "60%" }} variant="contained">
 					Create
 				</Button>
 			</div>
