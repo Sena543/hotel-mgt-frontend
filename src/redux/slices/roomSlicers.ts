@@ -32,7 +32,7 @@ export const fetchAllRooms = createAsyncThunk("fetch/rooms", async (_, thunkAPI)
 
         return { roomsData, guestsData };
     } catch (error: any) {
-        console.log(error.message);
+        console.log(await error);
 
         return thunkAPI.rejectWithValue(error.message);
     }
@@ -83,7 +83,7 @@ export const roomSlice = createSlice({
 
         builder.addCase(fetchAllRooms.rejected, (state, action: PayloadAction<any>) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
-            toast.warn(`Error ${state.errorMessage}`);
+            toast.warn(`Fetch Room Error: ${state.errorMessage}`);
             return state;
         });
     },

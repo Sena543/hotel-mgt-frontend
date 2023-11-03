@@ -56,7 +56,9 @@ export const loginWithEmailAndPassword = createAsyncThunk(
             return userData[0];
         } catch (error) {
             console.log(error);
-            return error;
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );

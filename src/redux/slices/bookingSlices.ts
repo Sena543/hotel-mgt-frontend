@@ -36,7 +36,9 @@ export const fetchAllGuestBookingHistory = createAsyncThunk(
         } catch (error: any) {
             console.log(error.message);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -55,7 +57,9 @@ export const fetchGuestBookingHistory = createAsyncThunk(
         } catch (error: any) {
             console.log(error.message);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -69,7 +73,9 @@ export const createNewBookingHistory = createAsyncThunk(
         } catch (error: any) {
             console.log(error);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -90,7 +96,9 @@ export const createNewGuestMealOrder = createAsyncThunk(
         } catch (error: any) {
             console.log(error);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -110,7 +118,9 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             fetchGuestBookingHistory.fulfilled,
-            (state, action: PayloadAction<BookingHistoryType[]>) => {
+            (state: BookingState, action: PayloadAction<any>) => {
+                console.log(action, "bh");
+                // (state: BookingState, action: PayloadAction<BookingHistoryType[]>) => {
                 state = { ...state, status: "success", bookingHistory: action.payload };
 
                 // toast.success("Success");
@@ -130,7 +140,8 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             createNewBookingHistory.fulfilled,
-            (state: any, action: PayloadAction<BookingHistoryType>) => {
+            // (state: any, action: PayloadAction<BookingHistoryType>) => {
+            (state: any, action: PayloadAction<any>) => {
                 state = {
                     ...state,
                     bookingHistory: [...state.bookingHistory, action.payload],
@@ -186,7 +197,7 @@ export const bookingSlice = createSlice({
         builder.addCase(createNewGuestMealOrder.rejected, (state, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             // state = { ...state, status: action.payload };
-            toast.warn(`Error ${state.errorMessage}`);
+            toast.warn(`Create New Order Error: ${state.errorMessage}`);
             return state;
         });
 
@@ -204,7 +215,8 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             fetchAllGuestBookingHistory.fulfilled,
-            (state: any, action: PayloadAction<BookingHistoryType[]>) => {
+            (state: any, action: PayloadAction<any>) => {
+                // (state: any, action: PayloadAction<BookingHistoryType[]>) => {
                 state = {
                     ...state,
                     bookingHistory: [...action.payload],
