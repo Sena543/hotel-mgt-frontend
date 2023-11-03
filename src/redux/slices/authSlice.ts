@@ -77,6 +77,7 @@ export const createNewUser = createAsyncThunk(
             await addDoc(collection(firestoredb, "users"), {
                 email: user.email,
                 role: userCred.role,
+                name: userCred.name,
             });
             return;
         } catch (error) {
