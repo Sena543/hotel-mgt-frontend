@@ -5,14 +5,21 @@ import { getRawData } from "../../utils/util-functions";
 import { StaffDetailsType } from "../../constants/genericTypes";
 import { toast } from "react-toastify";
 
+export type UserType = {
+    name: string;
+    email: string;
+    role: string;
+};
 type StaffState = {
     status: "idle" | "loading" | "success" | "failed";
     staffData: StaffDetailsType[];
+    users: UserType[];
     errorMessage: string;
 };
 const initialState: StaffState = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     staffData: [],
+    users: [],
     errorMessage: "",
 };
 
@@ -24,6 +31,22 @@ export const fetchAllStaff = createAsyncThunk(
             const staffData = getRawData<StaffDetailsType>(returnedGuestsData);
 
             return staffData;
+        } catch (error: any) {
+            console.log(error.message);
+
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const fetchAllUsers = createAsyncThunk(
+    "fetch/users",
+    async function fetchUsers(_, thunkAPI) {
+        try {
+            const returnedGuestsData = await getDocs(collection(firestoredb, "users"));
+            const userData = getRawData<UserType>(returnedGuestsData);
+
+            return userData;
         } catch (error: any) {
             console.log(error.message);
 
@@ -75,7 +98,7 @@ export const staffSlice = createSlice({
         });
         builder.addCase(
             createNewStaff.fulfilled,
-            (state: any, action: PayloadAction<StaffDetailsType>) => {
+            (state: StaffState, action: PayloadAction<StaffDetailsType>) => {
                 state = {
                     ...state,
                     staffData: [...state.staffData, action.payload],
@@ -87,6 +110,29 @@ export const staffSlice = createSlice({
             }
         );
         builder.addCase(createNewStaff.rejected, (state, action: any) => {
+            state = { ...state, status: "failed", errorMessage: action.payload };
+            toast.warn(`Error ${state.errorMessage}`);
+            // state = { ...state, status: action.payload };
+            return state;
+        });
+        builder.addCase(fetchAllUsers.pending, (state) => {
+            state = { ...state, status: "loading" };
+            return state;
+        });
+        builder.addCase(
+            fetchAllUsers.fulfilled,
+            (state: StaffState, action: PayloadAction<UserType[]>) => {
+                state = {
+                    ...state,
+                    // users: [...state.users, ...action.payload],
+                    users: [...action.payload],
+                    status: "success",
+                };
+
+                return state;
+            }
+        );
+        builder.addCase(fetchAllUsers.rejected, (state: StaffState, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             toast.warn(`Error ${state.errorMessage}`);
             // state = { ...state, status: action.payload };
