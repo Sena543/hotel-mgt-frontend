@@ -1,71 +1,54 @@
 import { TableContainer, Table, TableHead, TableRow, TableBody } from "@mui/material";
 import React from "react";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
+import { UserType } from "../../redux/slices/staffSlices";
 
-function AdminTable() {
-	const header = ["Item No", "Item Name", "Location", "Quantity Available", "Category"];
-	const newHeader = ["Full Name", "Email", "Role"];
-	const tableData = [
-		{
-			name: "Chocolate",
-			itemNo: "1",
-			location: "Warehouse 1 A1R4",
-			quantityAvailable: "50",
-			itemCategory: "Food",
-		},
-	];
-	return (
-		<TableContainer>
-			<Table>
-				<TableHead>
-					<TableRow>
-						{header &&
-							header.map((name) => (
-								<StyledTableCell key={name}>{name.toLocaleUpperCase()}</StyledTableCell>
-							))}
-						{/* {showActionCol ? <StyledTableCell>ACTIONS</StyledTableCell> : null} */}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{tableData &&
-						tableData.map(
-							(
-								{
-									itemNo,
-									location,
-									quantityAvailable,
-									itemCategory,
-									name,
-								}: {
-									itemNo: string;
-									location: string;
-									quantityAvailable: string;
-									itemCategory: string;
-									name: string;
-								},
-								index: number
-							) => (
-								<StyledTableRow key={`${index}`} hover>
-									<StyledTableCell>
-										{/* <Link
-                                    to={`/${itemNo}-${name}`}
-                                    style={{ textDecoration: "none" }}
-                                >
-                                    {itemNo}
-                                </Link> */}
-										{itemNo}
-									</StyledTableCell>
-									<StyledTableCell>{name}</StyledTableCell>
-									<StyledTableCell>{location}</StyledTableCell>
-									<StyledTableCell>{quantityAvailable}</StyledTableCell>
-									<StyledTableCell>{itemCategory}</StyledTableCell>
-								</StyledTableRow>
-							)
-						)}
-				</TableBody>
-			</Table>
-		</TableContainer>
-	);
+type AdminTableProp = {
+    tableData: UserType[];
+};
+function AdminTable({ tableData }: AdminTableProp) {
+    const header = ["Full Name", "Email", "Role"];
+
+    return (
+        <TableContainer>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        {header &&
+                            header.map((name) => (
+                                <StyledTableCell key={name}>
+                                    {name.toLocaleUpperCase()}
+                                </StyledTableCell>
+                            ))}
+                        {/* {showActionCol ? <StyledTableCell>ACTIONS</StyledTableCell> : null} */}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {tableData &&
+                        tableData.map(
+                            (
+                                {
+                                    name,
+                                    email,
+                                    role,
+                                }: {
+                                    role: string;
+                                    name: string;
+                                    email: string;
+                                },
+                                index: number
+                            ) => (
+                                <StyledTableRow key={`${index}-${email}`} hover>
+                                    <StyledTableCell>{name}</StyledTableCell>
+                                    <StyledTableCell>{email}</StyledTableCell>
+                                    <StyledTableCell>{role}</StyledTableCell>
+                                </StyledTableRow>
+                            )
+                        )}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
 }
 
 export default AdminTable;

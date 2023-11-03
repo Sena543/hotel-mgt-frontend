@@ -1,13 +1,23 @@
 import { Typography, Button } from "@mui/material";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import AdminTable from "../../components/Admin/AdminTable";
 import CreateNewUser from "../../components/Admin/CreateNewUser";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/types";
+import { fetchAllUsers } from "../../redux/slices/staffSlices";
 
 function Admin() {
+    const users = useSelector((state: any) => state.staff.users);
+    const dispatch = useDispatch<AppDispatch>();
     const [openModal, setOpenModal] = useState(false);
+    useEffect(() => {
+        if (users.length === 0) {
+            dispatch(fetchAllUsers());
+        }
+    }, [dispatch, users]);
+
     return (
-        <div>
+        <div className="restaurant-container">
             <div className="restaurant-header">
                 <Typography style={{}} fontSize={30} fontWeight="bold">
                     Administrator Panel
@@ -20,8 +30,7 @@ function Admin() {
                     <Button onClick={() => setOpenModal(true)}>Create New User</Button>
                 </div>
             </div>
-            <AdminTable />
-            {/* <CreateNewUser open={openModal} setOpenModal={setOpenModal} /> */}
+            <AdminTable tableData={users} />
             <CreateNewUser open={openModal} setOpenModal={setOpenModal} />
         </div>
     );
