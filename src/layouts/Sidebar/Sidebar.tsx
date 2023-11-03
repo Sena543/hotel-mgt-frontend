@@ -46,16 +46,25 @@ function Sidebar({ window }: SidebarProps) {
 		setMobileOpen(!mobileOpen);
 	};
 	const drawerWidth = 240;
-	const sidebarNavLinks = [
-		{ name: "Dashboard", link: "/", icon: <DashboardRounded fontSize="large" /> },
-		{ name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
-		// { name: "Booking", link: "booking", icon: <BookOnlineRounded fontSize="large" /> },
-		{ name: "Guests", link: "guests", icon: <PortraitRounded fontSize="large" /> },
-		{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
-		{ name: "Restuarant", link: "restaurant", icon: <Restaurant fontSize="large" /> },
-		{ name: "Inventory", link: "inventory", icon: <Inventory fontSize="large" /> },
-		{ name: "Administrator", link: "admin", icon: <AdminPanelSettingsRounded fontSize="large" /> },
-	];
+	const sidebarNavLinks =
+		auth.authData.role != "ADMIN"
+			? [
+					{ name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
+					{ name: "Guests", link: "guests", icon: <PortraitRounded fontSize="large" /> },
+					{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
+					{ name: "Restuarant", link: "restaurant", icon: <Restaurant fontSize="large" /> },
+					{ name: "Inventory", link: "inventory", icon: <Inventory fontSize="large" /> },
+			  ]
+			: [
+					{ name: "Dashboard", link: "/", icon: <DashboardRounded fontSize="large" /> },
+					{ name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
+					// { name: "Booking", link: "booking", icon: <BookOnlineRounded fontSize="large" /> },
+					{ name: "Guests", link: "guests", icon: <PortraitRounded fontSize="large" /> },
+					{ name: "Staff", link: "employees", icon: <BadgeRounded fontSize="large" /> },
+					{ name: "Restuarant", link: "restaurant", icon: <Restaurant fontSize="large" /> },
+					{ name: "Inventory", link: "inventory", icon: <Inventory fontSize="large" /> },
+					{ name: "Administrator", link: "admin", icon: <AdminPanelSettingsRounded fontSize="large" /> },
+			  ];
 
 	const drawer = (
 		<List style={{ height: "92%" }}>
