@@ -9,6 +9,8 @@ import Guests from "../pages/Guest/Guests";
 import Restuarant from "../pages/Restuarant/Restuarant";
 import Rooms from "../pages/Room/Rooms";
 import Staff from "../pages/Staff/Staff";
+import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
 
 function ProtectedRoutes() {
 	return {
