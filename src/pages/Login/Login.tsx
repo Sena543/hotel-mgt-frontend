@@ -2,20 +2,25 @@ import "./login.css";
 import { Button, IconButton, InputAdornment, Typography } from "@mui/material";
 import CustomTextField from "../../components/TextInput/CustomTextField";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/types";
 import { loginWithEmailAndPassword } from "../../redux/slices/authSlice";
+import { Bounce } from "react-activity";
+import "react-activity/dist/Bounce.css";
 
 function Login() {
+	const navigate = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
+	const auth = useSelector((state: any) => state.auth);
 	const [userDetails, setUserDetails] = useState({
-		email: "newuser@email.com",
+		email: "newuser1@email.com",
 		// email: "",
 		password: "1234567",
 	});
 	const [showPassword, setShowPassword] = useState(false);
+
 	const handleClickShowPassword = () => setShowPassword((showPassword) => !showPassword);
 
 	const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,7 +37,10 @@ function Login() {
 	};
 
 	const handleLogin = async () => {
-		dispatch(loginWithEmailAndPassword({ email: userDetails.email, password: userDetails.password }));
+		await dispatch(loginWithEmailAndPassword({ email: userDetails.email, password: userDetails.password }));
+		if (localStorage.getItem("role")) {
+			navigate("/");
+		}
 	};
 	return (
 		<div className="login-root">
@@ -77,14 +85,20 @@ function Login() {
 							),
 						}}
 					/>
-					<Button variant="contained" className="login-button" onClick={() => handleLogin()}>
-						Login with Google
+					<Button
+						disabled={auth.status === "loading"}
+						variant="contained"
+						className="login-button"
+						onClick={() => handleLogin()}
+					>
+						{auth.status === "loading" ? <Bounce /> : "Login"}
+						{/* <Bounce /> */}
 					</Button>
 				</div>
 
-				<Link className="signup-link" to={"/sign-up"}>
+				{/* <Link className="signup-link" to={"/sign-up"}>
 					Sign up
-				</Link>
+				</Link> */}
 			</div>
 			{/* </div> */}
 		</div>
