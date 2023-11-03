@@ -48,7 +48,7 @@ function Sidebar({ window }: SidebarProps) {
     };
     const drawerWidth = 240;
     const sidebarNavLinks =
-        auth.authData.role != "ADMIN"
+        localStorage.getItem("role") != "ADMIN"
             ? [
                   { name: "Room", link: "rooms", icon: <KingBedRounded fontSize="large" /> },
                   { name: "Guests", link: "guests", icon: <PortraitRounded fontSize="large" /> },
