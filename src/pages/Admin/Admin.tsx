@@ -1,3 +1,4 @@
+import "./admin.css";
 import { Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import AdminTable from "../../components/Admin/AdminTable";
@@ -18,7 +19,10 @@ function Admin() {
 
     return (
         <div className="restaurant-container">
-            <div className="restaurant-header">
+            <div
+                className="restaurant-header"
+                style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
+            >
                 <Typography style={{}} fontSize={30} fontWeight="bold">
                     Administrator Panel
                 </Typography>
