@@ -1,86 +1,92 @@
 .food-header > h2,
 h3 {
-	font-family: "Pacifico", cursive;
-	font-size: 4rem;
-	font-weight: bold;
-	color: var(--defaultPrimaryColor);
+    font-family: "Pacifico", cursive;
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--defaultPrimaryColor);
 }
 
 .element-sep {
-	border-top: 2px dotted var(--defaultPrimaryColor);
-	width: 60%;
+    border-top: 2px dotted var(--defaultPrimaryColor);
+    width: 60%;
 }
 
 @media only screen and (max-width: 700px) {
-	.menu-header {
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		position: relative;
-		top: -1.6rem;
-	}
+    .menu-header {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        top: -1.6rem;
+    }
 }
 
 @media only screen and (min-width: 700px) {
-	.menu-container {
-		margin-left: 225px;
-	}
-	.menu-header {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+    .menu-container {
+        margin-left: 225px;
+    }
+    .menu-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	.menu-button-div {
-		width: 30%;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+    .menu-button-div {
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .dish-list {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 .dish {
-	display: flex;
-	width: 82%;
-	align-items: center;
-	justify-content: space-between;
-	margin: 3% auto;
+    display: flex;
+    width: 82%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3% auto;
 }
 
 .price-label-div {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
 .menu-autocomplete {
-	width: 85%;
+    width: 85%;
 }
 
 .delete-menu-item-icon {
-	display: none;
+    /* display: none; */
+    opacity: 0;
+    transform: translateX(0px);
+    transition: opacity 500ms ease, transform 500ms ease;
 }
 
 .slide-left:hover .delete-menu-item-icon {
-	display: block;
-	/* transform: translateX(2rem); */
-	/* transition: transform ease-in-out 3000ms; */
+    opacity: 1;
+    transform: translateX(-40px);
+
+    /* display: block; */
+    /* transform: translateX(2rem); */
+    /* transition: transform ease-in-out 3000ms; */
 }
 
 .beverages-sides-container {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .sides-beverages-div {
-	width: 50%;
-	padding: 2rem;
+    width: 50%;
+    padding: 2rem;
 }
