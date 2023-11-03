@@ -48,7 +48,7 @@ export const loginWithEmailAndPassword = createAsyncThunk(
 
 export const createNewUser = createAsyncThunk(
 	"createNewUser",
-	async function createNewUser(userCred: { name: string; email: string; password: string; role: string }) {
+	async function createNewUser(userCred: { name: string; email: string; password: string; role: string }, thunkAPI) {
 		try {
 			const newUser = await createUserWithEmailAndPassword(auth, userCred.email, userCred.password);
 			const user = newUser.user;
@@ -56,21 +56,21 @@ export const createNewUser = createAsyncThunk(
 				email: user.email,
 				role: userCred.role,
 			});
+			return;
 		} catch (error) {
 			console.log(error);
 		}
 	}
 );
 
-export const signOutUser = createAsyncThunk(
-	"signOutUser",
-	async function signOut(credentials: { email: string; password: string }, thunkAPI) {
-		try {
-		} catch (error) {
-			console.log(error);
-		}
+export const signOutUser = createAsyncThunk("signOutUser", async function signOutUser(_, thunkAPI) {
+	try {
+		await signOut(auth);
+		localStorage.clear();
+	} catch (error) {
+		console.log(error);
 	}
-);
+});
 
 export const authSlice = createSlice({
 	name: "authentication",
@@ -97,6 +97,36 @@ export const authSlice = createSlice({
 			return state;
 		});
 		builder.addCase(loginWithEmailAndPassword.rejected, (state) => {
+			state = { ...state, status: "error" };
+			return state;
+		});
+		builder.addCase(createNewUser.pending, (state) => {
+			state = { ...state, status: "loading" };
+			return state;
+		});
+		builder.addCase(createNewUser.fulfilled, (state, action: any) => {
+			state = {
+				...state,
+				status: "success",
+			};
+			return state;
+		});
+		builder.addCase(createNewUser.rejected, (state) => {
+			state = { ...state, status: "error" };
+			return state;
+		});
+		builder.addCase(signOutUser.pending, (state) => {
+			state = { ...state, status: "loading" };
+			return state;
+		});
+		builder.addCase(signOutUser.fulfilled, (state, action: any) => {
+			state = {
+				...state,
+				status: "success",
+			};
+			return state;
+		});
+		builder.addCase(signOutUser.rejected, (state) => {
 			state = { ...state, status: "error" };
 			return state;
 		});
