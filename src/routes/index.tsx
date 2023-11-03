@@ -8,6 +8,7 @@ import Inventory from "../pages/Inventory/Inventory";
 import Admin from "../pages/Admin/Admin";
 import ProtectedRoutes from "./ProtectedRoutes";
 import PublicRoutes from "./PublicRoutes";
+import Error from "../pages/Error/Error";
 const RootLayout = lazy(() => import("../layouts/Root"));
 const Booking = lazy(() => import("../pages/Booking/Booking"));
 const Restuarant = lazy(() => import("../pages/Restuarant/Restuarant"));
@@ -21,6 +22,7 @@ export default createBrowserRouter([
 	{
 		path: "/",
 		element: <RootLayout />,
+		errorElement: <Error />,
 		children: [
 			{
 				path: "/",
@@ -69,5 +71,7 @@ export default createBrowserRouter([
 		],
 	},
 	{ path: "sign-up", element: <Signup /> },
-	{ path: "/sign-in", element: <Login /> },
+	{ path: "sign-in", element: <Login /> },
 ]);
+
+// export default createBrowserRouter([])
