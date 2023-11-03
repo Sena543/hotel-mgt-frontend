@@ -23,6 +23,7 @@ function Staff() {
 	const { staffData } = useSelector((state: any) => state.staff);
 	const [selectedHeader, setSelectedHeader] = useState<string>("all");
 	const [openModal, setOpenModal] = useState(false);
+	const user = useSelector((state: any) => state.auth.authData);
 
 	useEffect(() => {
 		dispatch(fetchAllStaff());
@@ -73,9 +74,12 @@ function Staff() {
 							</div>
 						))}
 				</Paper>
-				<Button onClick={() => setOpenModal(true)} variant="contained">
-					Create Staff
-				</Button>
+
+				{user.role === "ADMIN" ? (
+					<Button onClick={() => setOpenModal(true)} variant="contained">
+						Create Staff
+					</Button>
+				) : null}
 			</div>
 
 			<TableContainer component={Paper} elevation={0} className="staff-table-container">
