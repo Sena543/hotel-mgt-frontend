@@ -1,7 +1,10 @@
 import "./room-dets.css";
+import Carousel from "react-elastic-carousel";
 import { Button, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import GenericDashCards from "../../../components/Cards/GenericDashCards";
+import CarouselImage from "../../Guest/GuestDetails/CarouselImage";
+import UnderConstruction from "../../../components/UnderConstruction";
 
 function RoomDetails() {
     const { name } = useParams();
@@ -42,16 +45,27 @@ function RoomDetails() {
             </div>
             <div>
                 <GenericDashCards>
-                    <div>
+                    <Carousel
+                        className="carousel-container"
+                        itemsToShow={2.3}
+                        itemsToScroll={2}
+                        isRTL={false}
+                    >
                         {imgs.map(({ url }, index) => (
                             <div className="room-images">
-                                <img width={400} height={300} src={url} key={`${url}-${index}`} />
+                                <CarouselImage key={url} imgUrl={url} index={index} />
                                 <div className="img-delete-button">
                                     <Button>Delete</Button>
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </Carousel>
+                </GenericDashCards>
+            </div>
+            <div>
+                <Typography>Room Details</Typography>
+                <GenericDashCards>
+                    <UnderConstruction />
                 </GenericDashCards>
             </div>
         </div>
