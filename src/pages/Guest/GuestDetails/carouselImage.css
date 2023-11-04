@@ -1,16 +1,17 @@
 .carousel-image {
-    margin: 2em;
-    /* object-fit: contain; */
-    aspect-ratio: 1.2/2;
-    border-radius: 0.8em;
-    /* mix-blend-mode: color-burn; */
-    height: 100%;
+	margin: 0;
+	padding: 0;
+	/* object-fit: contain; */
+	aspect-ratio: 1.2/2;
+	border-radius: 0.8em;
+	/* mix-blend-mode: color-burn; */
+	height: 100%;
 }
 .carousel-image-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    width: 100%;
-    margin: 0 5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+	width: 100%;
+	/* margin: 0 5rem; */
 }
