@@ -22,6 +22,10 @@
 	justify-content: space-between;
 }
 
+.staff-header-paper:hover{
+	cursor: pointer;
+}
+
 /* Medium devices (phones, 700px and up) */
 @media only screen and (min-width: 700px) {
 	.staff-container {
