@@ -6,9 +6,10 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
 import { RoomType } from "../../../components/Room/RoomList";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../redux/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/types";
 import { addRoomImage } from "../../../redux/slices/roomSlicers";
+import { Bounce } from "react-activity";
 
 const VisuallyHiddenInput = styled("input")({
 	clip: "rect(0 0 0 0)",
@@ -29,6 +30,7 @@ type ModalProps = {
 };
 function UploadImageModal({ roomData, open, setModalOpen }: ModalProps) {
 	const dispatch = useDispatch<AppDispatch>();
+	const rooms = useSelector((state: RootState) => state.rooms);
 	const [fileUpload, setFileUpload] = useState<File | null>(null);
 	const handleUpload = async () => {
 		if (fileUpload) {
@@ -78,8 +80,8 @@ function UploadImageModal({ roomData, open, setModalOpen }: ModalProps) {
 				<Typography>{fileUpload?.name}</Typography>
 			</div>
 			<div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2%" }}>
-				<Button onClick={() => handleUpload()} variant="contained">
-					Upload
+				<Button disabled={rooms.status === "loading"} onClick={() => handleUpload()} variant="contained">
+					{rooms.status === "loading" ? <Bounce /> : "Upload"}
 				</Button>
 			</div>
 		</GenericModal>
