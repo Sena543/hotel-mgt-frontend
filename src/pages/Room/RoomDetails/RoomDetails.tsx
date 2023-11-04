@@ -5,9 +5,17 @@ import { Link, useParams } from "react-router-dom";
 import GenericDashCards from "../../../components/Cards/GenericDashCards";
 import CarouselImage from "../../Guest/GuestDetails/CarouselImage";
 import UnderConstruction from "../../../components/UnderConstruction";
+import UploadImageModal from "./UploadImageModal";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/types";
 
 function RoomDetails() {
 	const { name } = useParams();
+	const roomData = useSelector(
+		(state: RootState) => state.rooms.roomList.filter(({ roomName }) => roomName === name)[0]
+	);
+	const [openModal, setopenModal] = useState(false);
 
 	const imgs = [
 		{
@@ -57,7 +65,7 @@ function RoomDetails() {
 					>
 						<Typography variant="h5">Room Images</Typography>
 
-						<Button>Add Image</Button>
+						<Button onClick={() => setopenModal(true)}>Add Image</Button>
 					</div>
 					<Carousel
 						style={{ width: "100%", marginTop: "5%" }}
@@ -66,7 +74,7 @@ function RoomDetails() {
 						itemsToScroll={1}
 						isRTL={false}
 					>
-						{imgs.map(({ url }, index) => (
+						{roomData.imageUrls.map((url, index) => (
 							<div className="room-images">
 								<CarouselImage imgUrl={url} index={index} />
 								<div className="img-delete-button">
@@ -83,6 +91,7 @@ function RoomDetails() {
 					<UnderConstruction />
 				</GenericDashCards>
 			</div>
+			<UploadImageModal open={openModal} setModalOpen={setopenModal} roomData={roomData} />
 		</div>
 	);
 }
