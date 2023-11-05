@@ -1,0 +1,8 @@
+.booking-div-container {
+	width: 100vw !important;
+    margin: 0;
+}
+
+.welcome-div {
+	background-image: url("../../assets/images/welcome-hotel.avif");
+}
