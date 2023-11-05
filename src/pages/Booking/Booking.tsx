@@ -1,7 +1,18 @@
-import React from "react";
+import "./booking.css";
+import Welcome from "../../components/booking/Welome";
+import BookingForm from "../../components/booking/BookingForm";
+import About from "../../components/booking/About";
+import ExploreRooms from "../../components/booking/ExploreRooms";
 
 function Booking() {
-	return <div>Booking</div>;
+	return (
+		<div className="booking-div-container">
+			<Welcome />
+			<BookingForm />
+			<About />
+			<ExploreRooms />
+		</div>
+	);
 }
 
 export default Booking;
