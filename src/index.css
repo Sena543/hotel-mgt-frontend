@@ -5,7 +5,7 @@
     --defaultPrimaryColor: #80529d;
     --defaultSecondaryColor: #f6ae44;
 
-    width: 100vw;
+    /* width: 100vw; */
     /* color-scheme: light dark; */
     /* color: rgba(255, 255, 255, 0.87); */
 
@@ -34,6 +34,7 @@ body {
     /* place-items: center; */
     /* min-width: 320px; */
     min-height: 100vh;
+	/* width: 100vw; */
 }
 
 /*
