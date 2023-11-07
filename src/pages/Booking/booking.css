@@ -19,13 +19,20 @@
     width: 100%;
 }
 
+.booking-explore-rooms-section {
+    width: 95%;
+    display: grid;
+    place-content: center;
+    margin: 5% 5%;
+}
+
 .guest-booking-form {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     background-color: aliceblue;
-    width: 95dvw;
+    width: 75dvw;
     height: 9%;
     z-index: 1;
     position: absolute;
@@ -48,4 +55,21 @@
 
 .about-image-div {
     width: 65%;
+}
+
+.room-card {
+    width: 25%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 1px 1px 2px 2px #d9d9d9;
+}
+
+.room-card-image-div {
+    padding: 2%;
+}
+
+.room-card-image-div > img {
+    border-radius: 5px;
 }
