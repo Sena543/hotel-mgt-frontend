@@ -1,8 +1,33 @@
 .booking-div-container {
-	width: 100vw !important;
+    width: 100vw !important;
     margin: 0;
 }
 
 .welcome-div {
-	background-image: url("../../assets/images/welcome-hotel.avif");
+    /* height: 70%; */
+    height: 75dvh;
+    background-image: url("../../assets/images/welcome-hotel.avif");
+    background-size: 100% 100%;
+}
+
+.booking-form {
+    display: grid;
+    place-items: center;
+    width: 100%;
+}
+
+.guest-booking-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: aliceblue;
+    width: 95dvw;
+    height: 9%;
+    z-index: 1;
+    position: absolute;
+    bottom: 20%;
+    border: 1px solid ghostwhite;
+    box-shadow: 3px 5px 10px 1px #9cb1bb;
+    border-radius: 5px;
 }
