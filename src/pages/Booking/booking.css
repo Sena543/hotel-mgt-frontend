@@ -1,6 +1,9 @@
 .booking-div-container {
-    width: 100vw !important;
+    width: 99vw !important;
+    /* width: 100vw !important; */
     margin: 0;
+    display: grid;
+    place-content: center;
 }
 
 .welcome-div {
@@ -30,4 +33,19 @@
     border: 1px solid ghostwhite;
     box-shadow: 3px 5px 10px 1px #9cb1bb;
     border-radius: 5px;
+}
+
+.booking-about-section {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.about-div {
+    width: 45%;
+}
+
+.about-image-div {
+    width: 65%;
 }
