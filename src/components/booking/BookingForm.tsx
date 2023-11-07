@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, Button } from "@mui/material";
 
 function BookingForm() {
     const roomType = ["Standard", "Premium"];
@@ -16,7 +16,7 @@ function BookingForm() {
                         className="guest-booking-input-field"
                         disablePortal
                         id="combo-box-demo"
-                        sx={{ width: 300 }}
+                        sx={{ width: 250 }}
                         renderInput={(params) => (
                             <CustomTextField style={{}} {...params} label="Room Type" />
                         )}
@@ -51,7 +51,7 @@ function BookingForm() {
                         // className="custom-text-field contacts-field date-picker"
                         // sx={{ marginTop: "2em" }}
                     />
-                    {/* </div> */}
+                    <Button variant="contained">Book</Button>
                 </div>
             </div>
         </LocalizationProvider>
