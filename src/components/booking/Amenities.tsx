@@ -34,7 +34,7 @@ function Amenities() {
     return (
         <div className="booking-explore-rooms-section">
             <div style={{ display: "flex", justifyContent: "flex-start", margin: "2%" }}>
-                <Typography variant="h4">Rooms & Suites</Typography>
+                <Typography variant="h4">Amenities</Typography>
             </div>
 
             <div

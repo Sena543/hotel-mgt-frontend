@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 
 const RoomCard = ({ type, description }: { type: string; description: string }) => {
     return (
-        <div className="room-card">
+        <div key={description} className="room-card">
             <div style={{ minHeight: "150px" }} className="room-card-image-div">
                 <img src={welcomeImage} loading="lazy" height={"100%"} width={"100%"} />
             </div>
@@ -19,16 +19,16 @@ const RoomCard = ({ type, description }: { type: string; description: string }) 
 function ExploreRooms() {
     const roomsTypes = [
         {
-            type: "Lorem Ipsum Room",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. ",
+            type: "Swimming Pool",
+            description: "1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. ",
         },
         {
-            type: "Lorem Ipsum Room",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. ",
+            type: "Gym",
+            description: "2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. ",
         },
         {
-            type: "Lorem Ipsum Room",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. ",
+            type: "Luxury & Spa",
+            description: "3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. ",
         },
     ];
     return (
