@@ -51,10 +51,14 @@
 
 .about-div {
     width: 45%;
+	padding: 5%;
 }
 
 .about-image-div {
     width: 65%;
+}
+.about-image-div> img{
+	border-radius: 2%;
 }
 
 .room-card {
