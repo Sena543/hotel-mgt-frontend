@@ -25,7 +25,7 @@ const prepareBookingHistory = (bookingHistory: BookingHistoryType[], roomData: R
 					...historyElement,
 					bedType: roomElement.bedType,
 					facility: roomElement.facility,
-					imgUrls: [...roomElement.imageUrls],
+					imgUrls: [...roomElement?.imageUrls],
 				});
 			}
 		});
@@ -72,7 +72,7 @@ function GuestDetails() {
 				</Typography>
 			</div>
 			<div style={{ display: "flex", flexDirection: "row", marginBottom: "25px" }}>
-				<Link to={"/guests"} style={{ textDecoration: "none" }}>
+				<Link to={"/admin/guests"} style={{ textDecoration: "none" }}>
 					<Typography style={{ marginRight: "3px" }}>Guest / </Typography>
 				</Link>
 				<Typography>{name}</Typography>

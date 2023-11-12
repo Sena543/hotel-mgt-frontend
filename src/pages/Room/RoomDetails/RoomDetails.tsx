@@ -17,7 +17,6 @@ function RoomDetails() {
 	);
 	const [openModal, setopenModal] = useState(false);
 
-
 	return (
 		<div className="restaurant-container">
 			<div className="booking-history-div">
@@ -26,7 +25,7 @@ function RoomDetails() {
 				</Typography>
 			</div>
 			<div style={{ display: "flex", flexDirection: "row", marginBottom: "25px" }}>
-				<Link to={"/rooms"} style={{ textDecoration: "none" }}>
+				<Link to={"/admin/rooms"} style={{ textDecoration: "none" }}>
 					<Typography style={{ marginRight: "3px" }}>Room / </Typography>
 				</Link>
 				<Typography>{name}</Typography>

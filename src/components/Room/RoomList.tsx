@@ -52,7 +52,10 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
 							.map(({ roomName, bedType, facility, status, rawDocID }) => (
 								<StyledTableRow hover key={rawDocID}>
 									<TableCell>
-										<Link style={{ textDecoration: "none" }} to={`/rooms/roomdetails/${roomName}`}>
+										<Link
+											style={{ textDecoration: "none" }}
+											to={`/admin/rooms/roomdetails/${roomName}`}
+										>
 											<Typography>{roomName}</Typography>
 										</Link>
 									</TableCell>
