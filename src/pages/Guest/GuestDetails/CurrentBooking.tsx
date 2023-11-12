@@ -60,7 +60,12 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
 				</Typography>
 			</div>
 			<Carousel className="carousel-container" itemsToShow={2.3} itemsToScroll={2} isRTL={false}>
-				{bookingDetails.imgUrls.map((url, index) => (
+				{/* {bookingDetails?.imgUrls.length > 0
+					? bookingDetails?.imgUrls.map((url, index) => (
+							<CarouselImage key={url} imgUrl={url} index={index} />
+					  ))
+					: null} */}
+				{bookingDetails?.imgUrls.map((url, index) => (
 					<CarouselImage key={url} imgUrl={url} index={index} />
 				))}
 			</Carousel>
