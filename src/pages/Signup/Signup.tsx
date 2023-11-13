@@ -2,26 +2,31 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { InputAdornment, IconButton, Button, Typography } from "@mui/material";
 import CustomTextField from "../../components/TextInput/CustomTextField";
 import "./signup.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function Signup() {
+    const { state } = useLocation();
     const [showPassword, setShowPassword] = useState(false);
     // const [state, dispatch] = useReducer(signUpUserReducerFunction, companyDetailsState);
-    const [companyDetails, setCompanyDetails] = useState({
+    const [guestSignUpDetails, setGuestSignUpDetails] = useState({
         fullName: "",
         email: "",
-        companyName: "",
         phoneNumber: "",
-        comments: "",
+        numberOfPeople: state.numberOfPeople,
     });
 
+    console.log(state, new Date(state.checkIn).toLocaleDateString("en-GB"));
     const handleChangeEvent = (name: string, value: string) => {
-        setCompanyDetails((prevState) => {
+        setGuestSignUpDetails((prevState) => {
             return { ...prevState, [name]: value };
         });
     };
 
+    console.log(guestSignUpDetails);
     const handleClickshowPassword = () => setShowPassword((showPassword) => !showPassword);
 
     const handleMouseDownPassword = () => setShowPassword((showPassword) => !showPassword);
@@ -29,10 +34,8 @@ function Signup() {
     const textFieldNames = [
         { name: "Full Name", fieldName: "fullName" },
         { name: "Email", fieldName: "email" },
-        { name: "Company/Property Name", fieldName: "companyName" },
-        // { name: "Password", fieldName: "password" },
         { name: "Phone Number", fieldName: "phoneNumber" },
-        { name: "Comments", fieldName: "comments" },
+        { name: "Number of People", fieldName: "numberOfPeople" },
     ];
     return (
         <div className="signup-layout">
@@ -55,6 +58,7 @@ function Signup() {
                             key={fieldName}
                             name={fieldName}
                             variant="outlined"
+                            value={guestSignUpDetails[fieldName as keyof typeof guestSignUpDetails]}
                             className="custom-signup-text-field"
                             label={name}
                             margin="normal"
@@ -63,14 +67,6 @@ function Signup() {
                             ) => handleChangeEvent(e.target.name, e.target.value)}
                         />
                     ))}
-                    {/* <CustomTextField
-                        autoFocus
-                        name="useremail"
-                        variant="outlined"
-                        className="custom-signup-text-field"
-                        label="Email"
-                        margin="normal"
-                    /> */}
                     <CustomTextField
                         name="password"
                         variant="outlined"
@@ -93,9 +89,33 @@ function Signup() {
                             ),
                         }}
                     />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                            disablePast
+                            label="Check In Date"
+                            // format="MM-DD-YYYY"
+                            format="DD-MM-YYYY"
+                            value={dayjs(state.checkIn, "DD-MM-YYYY")}
+                            minDate={dayjs()}
+                            // onChange={(dateValue) => handleDateChange("checkIn", dateValue)}
+                            // className="custom-text-field contacts-field date-picker"
+                            sx={{ margin: "1em auto", width: "100%" }}
+                        />
+                        <DatePicker
+                            disablePast
+                            // className="guest-booking-input-field"
+                            label="Check Out Date"
+                            format="DD-MM-YYYY"
+                            value={dayjs(state.checkOut, "DD-MM-YYYY")}
+                            minDate={dayjs()}
+                            // onChange={(dateValue) => handleDateChange("checkIn", dateValue)}
+                            // className="custom-text-field contacts-field date-picker"
+                            sx={{ margin: "1em auto", width: "100%" }}
+                        />
+                    </LocalizationProvider>
                     <Button
                         variant="contained"
-                        onClick={() => console.log(companyDetails)}
+                        onClick={() => console.log(guestSignUpDetails)}
                         className="login-button"
                     >
                         Sign up
