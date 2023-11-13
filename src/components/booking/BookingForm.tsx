@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomTextField from "../TextInput/CustomTextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -6,9 +6,16 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { Autocomplete, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/types";
+import { fetchAllRooms } from "../../redux/slices/roomSlicers";
 
 function BookingForm() {
     const navigate = useNavigate();
+    const availableRooms = useSelector((state: RootState) =>
+        state.rooms.roomList.filter(({ status }) => status === "Available")
+    );
+    const dispatch = useDispatch<AppDispatch>();
     const roomType = ["Standard", "Premium"];
     const [booking, setBooking] = useState({
         lastName: "",
@@ -20,6 +27,12 @@ function BookingForm() {
         roomAssigned: "",
     });
     const [dateError, setDateError] = useState("");
+
+    useEffect(() => {
+        if (availableRooms.length === 0) {
+            dispatch(fetchAllRooms());
+        }
+    }, [dispatch]);
 
     const handleDateChange = (name: string, value: any) => {
         if (name === "checkOut") {
@@ -34,6 +47,8 @@ function BookingForm() {
             [name]: value,
         });
     };
+
+    console.log(availableRooms);
 
     const handleChange = (name: string, value: unknown) => {
         setBooking((prevState: any) => {
@@ -62,9 +77,19 @@ function BookingForm() {
                         name="numberOfPeople"
                         onChange={(e) => handleChange(e.target.name, e.target.value)}
                     />
+                    <Autocomplete
+                        className="guest-booking-input-field"
+                        disablePortal
+                        id="combo-box-demo"
+                        sx={{ width: 250 }}
+                        renderInput={(params) => (
+                            <CustomTextField style={{}} {...params} label="Available Rooms" />
+                        )}
+                        options={availableRooms}
+                    />
 
                     <DatePicker
-                        // disablePast
+                        disablePast
                         label="Check In Date"
                         className="guest-booking-input-field"
                         format="DD-MM-YYYY"
@@ -77,7 +102,7 @@ function BookingForm() {
                         // sx={{ marginTop: "2em" }}
                     />
                     <DatePicker
-                        // disablePast
+                        disablePast
                         className="guest-booking-input-field"
                         label="Check Out Date"
                         format="DD-MM-YYYY"
