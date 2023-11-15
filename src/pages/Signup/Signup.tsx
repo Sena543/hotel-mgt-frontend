@@ -7,32 +7,76 @@ import { useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { createNewBookingHistory, resetStatus } from "../../redux/slices/bookingSlices";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/types";
+import { addNewGuest, resetGuestStatus } from "../../redux/slices/guestSlices";
 
 function Signup() {
     const { state } = useLocation();
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch<AppDispatch>();
     // const [state, dispatch] = useReducer(signUpUserReducerFunction, companyDetailsState);
     const [guestSignUpDetails, setGuestSignUpDetails] = useState({
-        fullName: "",
+        lastName: "",
+        firstName: "",
         email: "",
         phoneNumber: "",
+        // roomSelected: state.
         numberOfPeople: state.numberOfPeople,
+        checkIn: state.checkIn,
+        checkOut: state.checkOut,
+        roomSelected: state.roomSelected,
     });
 
-    console.log(state, new Date(state.checkIn).toLocaleDateString("en-GB"));
+    // console.log(state, new Date(state.checkIn).toLocaleDateString("en-GB"));
+    console.log(state);
     const handleChangeEvent = (name: string, value: string) => {
         setGuestSignUpDetails((prevState) => {
             return { ...prevState, [name]: value };
         });
     };
 
-    console.log(guestSignUpDetails);
+    // console.log(guestSignUpDetails);
     const handleClickshowPassword = () => setShowPassword((showPassword) => !showPassword);
 
     const handleMouseDownPassword = () => setShowPassword((showPassword) => !showPassword);
 
+    const handleCreateReservation = () => {
+        // console.log(state, new Date(state.checkIn).toLocaleDateString("en-GB"));
+        let guestID = (Math.random() * Number(new Date().getTime().toString().slice(-6)))
+            .toString()
+            .replace(".", "")
+            .slice(6);
+        const newBookingData = {
+            bookingID: `${new Date().getTime().toString().slice(-6)}`,
+            roomID: guestSignUpDetails.roomSelected.roomName,
+            checkIn: new Date(guestSignUpDetails.checkIn).toLocaleDateString("en-GB"),
+            checkOut: new Date(guestSignUpDetails.checkOut).toLocaleDateString("en-GB"),
+            guestID: `${guestID}`,
+            mealOrderID: [],
+        };
+        const newGuestData = {
+            lastName: guestSignUpDetails.lastName,
+            firstName: guestSignUpDetails.firstName,
+            email: guestSignUpDetails.email,
+            contact: guestSignUpDetails.phoneNumber,
+            checkIn: new Date(guestSignUpDetails.checkIn).toLocaleDateString("en-GB"),
+            checkOut: new Date(guestSignUpDetails.checkOut).toLocaleDateString("en-GB"),
+            roomAssigned: guestSignUpDetails.roomSelected.roomName,
+            specialRequests: "",
+        };
+
+        console.log({ newBookingData, newGuestData });
+        dispatch(addNewGuest(newGuestData));
+        dispatch(createNewBookingHistory(newBookingData));
+        dispatch(resetStatus());
+        dispatch(resetGuestStatus());
+    };
+
     const textFieldNames = [
-        { name: "Full Name", fieldName: "fullName" },
+        { name: "Last Name", fieldName: "lastName" },
+        { name: "First Name", fieldName: "firstName" },
         { name: "Email", fieldName: "email" },
         { name: "Phone Number", fieldName: "phoneNumber" },
         { name: "Number of People", fieldName: "numberOfPeople" },
@@ -103,6 +147,7 @@ function Signup() {
                         />
                         <DatePicker
                             disablePast
+                            // disabled
                             // className="guest-booking-input-field"
                             label="Check Out Date"
                             format="DD-MM-YYYY"
@@ -115,10 +160,11 @@ function Signup() {
                     </LocalizationProvider>
                     <Button
                         variant="contained"
-                        onClick={() => console.log(guestSignUpDetails)}
+                        onClick={handleCreateReservation}
+                        // onClick={() => console.log(guestSignUpDetails)}
                         className="login-button"
                     >
-                        Sign up
+                        Make Reservation{" "}
                     </Button>
                 </div>
 
