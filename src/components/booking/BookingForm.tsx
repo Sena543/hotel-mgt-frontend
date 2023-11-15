@@ -4,17 +4,16 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { Autocomplete, Button } from "@mui/material";
+import { Autocomplete, Button, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/types";
 import { fetchAllRooms } from "../../redux/slices/roomSlicers";
+import { RoomType } from "../Room/RoomList";
 
 function BookingForm() {
     const navigate = useNavigate();
-    const availableRooms = useSelector((state: RootState) =>
-        state.rooms.roomList.filter(({ status }) => status === "Available")
-    );
+
     const dispatch = useDispatch<AppDispatch>();
     const roomType = ["Standard", "Premium"];
     const [booking, setBooking] = useState({
@@ -24,15 +23,22 @@ function BookingForm() {
         contact: "",
         checkIn: dayjs(), //today
         checkOut: dayjs().add(1, "day"), //tomorrow
-        roomAssigned: "",
+        roomSelected: { roomName: "" } as RoomType,
+        numberOfPeople: 0,
     });
     const [dateError, setDateError] = useState("");
+    const availableRooms = useSelector((state: RootState) =>
+        state.rooms.roomList.filter(
+            ({ status, roomCapacity }) =>
+                status === "Available" && roomCapacity >= booking.numberOfPeople
+        )
+    );
 
     useEffect(() => {
         if (availableRooms.length === 0) {
             dispatch(fetchAllRooms());
         }
-    }, [dispatch]);
+    }, [dispatch, booking]);
 
     const handleDateChange = (name: string, value: any) => {
         if (name === "checkOut") {
@@ -48,7 +54,7 @@ function BookingForm() {
         });
     };
 
-    console.log(availableRooms);
+    // console.log(availableRooms);
 
     const handleChange = (name: string, value: unknown) => {
         setBooking((prevState: any) => {
@@ -65,7 +71,7 @@ function BookingForm() {
                         className="guest-booking-input-field"
                         disablePortal
                         id="combo-box-demo"
-                        sx={{ width: 250 }}
+                        sx={{ width: 250, margin: 2 }}
                         renderInput={(params) => (
                             <CustomTextField style={{}} {...params} label="Room Type" />
                         )}
@@ -80,12 +86,42 @@ function BookingForm() {
                     <Autocomplete
                         className="guest-booking-input-field"
                         disablePortal
+                        loading={availableRooms.length === 0}
                         id="combo-box-demo"
-                        sx={{ width: 250 }}
-                        renderInput={(params) => (
-                            <CustomTextField style={{}} {...params} label="Available Rooms" />
-                        )}
+                        sx={{ width: 250, margin: 2 }}
+                        value={booking.roomSelected}
+                        onChange={(
+                            event: any,
+                            newValue: RoomType | null 
+                        ) => {
+                            setBooking((prev: any) => {
+                                return {
+                                    ...prev,
+                                    roomSelected: newValue,
+                                };
+                            });
+                        }}
                         options={availableRooms}
+                        isOptionEqualToValue={(option, value) => option.roomName === value.roomName}
+                        getOptionLabel={(option) => option.roomName}
+                        renderInput={(params) => (
+                            <CustomTextField
+                                {...params}
+                                name="roomSelected"
+                                label="Available Rooms"
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <React.Fragment>
+                                            {availableRooms.length === 0 ? (
+                                                <CircularProgress color="inherit" size={20} />
+                                            ) : null}
+                                            {params.InputProps.endAdornment}
+                                        </React.Fragment>
+                                    ),
+                                }}
+                            />
+                        )}
                     />
 
                     <DatePicker
@@ -99,7 +135,7 @@ function BookingForm() {
                         minDate={dayjs()}
                         onChange={(dateValue) => handleDateChange("checkIn", dateValue)}
                         // className="custom-text-field contacts-field date-picker"
-                        // sx={{ marginTop: "2em" }}
+                        sx={{ margin: 2 }}
                     />
                     <DatePicker
                         disablePast
@@ -112,7 +148,7 @@ function BookingForm() {
                         minDate={dayjs()}
                         onChange={(dateValue) => handleDateChange("checkOut", dateValue)}
                         // className="custom-text-field contacts-field date-picker"
-                        // sx={{ marginTop: "2em" }}
+                        sx={{ margin: 2 }}
                     />
                     <Button
                         variant="contained"
