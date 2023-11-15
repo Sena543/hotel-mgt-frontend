@@ -11,6 +11,7 @@ export type RoomType = {
 	facility: string;
 	status: string;
 	rawDocID: string;
+	roomCapacity: number;
 	imageUrls: string[];
 	// status: "Booked" | "Available";
 	// period: string;
@@ -27,7 +28,9 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
 		if (selectedHeader === "available") {
 			return roomData.filter(({ status }: { status: string }) => status === "Available");
 		}
-
+		if (selectedHeader === "reserved") {
+			return roomData.filter(({ status }: { status: string }) => status === "Reserved");
+		}
 		return roomData;
 	};
 
