@@ -36,18 +36,25 @@ export function groupByMonthAndCount(guests: GuestsType[]) {
     });
 
     guests.forEach((guest: GuestsType) => {
-        const checkInmonthNumber = Number(guest["checkIn"].split("-")[0]) - 1;
-        const checkOutmonthNumber = Number(guest["checkOut"].split("-")[0]) - 1;
+        const checkInmonthNumber = Number(formattedDate(guest.checkIn).getMonth()) + 1;
+        const checkOutmonthNumber = Number(formattedDate(guest.checkOut).getMonth()) + 1;
+        // const checkInmonthNumber = Number(guest["checkIn"].split("-")[1]) - 1;
+        // const checkOutmonthNumber = Number(guest["checkOut"].split("-")[1]) - 1;
 
-        groupAndCount[checkInmonthNumber].checkIn = dayjs().isSameOrAfter(guest.checkIn)
+        groupAndCount[checkInmonthNumber].checkIn = dayjs().isSameOrAfter(
+            formattedDate(guest.checkIn)
+        )
             ? groupAndCount[checkInmonthNumber].checkIn + 1
             : groupAndCount[checkInmonthNumber].checkIn;
 
-        groupAndCount[checkOutmonthNumber].checkOut = dayjs().isSameOrAfter(guest.checkOut)
+        groupAndCount[checkOutmonthNumber].checkOut = dayjs().isSameOrAfter(
+            formattedDate(guest.checkOut)
+        )
             ? groupAndCount[checkOutmonthNumber].checkOut + 1
             : groupAndCount[checkOutmonthNumber].checkOut;
     });
 
+    //return from first to current month
     return groupAndCount.slice(0, new Date().getMonth() + 1);
 }
 
@@ -58,7 +65,7 @@ export function checkGuestStatus(date: string) {
 export function formattedDate(date: string) {
     return new Date(Date.parse(date.split("-").reverse().join("-")));
 }
-//todo
+//TODO
 //filter rooms that have been checked into
 //months still not rendering properly
 
