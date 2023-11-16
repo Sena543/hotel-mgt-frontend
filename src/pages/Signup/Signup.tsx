@@ -30,7 +30,7 @@ function Signup() {
     });
 
     // console.log(state, new Date(state.checkIn).toLocaleDateString("en-GB"));
-    console.log(state);
+    // console.log(state);
     const handleChangeEvent = (name: string, value: string) => {
         setGuestSignUpDetails((prevState) => {
             return { ...prevState, [name]: value };
@@ -51,9 +51,13 @@ function Signup() {
         const newBookingData = {
             bookingID: `${new Date().getTime().toString().slice(-6)}`,
             roomID: guestSignUpDetails.roomSelected.roomName,
-            checkIn: new Date(guestSignUpDetails.checkIn).toLocaleDateString("en-GB"),
-            checkOut: new Date(guestSignUpDetails.checkOut).toLocaleDateString("en-GB"),
-            guestID: `${guestID}`,
+            checkIn: new Date(guestSignUpDetails.checkIn)
+                .toLocaleDateString("en-GB")
+                .replaceAll("/", "-"),
+            checkOut: new Date(guestSignUpDetails.checkOut)
+                .toLocaleDateString("en-GB")
+                .replaceAll("/", "-"),
+            guestID: Number(`${guestID}`),
             mealOrderID: [],
         };
         const newGuestData = {
@@ -61,13 +65,18 @@ function Signup() {
             firstName: guestSignUpDetails.firstName,
             email: guestSignUpDetails.email,
             contact: guestSignUpDetails.phoneNumber,
-            checkIn: new Date(guestSignUpDetails.checkIn).toLocaleDateString("en-GB"),
-            checkOut: new Date(guestSignUpDetails.checkOut).toLocaleDateString("en-GB"),
+            checkIn: new Date(guestSignUpDetails.checkIn)
+                .toLocaleDateString("en-GB")
+                .replaceAll("/", "-"),
+            checkOut: new Date(guestSignUpDetails.checkOut)
+                .toLocaleDateString("en-GB")
+                .replaceAll("/", "-"),
             roomAssigned: guestSignUpDetails.roomSelected.roomName,
+            guestID: Number(`${guestID}`),
             specialRequests: "",
         };
 
-        console.log({ newBookingData, newGuestData });
+        // console.log({ newBookingData, newGuestData });
         dispatch(addNewGuest(newGuestData));
         dispatch(createNewBookingHistory(newBookingData));
         dispatch(resetStatus());
