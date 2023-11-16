@@ -44,14 +44,18 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
     };
 
     const guestStatus = (checkInDate: string, checkOutDate: string) => {
-        if (dayjs().isBefore(checkInDate)) {
+        // console.log(checkInDate, checkOutDate);
+        if (dayjs().isBefore(formattedDate(checkInDate))) {
+            // console.log("reserved");
             return "Reserved";
         }
         if (dayjs().isBetween(formattedDate(checkInDate), formattedDate(checkOutDate))) {
+            // console.log("check in");
             return "Checked In";
         }
         return "Checked Out";
     };
+    // console.log(guestList);
     return (
         <div>
             {/* <GenericTable tableData={guests} showActionCol={true} /> */}
@@ -107,9 +111,12 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                                         <StyledTableCell>
                                             <Typography
                                                 className={`${
-                                                    checkGuestStatus(checkOut)
-                                                        ? "checkedOut"
-                                                        : "checkedIn"
+                                                    // checkGuestStatus(checkOut)
+                                                    //     ? "checkedOut"
+                                                    //     : "checkedIn"
+                                                    guestStatus(checkIn, checkOut)
+                                                        .toLowerCase()
+                                                        .replaceAll(/\s/g, "")
                                                 }`}
                                                 style={{
                                                     display: "grid",
