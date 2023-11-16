@@ -6,7 +6,10 @@ import profile from "../../../assets/images/profile.jpg";
 import { GuestsType } from "../../../constants/genericTypes";
 import { checkGuestStatus } from "../../../utils/util-functions";
 
+//TODO
+// fix guest status - reserved, checkout or checked in
 function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
+    // console.log(profileDetails)
     return (
         <div className="guest-profile-container">
             <div className="img_name-div display-flex-flex-direction-row">
@@ -21,7 +24,7 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
             <div>
                 <Typography
                     className={`${
-                        checkGuestStatus(profileDetails.checkOut) ? "checkedOut" : "checkedIn"
+                        checkGuestStatus(profileDetails?.checkOut) ? "checkedOut" : "checkedIn"
                     }`}
                     style={{
                         display: "grid",
@@ -29,7 +32,7 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                         borderRadius: 5,
                     }}
                 >
-                    {checkGuestStatus(profileDetails.checkOut) ? "Checked Out" : "Checked In"}
+                    {checkGuestStatus(profileDetails?.checkOut) ? "Checked Out" : "Checked In"}
                 </Typography>
             </div>
             <div style={{}}>
