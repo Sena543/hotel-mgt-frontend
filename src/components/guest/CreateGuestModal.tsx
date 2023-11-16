@@ -21,6 +21,7 @@ import { addNewGuest, resetGuestStatus } from "../../redux/slices/guestSlices";
 import { AppDispatch } from "../../redux/types";
 import { fetchAllRooms } from "../../redux/slices/roomSlicers";
 import { createNewBookingHistory, resetStatus } from "../../redux/slices/bookingSlices";
+import { formattedDate } from "../../utils/util-functions";
 
 type CreateModalProps = {
     open: boolean;
@@ -104,12 +105,14 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
             ...guestDetails,
             guestID: guestsList.length + 1,
             roomAssigned: guestDetails.roomAssigned.roomName,
-            checkIn: `${guestDetails["checkIn"].get("month") + 1}-${guestDetails["checkIn"].get(
-                "date"
-            )}-${guestDetails["checkIn"].get("year")}`,
-            checkOut: `${guestDetails["checkOut"].get("month") + 1}-${guestDetails["checkOut"].get(
-                "date"
-            )}-${guestDetails["checkOut"].get("year")}`,
+            checkIn: `${guestDetails["checkIn"].get("date")}-${
+                guestDetails["checkIn"].get("month") + 1
+            }-${guestDetails["checkIn"].get("year")}`,
+            checkOut: `${guestDetails["checkOut"].get("date")}-${
+                guestDetails["checkOut"].get("month") + 1
+            }-${guestDetails["checkOut"].get("year")}`,
+            // checkIn: new Date(guestDetails.checkIn).toLocaleDateString("en-GB"),
+            // checkOut: new Date(guestDetails.checkOut).toLocaleDateString("en-GB"),
         };
 
         const newBookingData = {
@@ -213,10 +216,10 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
                             <DatePicker
                                 // disablePast
                                 label="Check In Date"
-                                format="MM-DD-YYYY"
-                                // format="DD-MM-YYYY"
-                                // value={dayjs(guestDetails.checkIn, "DD-MM-YYYY")}
-                                value={dayjs(guestDetails.checkIn, "mm-dd-yyyy")}
+                                // format="MM-DD-YYYY"
+                                format="DD-MM-YYYY"
+                                value={dayjs(guestDetails.checkIn, "DD-MM-YYYY")}
+                                // value={dayjs(guestDetails.checkIn, "mm-dd-yyyy")}
                                 minDate={dayjs()}
                                 onChange={(dateValue) => handleDateChange("checkIn", dateValue)}
                                 className="custom-text-field contacts-field date-picker"
@@ -224,9 +227,10 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
                             />
                             <DatePicker
                                 disablePast
-                                format="MM-DD-YYYY"
+                                // format="MM-DD-YYYY"
+                                format="DD-MM-YYYY"
                                 label="Check Out Date"
-                                value={dayjs(guestDetails.checkOut, "MM-DD-YYYY")}
+                                value={dayjs(guestDetails.checkOut, "DD-MM-YYYY")}
                                 onError={(newError) => setDateError(newError)}
                                 onChange={(dateValue) => {
                                     handleDateChange("checkOut", dateValue);
