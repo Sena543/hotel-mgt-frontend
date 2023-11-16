@@ -9,12 +9,17 @@
     text-decoration: none;
 }
 
-.checkedOut {
+.checkedout {
     background-color: rgba(190, 223, 213, 255);
     width: 110%;
 }
 
-.checkedIn {
+.checkedin {
+    background-color: rgba(216, 193, 193, 255);
+    width: 110%;
+}
+
+.reserved {
     background-color: rgba(245, 241, 214, 255);
     width: 110%;
 }
