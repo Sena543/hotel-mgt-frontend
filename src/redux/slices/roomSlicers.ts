@@ -9,7 +9,7 @@ import {
     DocumentData,
 } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
-import { createUploadRef, getRawData } from "../../utils/util-functions";
+import { createUploadRef, formattedDate, getRawData } from "../../utils/util-functions";
 import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
@@ -90,9 +90,7 @@ export const roomSlice = createSlice({
         builder.addCase(fetchAllRooms.fulfilled, (state, action) => {
             const { roomsData, guestsData } = action.payload;
             const reservedGuests = guestsData.filter((guest) =>
-                // new Date(Date.parse(guest.checkIn.split('/').reverse().join('-'))) converts date into one dayjs can understant
-
-                dayjs().isBefore(new Date(Date.parse(guest.checkIn.split("/").reverse().join("-"))))
+                dayjs().isBefore(formattedDate(guest.checkIn))
             );
 
             //gets room names
@@ -105,53 +103,46 @@ export const roomSlice = createSlice({
                     //if current day is before checkout then removed that room cos
                     //room is still occupied.
                     availableRooms.includes(guest.roomAssigned) &&
-                    dayjs().isBefore(dayjs(guest.checkOut))
+                    dayjs().isBefore(dayjs(formattedDate(guest.checkOut))) &&
+                    dayjs().isBefore(formattedDate(guest.checkIn))
                 ) {
                     // Remove the occupied room from the available list
                     availableRooms = availableRooms.filter((room) => room !== guest.roomAssigned);
                 }
             });
-            //TODO: save guest id in guest document collection`
-
-            // roomsData.forEach((room) => {
-            //     if (availableRooms.includes(room.roomName)) {
-            //         room["status"] = "Available";
-            //     } else {
-            //         reservedGuests.forEach((guest) => {
-            //             if (
-            //                 //check if current day is before guest check in date
-            //                 availableRooms.includes(room.roomName) &&
-            //                 dayjs().isBefore(guest.checkIn)
-            //             ) {
-            //                 room["status"] = "Reserved";
-            //             } else {
-            //                 room["status"] = "Booked";
-            //             }
-            //         });
-            //     }
-            // });
 
             // Update the status of each room based on those that are available
             // and those that are not.
-
             roomsData.forEach((room) => {
                 if (availableRooms.includes(room.roomName)) {
                     room["status"] = "Available";
                 } else {
-                    room["status"] = "Booked";
+                    // room["status"] = "Booked";
+                    reservedGuests.forEach((guest) => {
+                        if (
+                            guest.roomAssigned === room.roomName &&
+                            dayjs().isBefore(formattedDate(guest.checkIn))
+                        ) {
+                            room["status"] = "Reserved";
+                        } else {
+                            room["status"] = "Booked";
+                        }
+                    });
                 }
 
-                reservedGuests.forEach((guest) => {
-                    if (
-                        guest.roomAssigned === room.roomName &&
-                        dayjs().isBefore(
-                            new Date(Date.parse(guest.checkIn.split("/").reverse().join("-")))
-                        )
-                    ) {
-                        room["status"] = "Reserved";
-                    }
-                });
+                // reservedGuests.forEach((guest) => {
+                //     if (
+                //         guest.roomAssigned === room.roomName &&
+                //         dayjs().isBefore(
+                //             // new Date(Date.parse(guest.checkIn.split("-").reverse().join("-")))
+                //             formattedDate(guest.checkIn)
+                //         )
+                //     ) {
+                //         room["status"] = "Reserved";
+                //     }
+                // });
             });
+            console.log(roomsData);
             state = { ...state, roomList: roomsData, status: "success" };
             return state;
         });
