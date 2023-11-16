@@ -32,7 +32,8 @@ export type MenuItemType = {
 
 export type BookingHistoryType = {
     bookingID: string;
-    guestID: string;
+    guestID: Number;
+    // guestID: string;
     roomID: string;
     checkIn: string;
     checkOut: string;
