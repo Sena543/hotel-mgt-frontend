@@ -8,14 +8,17 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { createNewBookingHistory, resetStatus } from "../../redux/slices/bookingSlices";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/types";
 import { addNewGuest, resetGuestStatus } from "../../redux/slices/guestSlices";
+import { Bounce } from "react-activity";
+import "react-activity/dist/Bounce.css";
 
 function Signup() {
     const { state } = useLocation();
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
+    const guestStatus = useSelector((state: RootState) => state.guests.status);
     // const [state, dispatch] = useReducer(signUpUserReducerFunction, companyDetailsState);
     const [guestSignUpDetails, setGuestSignUpDetails] = useState({
         lastName: "",
@@ -172,8 +175,9 @@ function Signup() {
                         onClick={handleCreateReservation}
                         // onClick={() => console.log(guestSignUpDetails)}
                         className="login-button"
+                        disabled={guestStatus === "loading"}
                     >
-                        Make Reservation{" "}
+                        {guestStatus === "loading" ? <Bounce /> : "Make Reservation"}
                     </Button>
                 </div>
 
