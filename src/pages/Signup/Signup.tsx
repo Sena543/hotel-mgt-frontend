@@ -104,7 +104,8 @@ function Signup() {
             <div className="signup-root-div">
                 <div>
                     <Typography variant="h1" style={{ color: "#80529d" }}>
-                        Sign Up
+                        {/* Sign Up */}
+                        Reservation
                     </Typography>
                 </div>
                 <div className="signup-form">
@@ -123,7 +124,7 @@ function Signup() {
                             ) => handleChangeEvent(e.target.name, e.target.value)}
                         />
                     ))}
-                    <CustomTextField
+                    {/* <CustomTextField
                         name="password"
                         variant="outlined"
                         className="custom-signup-text-field"
@@ -144,7 +145,7 @@ function Signup() {
                                 </InputAdornment>
                             ),
                         }}
-                    />
+                    /> */}
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             disablePast
@@ -177,16 +178,16 @@ function Signup() {
                         className="login-button"
                         disabled={guestStatus === "loading"}
                     >
-                        {guestStatus === "loading" ? <Bounce /> : "Make Reservation"}
+                        {guestStatus === "loading" ? <Bounce /> : "Submit"}
                     </Button>
                 </div>
 
-                <div>
+                {/* <div>
                     Got an account?{" "}
                     <Link style={{ textDecoration: "none", color: "#80529d" }} to={"/sign-in"}>
                         Login
                     </Link>
-                </div>
+                </div> */}
             </div>
         </div>
     );
