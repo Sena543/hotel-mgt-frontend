@@ -4,10 +4,12 @@ import { Typography } from "@mui/material";
 
 function About() {
 	return (
-		<div className="booking-about-section">
+		<div className="booking-about-section about" id="about">
 			<div className="about-div">
 				<div>
-					<Typography variant="h4">About Hotel</Typography>
+					<Typography variant="h4" style={{ color: "#e8ab3a" }}>
+						About Us
+					</Typography>
 				</div>
 				<div>
 					<Typography>
