@@ -5,13 +5,13 @@ import { getRawData } from "../../utils/util-functions";
 import { MenuItemType, TaxInformation } from "../../constants/genericTypes";
 import { toast } from "react-toastify";
 
-type RestaurantType = {
+type TaxType = {
     status: "idle" | "loading" | "success" | "failed";
     taxes: TaxInformation[];
     errorMessage: string;
 };
 
-const initialState: RestaurantType = {
+const initialState: TaxType = {
     status: "idle", // 'idle' | 'loading' | 'success'| 'failed
     taxes: [],
     errorMessage: "",
