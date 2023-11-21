@@ -13,11 +13,14 @@ import { CloseRounded } from "@mui/icons-material";
 import CustomTextField from "../TextInput/CustomTextField";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGuests } from "../../redux/slices/guestSlices";
-import { AppDispatch } from "../../redux/types";
+import { AppDispatch, RootState } from "../../redux/types";
 import { useEffect, useState } from "react";
 import { fetchRestaurantMenu } from "../../redux/slices/restaurantSlice";
 import { fetchAllRooms } from "../../redux/slices/roomSlicers";
 import { createNewGuestMealOrder } from "../../redux/slices/bookingSlices";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import { formattedDate } from "../../utils/util-functions";
 
 type OrderModalProps = {
     open: boolean;
@@ -59,11 +62,11 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
     });
 
     const dispatch = useDispatch<AppDispatch>();
-    const { guestsData } = useSelector((state: any) => state.guests);
-    const { roomList: roomData } = useSelector((state: any) => state.rooms);
+    const { guestsData } = useSelector((state: RootState) => state.guests);
+    const { roomList: roomData } = useSelector((state: RootState) => state.rooms);
 
-    const { restaurantMealsList, status } = useSelector((state: any) => state.restaurant);
-    const { bookingHistory } = useSelector((state: any) => state.booking);
+    const { restaurantMealsList, status } = useSelector((state: RootState) => state.restaurant);
+    const { bookingHistory } = useSelector((state: RootState) => state.booking);
 
     // console.log(bookingHistory);
     useEffect(() => {
@@ -104,7 +107,17 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         }));
     };
 
+    const filterGuest = () => {
+        return guestsData.filter((guest) => {
+            return dayjs().isBetween(formattedDate(guest.checkIn), formattedDate(guest.checkOut));
+        });
+    };
+    // TODO- Use function below  in auto complete component below
+    //TODO - lots of bugs here must fix
+    console.log(filterGuest());
+
     const submitGuestOrder = () => {
+        //TODO check this part and fix
         const getRawDocID = bookingHistory.filter(
             ({ guestID }: { guestID: string }) => guestID === guestOrder.guestId
         )[0];
