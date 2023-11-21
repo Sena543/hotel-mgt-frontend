@@ -40,3 +40,9 @@ export type BookingHistoryType = {
     mealOrderID?: string[];
     rawDocID?: string;
 };
+
+export type TaxInformation = {
+    rawDocID?: string;
+    name: string;
+    value: Number;
+};
