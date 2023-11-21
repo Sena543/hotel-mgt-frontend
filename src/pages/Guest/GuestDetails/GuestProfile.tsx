@@ -1,15 +1,18 @@
 import "./guest-profile.css";
 import { MailOutlineRounded, PersonRounded, PhoneOutlined } from "@mui/icons-material";
-import { Icon, Typography } from "@mui/material";
+import { Button, Icon, Typography } from "@mui/material";
 // import imgSvg from "../../../assets/react.svg";
 import profile from "../../../assets/images/profile.jpg";
 import { GuestsType } from "../../../constants/genericTypes";
 import { checkGuestStatus } from "../../../utils/util-functions";
+import { useState } from "react";
+import GuestInvoice from "./GuestInvoice";
 
 //TODO
 // fix guest status - reserved, checkout or checked in
 function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
     // console.log(profileDetails)
+    const [viewInvoice, setViewInvoice] = useState(false);
     return (
         <div className="guest-profile-container">
             <div className="img_name-div display-flex-flex-direction-row">
@@ -77,6 +80,30 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                     <Typography style={{}}>Yes</Typography>
                 </div>
             </div>
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    width: "100%",
+                }}
+            >
+                <Button
+                    onClick={() => {
+                        setViewInvoice(!viewInvoice);
+                    }}
+                    variant="contained"
+                >
+                    View Invoice
+                </Button>
+                <Button variant="contained">Settle Bill</Button>
+            </div>
+            <GuestInvoice
+                open={viewInvoice}
+                setOpen={setViewInvoice}
+                guestDetails={profileDetails}
+            />
         </div>
     );
 }
