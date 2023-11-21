@@ -1,6 +1,6 @@
 .default-box-style {
 	background: white;
 	border-radius: 10px;
-	border: 2px solid rgb(108, 105, 105);
+	border: 1px solid rgb(108, 105, 105);
 	gap: 1rem;
 }

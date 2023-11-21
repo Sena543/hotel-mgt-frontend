@@ -1,6 +1,7 @@
 import "./guest-details.css";
 import GenericDashCards from "../../../components/Cards/GenericDashCards";
 import {
+    Button,
     Table,
     TableBody,
     TableCell,
@@ -29,7 +30,7 @@ const prepareBookingHistory = (bookingHistory: BookingHistoryType[], roomData: R
 
     bookingHistory.forEach((historyElement: BookingHistoryType) => {
         roomData.forEach((roomElement: RoomType) => {
-            console.log({ roomElement, historyElement });
+            // console.log({ roomElement, historyElement });
             if (roomElement.roomName === historyElement.roomID) {
                 bh.push({
                     ...historyElement,
