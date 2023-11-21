@@ -22,6 +22,7 @@ export type RoomType = {
     rawDocID: string;
     roomCapacity: number;
     imageUrls: string[];
+    price: number;
     // status: "Booked" | "Available";
     // period: string;
 };
