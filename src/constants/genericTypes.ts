@@ -44,5 +44,5 @@ export type BookingHistoryType = {
 export type TaxInformation = {
     rawDocID?: string;
     name: string;
-    value: Number;
+    value: number;
 };
