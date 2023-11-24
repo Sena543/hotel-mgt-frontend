@@ -8,6 +8,7 @@ export type GuestsType = {
     status?: string;
     email: string;
     contact: string;
+    guestID: Number;
 };
 
 export type StaffDetailsType = {
@@ -37,7 +38,8 @@ export type BookingHistoryType = {
     roomID: string;
     checkIn: string;
     checkOut: string;
-    mealOrderID?: string[];
+    // mealOrderID?: string[];
+    mealOrderID?: MenuItemType[];
     rawDocID?: string;
 };
 
