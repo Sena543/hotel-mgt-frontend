@@ -55,6 +55,12 @@
     align-items: flex-start;
 }
 
+.inv-dets {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .invoice-body {
     margin: auto 3%;
 }
