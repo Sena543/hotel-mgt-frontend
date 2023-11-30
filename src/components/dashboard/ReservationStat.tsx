@@ -22,8 +22,8 @@ function ReservationStat({
     checkOut,
 }: {
     guestData: GuestsType[];
-    checkIn: Number;
-    checkOut: Number;
+    checkIn: number;
+    checkOut: number;
 }) {
     const theme = useTheme();
 
