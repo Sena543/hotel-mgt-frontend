@@ -64,7 +64,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                     <TableHead>
                         <TableRow>
                             {headerList.map((name) => (
-                                <StyledTableCell key={name}>
+                                <StyledTableCell key={name} className={name.toLowerCase()}>
                                     <Typography variant="h6">{name.toLocaleUpperCase()}</Typography>
                                 </StyledTableCell>
                             ))}
@@ -103,7 +103,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                                         <StyledTableCell>{roomAssigned}</StyledTableCell>
                                         <StyledTableCell>{checkIn}</StyledTableCell>
                                         <StyledTableCell>{checkOut.toString()}</StyledTableCell>
-                                        <StyledTableCell>
+                                        <StyledTableCell className="requests">
                                             <IconButton onClick={() => setOpen(true)}>
                                                 <MoreHorizRounded />
                                             </IconButton>
