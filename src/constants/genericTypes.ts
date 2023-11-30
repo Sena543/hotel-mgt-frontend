@@ -25,7 +25,7 @@ export type StaffDetailsType = {
 
 export type MenuItemType = {
     rawDocID?: string;
-    dishId: Number;
+    dishId: number;
     menuType: string;
     dishOrBev: string;
     price: string;
@@ -34,16 +34,16 @@ export type MenuItemType = {
 };
 
 type DBMenuItemType = {
-    beverageId: Number;
-    beveragePrice: Number;
-    guestID: Number;
-    guestName: String;
-    mealId: Number;
-    mealPrice: Number;
-    roomId: String;
+    beverageId: number;
+    beveragePrice: number;
+    guestID: number;
+    guestName: string;
+    mealId: number;
+    mealPrice: number;
+    roomId: string;
 
     rawDocID?: string;
-    dishId: Number;
+    dishId: number;
     menuType: string;
     dishOrBev: string;
     price: string;
