@@ -73,7 +73,7 @@ export const createNewStaff = createAsyncThunk(
 export const updateStaffData = createAsyncThunk(
     "update/employees",
     async function updateStaff(
-        updatedEmployeeData: { data: StaffDetailsType; rawDocID: string },
+        updatedEmployeeData: { data: Omit<StaffDetailsType, "rawDocID">; rawDocID: string },
         thunkAPI
     ) {
         try {
