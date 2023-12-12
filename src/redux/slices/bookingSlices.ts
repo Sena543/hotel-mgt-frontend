@@ -169,8 +169,8 @@ export const bookingSlice = createSlice({
 
                 let currentState = JSON.parse(JSON.stringify(current(state))); //makes the state mutable
 
-                console.log(data, "data");
-                console.log(Object.getOwnPropertyDescriptors(currentState));
+                // console.log(data, "data");
+                // console.log(Object.getOwnPropertyDescriptors(currentState));
                 let findBookingOrder = currentState.bookingHistory.filter(
                     (hist: any) => hist.rawDocID === rawDocID
                 )[0];
