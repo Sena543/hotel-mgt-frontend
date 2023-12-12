@@ -7,6 +7,8 @@ import {
     CircularProgress,
     Button,
     Tooltip,
+    Checkbox,
+    FormControlLabel,
 } from "@mui/material";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
@@ -38,15 +40,16 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
         salary: 0,
         jobTitle: "",
         workingDays: [],
+        // workingDays: ["Sunday"],
         employeeID: "",
-        rawDocID: "",
+        // rawDocID: "",
     });
 
     useEffect(() => {
         setEmpUpdateData(staffDetails);
-    }, [staffDetailsID]);
+    }, [staffDetailsID, empUpdateData]);
 
-    const handleChange = (name: keyof typeof empUpdateData, value: string) => {
+    const handleChange = (name: keyof typeof empUpdateData, value: unknown) => {
         setEmpUpdateData((prev: StaffDetailsType) => {
             return {
                 ...prev,
@@ -54,16 +57,57 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
             };
         });
     };
-    // console.log(staffDetails);
+
+    const handleWorkingDaySelection = (label: string) => {
+        let workingDays: string[] = [...empUpdateData?.workingDays];
+        const find_inArray = workingDays.includes(label);
+
+        if (find_inArray) {
+            workingDays = workingDays.filter((day) => day !== label);
+        } else {
+            workingDays.push(label);
+        }
+
+        handleChange("workingDays", workingDays);
+    };
+
     const submitUpdate = () => {
         const updateDataObj = {
             rawDocID: staffDetails.rawDocID,
             data: empUpdateData,
         };
-        // console.log(updateDataObj);
         dispatch(updateStaffData(updateDataObj));
         dispatch(resetStaffStatus());
     };
+
+    const weekDays: string[] = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+
+    const renderDaysWithCheckbox = (
+        <>
+            {weekDays &&
+                weekDays.map((day: string) => (
+                    <div key={day}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={empUpdateData?.workingDays?.includes(day)}
+                                    onChange={(e) => handleWorkingDaySelection(day)}
+                                />
+                            }
+                            label={<Typography variant="h6">{day}</Typography>}
+                        />
+                    </div>
+                ))}
+        </>
+    );
 
     return (
         <GenericModal
@@ -85,7 +129,10 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
                 </Tooltip>
             </div>
             <Divider />
-            <div className=" create-staff-form">
+            <div
+                className=" create-staff-form"
+                style={{ display: "flex", flexDirection: "column", alignItems: "stretch" }}
+            >
                 <div style={{}}>
                     <div className="emp-name-div">
                         <CustomTextField
@@ -112,7 +159,6 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
                             onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
                     </div>
-
                     <div className="staff-contact-div emp-name-div">
                         <CustomTextField
                             name="email"
@@ -165,14 +211,28 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
                             onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
                     </div>
-
-                    <div className="job-details-div ">
+                    <div
+                        className="job-details-div "
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
                         <CustomTextField
                             name="jobDescription"
                             variant="outlined"
                             fullWidth
                             rows={3}
                             multiline
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                margin: "3em auto",
+                            }}
                             value={empUpdateData?.jobDescription}
                             className="custom-text-field contacts-field jobDescription"
                             label="Job Description"
@@ -181,6 +241,12 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
                             // helperText="Contact is required"
                             onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
+                    </div>
+
+                    <div className="select-working-days">
+                        <FormGroup row className="working-days">
+                            {/* {renderDaysWithCheckbox} */}
+                        </FormGroup>
                     </div>
                 </div>
 
