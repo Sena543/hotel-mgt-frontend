@@ -18,9 +18,11 @@ export type StaffDetailsType = {
     email: string;
     contact: string;
     jobDescription: string;
+    salary?: number;
     jobTitle: string;
     workingDays: string[];
     employeeID: string;
+    rawDocID?: string;
 };
 
 export type MenuItemType = {
