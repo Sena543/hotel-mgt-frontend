@@ -22,7 +22,7 @@ export type StaffDetailsType = {
     jobTitle: string;
     workingDays: string[];
     employeeID: string;
-    rawDocID?: string;
+    rawDocID: string;
 };
 
 export type MenuItemType = {
