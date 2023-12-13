@@ -63,7 +63,7 @@ export type BookingHistoryType = {
     // mealOrderID?: string[];
     mealOrderID: DBMenuItemType[];
     // mealOrderID?: MenuItemType[];
-    rawDocID?: string;
+    rawDocID: string;
     beddingType?: string;
     // beddingType?: "Single" | "Double" | "Tripple" | "Quad" | "None";
     mealPlan?: string;
