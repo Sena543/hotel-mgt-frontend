@@ -1,91 +1,105 @@
 .facilities-div {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: auto 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto 15px;
 }
 
 .booking-history-div {
-	display: flex;
-	justify-content: flex-start;
-	width: 100%;
-	margin: 20px;
-	margin: 5px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 20px;
+    margin: 5px;
 }
 
 .room-details-div {
-	margin: 10px;
+    margin: 10px;
 }
 
 .room-details {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-	margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .room-image-container {
-	margin: 2px;
-	display: flex;
-	flex-direction: row;
-	/* height: 50%; */
-	/* background-color: brown; */
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    /* height: 50%; */
+    /* background-color: brown; */
 }
 .guest-restuarant-orders {
-	margin: 2% auto;
+    margin: 2% auto;
 }
 
 @media only screen and (max-width: 700px) {
-	.restaurant-header {
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		position: relative;
-		top: -1.5rem;
-	}
+    .restaurant-header {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        top: -1.5rem;
+    }
 }
 
 @media only screen and (min-width: 700px) {
-	.restaurant-container {
-		margin-left: 225px;
-	}
-	.restaurant-header {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+    .restaurant-container {
+        margin-left: 225px;
+    }
+    .restaurant-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	.header-button-div {
-		width: 30%;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	}
+    .header-button-div {
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .img-delete-button {
-	position: relative;
-	display: grid;
-	place-content: center;
-	bottom: 40px;
-	border-radius: 5px;
-	background-color: rgb(228, 228, 228);
-	opacity: 0;
-	width: 70%;
-	transition: opacity 1000ms ease;
+    position: relative;
+    display: grid;
+    place-content: center;
+    bottom: 40px;
+    border-radius: 5px;
+    background-color: rgb(228, 228, 228);
+    opacity: 0;
+    width: 70%;
+    transition: opacity 1000ms ease;
 }
 
 .room-images {
-	margin: 0;
-	padding: 0;
-	display: grid;
-	place-items: center;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-items: center;
 }
 .room-images:hover .img-delete-button {
-	/* display: block; */
-	opacity: 1;
+    /* display: block; */
+    opacity: 1;
 }
 
+.room-specific-details {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+
+.room-details-card-div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+}
+
+.card-1 {
+}
