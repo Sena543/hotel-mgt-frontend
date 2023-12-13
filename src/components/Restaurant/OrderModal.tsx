@@ -21,6 +21,7 @@ import { createNewGuestMealOrder } from "../../redux/slices/bookingSlices";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import { formattedDate } from "../../utils/util-functions";
+import { BookingHistoryType } from "../../constants/genericTypes";
 
 type OrderModalProps = {
     open: boolean;
@@ -52,7 +53,7 @@ const top100Films = [
 
 function OrderModal({ open, setOpenModal }: OrderModalProps) {
     const [guestOrder, setGuestOrder] = useState({
-        guestId: "",
+        guestID: "",
         guestName: "",
         roomId: "",
         mealId: "",
@@ -92,7 +93,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         // const guestRoomId = guestsData.filter(({lastName, firstName})=>)
         setGuestOrder((prevState) => ({
             ...prevState,
-            guestId: selectedData?.guestID,
+            guestID: selectedData?.guestID,
             guestName: `${selectedData?.firstName} ${selectedData?.lastName}`,
             roomId: selectedData?.roomAssigned,
         }));
@@ -119,7 +120,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
     const submitGuestOrder = () => {
         //TODO check this part and fix
         const getRawDocID = bookingHistory.filter(
-            ({ guestID }: { guestID: string }) => guestID === guestOrder.guestId
+            (guest: BookingHistoryType) => guest.guestID.toString() === guestOrder.guestID
         )[0];
         // console.log(getRawDocID.rawDocID);
         dispatch(createNewGuestMealOrder({ data: guestOrder, rawDocID: getRawDocID.rawDocID }));
@@ -154,6 +155,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                         onInputChange={(event, newInputValue) =>
                             setGuestOrder({ ...guestOrder, guestName: newInputValue })
                         }
+                        // options={filterGuest()}
                         options={guestsData}
                         sx={{ width: 300 }}
                         renderInput={(params) => (
@@ -175,7 +177,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                         )}
                     />
                     <CustomTextField
-                        value={guestOrder.guestId}
+                        value={guestOrder.guestID}
                         label="Guest ID"
                         className="custom-text-field-order-modal"
                     />
