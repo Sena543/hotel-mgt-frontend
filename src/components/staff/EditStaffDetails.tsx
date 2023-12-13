@@ -42,15 +42,15 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
         workingDays: [],
         // workingDays: ["Sunday"],
         employeeID: "",
-        // rawDocID: "",
+        rawDocID: "",
     });
 
     useEffect(() => {
         setEmpUpdateData(staffDetails);
-    }, [staffDetailsID, empUpdateData]);
+    }, [staffDetailsID]);
 
-    const handleChange = (name: keyof typeof empUpdateData, value: unknown) => {
-        setEmpUpdateData((prev: StaffDetailsType) => {
+    const handleChange = (name: keyof typeof empUpdateData, value: string | string[]) => {
+        setEmpUpdateData((prev: typeof empUpdateData) => {
             return {
                 ...prev,
                 [name]: value,
@@ -73,7 +73,7 @@ function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetai
 
     const submitUpdate = () => {
         const updateDataObj = {
-            rawDocID: staffDetails.rawDocID,
+            rawDocID: empUpdateData.rawDocID,
             data: empUpdateData,
         };
         dispatch(updateStaffData(updateDataObj));
