@@ -114,17 +114,17 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                 const mealObj = {} as Format;
                 if (meal.beverageId) {
                     beverageObj["type"] = "Beverage";
-                    beverageObj["price"] = meal.beveragePrice;
+                    beverageObj["price"] = meal?.beveragePrice;
 
                     const getBev = restaurantMeals.filter((m) => m.dishId === meal.beverageId)[0];
-                    beverageObj["name"] = getBev.dishOrBev;
+                    beverageObj["name"] = getBev?.dishOrBev;
                     otherChargeFormatted.push(beverageObj);
                 }
                 if (meal.mealId) {
                     mealObj["type"] = "Meal";
                     const getMeal = restaurantMeals.filter((m) => m.dishId === meal.mealId)[0];
                     mealObj["price"] = meal.mealPrice;
-                    mealObj["name"] = getMeal.dishOrBev;
+                    mealObj["name"] = getMeal?.dishOrBev;
 
                     otherChargeFormatted.push(mealObj);
                 }
