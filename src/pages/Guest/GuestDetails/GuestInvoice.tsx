@@ -167,6 +167,7 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
         return vals.reduce((currSum: number, curValue: number) => curValue + currSum, itemTotal);
     };
 
+   
     return (
         // <div className={`invoice-container ${true ? "showInvoice" : null}`}>
         <div className={`invoice-container ${open ? "showInvoice" : null}`}>

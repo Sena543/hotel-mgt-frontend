@@ -7,12 +7,31 @@ import { GuestsType } from "../../../constants/genericTypes";
 import { checkGuestStatus } from "../../../utils/util-functions";
 import { useState } from "react";
 import GuestInvoice from "./GuestInvoice";
+import { PaystackButton, usePaystackPayment } from "react-paystack";
+import paystackConfig from "../../../utils/paystackConfig";
 
 //TODO
 // fix guest status - reserved, checkout or checked in
 function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
     // console.log(profileDetails)
     const [viewInvoice, setViewInvoice] = useState(false);
+    const initializePayment = usePaystackPayment(paystackConfig(profileDetails));
+
+    // const componentProps = {
+    //     email: profileDetails?.email,
+    //     // amount: computeOverallSum(taxes, sum + otherChargesSum()).toFixed(2),
+    //     amount: 1000,
+    //     metadata: {
+    //         name: `${profileDetails?.lastName} ${profileDetails?.firstName}`,
+    //         phone: profileDetails?.contact,
+    //     },
+    //     publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+    //     text: "Buy Now",
+    //     onSuccess: ({ reference }: { reference: string }) => {
+    //         alert(`Your purchase was successful! Transaction reference: ${reference}`);
+    //     },
+    //     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
+    // };
     return (
         <div className="guest-profile-container">
             <div className="img_name-div display-flex-flex-direction-row">
@@ -98,6 +117,7 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                     View Invoice
                 </Button>
                 <Button variant="contained">Settle Bill</Button>
+                {/* <PaystackButton className="paystack-button" {...componentProps} /> */}
             </div>
             <GuestInvoice
                 open={viewInvoice}
