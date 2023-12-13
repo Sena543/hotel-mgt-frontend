@@ -1,116 +1,116 @@
 .create-guest-modal-container {
-	background: white;
-	border-radius: 10px;
-	border: 2px solid rgb(108, 105, 105);
-	gap: 1rem;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid rgb(108, 105, 105);
+    gap: 1rem;
 }
 @media only screen and (max-width: 700px) {
-	.create-guest-modal-container {
-		width: 85%;
-		height: 80%;
-		transform: translate(15%, 3%);
-		padding: 0.5rem;
-	}
+    .create-guest-modal-container {
+        width: 85%;
+        height: 80%;
+        transform: translate(15%, 3%);
+        padding: 0.5rem;
+    }
 
-	.name-div {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		align-items: center;
-		/* margin-bottom: 5px; */
-	}
-	.custom-text-field {
-		width: 100%;
-		border-radius: 10px;
-		height: 50px;
-	}
+    .name-div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        /* margin-bottom: 5px; */
+    }
+    .custom-text-field {
+        width: 100%;
+        border-radius: 10px;
+        height: 50px;
+    }
 
-	.date-picker-div {
-		margin: 2rem auto;
-	}
+    .date-picker-div {
+        margin: 2rem auto;
+    }
 }
 
 @media only screen and (min-width: 700px) {
-	/* and (max-width: 1200px) { */
-	.create-guest-modal-container {
-		width: 60%;
-		height: 70%;
-		transform: translate(55%, 20%);
-		background: white;
-		border-radius: 10px;
-		border: 2px solid rgb(108, 105, 105);
-		gap: 1rem;
-		padding: 1rem;
-	}
-	.name-div {
-		display: flex;
-		gap: 1rem;
-	}
+    /* and (max-width: 1200px) { */
+    .create-guest-modal-container {
+        width: 60%;
+        height: 70%;
+        transform: translate(55%, 20%);
+        background: white;
+        border-radius: 10px;
+        border: 2px solid rgb(108, 105, 105);
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .name-div {
+        display: flex;
+        gap: 1rem;
+    }
 
-	.contact-div {
-		display: flex;
-		flex-direction: row;
-		gap: 1rem;
-		align-items: center;
-		justify-content: space-between;
-	}
-	.custom-text-field {
-		width: 70%;
-		border-radius: 10px;
-		height: 50px;
-	}
+    .contact-div {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .custom-text-field {
+        width: 70%;
+        border-radius: 10px;
+        height: 50px;
+    }
 }
 
 @media only screen and (min-width: 900px) {
-	/* and (max-width: 1200px) { */
-	.create-guest-modal-container {
-		width: 40%;
-		height: 70%;
-		transform: translate(55%, 20%);
-		background: white;
-		border-radius: 10px;
-		border: 2px solid rgb(108, 105, 105);
-		gap: 1rem;
-	}
-	.name-div {
-		display: flex;
-		gap: 1rem;
-	}
+    /* and (max-width: 1200px) { */
+    .create-guest-modal-container {
+        width: 40%;
+        height: 70%;
+        transform: translate(55%, 20%);
+        background: white;
+        border-radius: 10px;
+        border: 2px solid rgb(108, 105, 105);
+        gap: 1rem;
+    }
+    .name-div {
+        display: flex;
+        gap: 1rem;
+    }
 
-	.contact-div {
-		display: flex;
-		flex-direction: row;
-		gap: 1rem;
-		align-items: center;
-		justify-content: space-between;
-	}
+    .contact-div {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-	.custom-text-field {
-		width: 70%;
-		border-radius: 10px;
-		height: 50px;
-	}
+    .custom-text-field {
+        width: 70%;
+        border-radius: 10px;
+        height: 50px;
+    }
 }
 
 .button-div {
-	width: 100%;
-	display: flex;
-	gap: 0.5rem;
-	flex-direction: column;
-	/* margin-top: 2rem; */
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    /* margin-top: 2rem; */
 }
 
 .create-guest-form {
-	width: 100%;
-	display: grid;
-	place-items: center;
-	gap: 1rem;
-	margin: auto;
-	/* outline: 2px solid hotpink; */
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+    margin: auto;
+    /* outline: 2px solid hotpink; */
 }
 
 .auto-complete {
-	width: 100%;
+    width: 100%;
 }
 /* .date-picker-div { */
 /* margin: 2rem auto; */
@@ -120,34 +120,40 @@
 /* } */
 
 .button-div {
-	display: flex;
-	justify-content: center;
-	/* outline: 2px solid rebeccapurple; */
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    /* outline: 2px solid rebeccapurple; */
+    align-items: center;
 }
 
 .create-guest-button {
-	width: 60%;
-	height: 100%;
+    width: 60%;
+    height: 100%;
 }
 
 .guest-header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .select-guest-room {
-	/* margin-top: 4rem; */
-	width: 100%;
+    /* margin-top: 4rem; */
+    width: 100%;
 }
 
 .auto-complete {
-	width: 100% !important;
+    width: 100% !important;
 }
 
 .date-picker {
-	width: 100%;
-	/* margin: 2rem auto; */
-	/* background-color: red; */
+    width: 100%;
+    /* margin: 2rem auto; */
+    /* background-color: red; */
+}
+
+.create-guest-reservation-info {
+    display: grid;
+    gap: 0.5em;
+    grid-template-columns: repeat(2, 50%);
 }

@@ -54,6 +54,11 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
         checkOut: dayjs().add(1, "day"), //tomorrow
         roomAssigned: roomListData[0],
         specialRequests: "",
+        title: "",
+        beddingType: "",
+        mealPlan: "",
+        numberofpeople: "",
+        roomType: "",
     });
 
     const errorMessage = useMemo(() => {
@@ -137,9 +142,43 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
             checkOut: dayjs().add(1, "day"), //tomorrow
             roomAssigned: roomListData[0],
             specialRequests: "",
+            title: "",
+            beddingType: "",
+            mealPlan: "",
+            numberofpeople: "",
+            roomType: "",
         });
     };
 
+    const reservationFieldNames = [
+        {
+            name: "Room Type",
+            fieldName: "roomType",
+            options: ["Deluxe", "Luxury", "Guest", "Single"],
+            isMultiple: false,
+        },
+        {
+            name: "Bedding Type",
+            fieldName: "beddingType",
+            options: ["Single", "Double", "Tripple", "Quad", "None"],
+            isMultiple: false,
+        },
+        {
+            name: "Number of Rooms",
+            fieldName: "numberOfRooms",
+            options: ["1", "2", "3", "4"],
+            isMultiple: false,
+        },
+        {
+            name: "Meal Plan",
+            fieldName: "mealPlan",
+            options: ["Breakfast", "Half board", "Full Board", "Room Only"],
+            isMultiple: false,
+        },
+        // { name: "Number of People", fieldName: "numberOfPeople" },
+        // { name: "Check-In", fieldName: "checkIn" },
+        // { name: "Check-Out", fieldName: "checkOut" },
+    ];
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <GenericModal
@@ -160,6 +199,22 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
                 <Divider />
                 <div className="create-guest-form">
                     <div style={{}}>
+                        <Autocomplete
+                            options={["Mr.", "Mrs.", "Ms.", "Dr.", "Prof."]}
+                            sx={{ margin: "5px" }}
+                            value={guestDetails.title}
+                            onChange={(event: any, newValue: string | "" | null) => {
+                                setGuestDetails((prev: any) => {
+                                    return {
+                                        ...prev,
+                                        title: newValue,
+                                    };
+                                });
+                            }}
+                            renderInput={(params) => (
+                                <CustomTextField {...params} label={"Title"} />
+                            )}
+                        />
                         <div className="name-div">
                             <CustomTextField
                                 autoFocus
@@ -212,7 +267,34 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
                                 // helperText="Contact is required"
                             />
                         </div>
-                        <div className="date-picker-div">
+                        <div className="create-guest-reservation-info">
+                            {reservationFieldNames.map(
+                                ({ fieldName, name, options, isMultiple }) => (
+                                    <Autocomplete
+                                        key={fieldName}
+                                        className={fieldName}
+                                        options={options}
+                                        getOptionLabel={(option) => option}
+                                        multiple={isMultiple}
+                                        value={guestDetails[fieldName as keyof typeof guestDetails]}
+                                        onChange={(e: any, value: string) => {
+                                            handleChange(fieldName, value);
+                                            // handleChangeEvent(e.target.name, value);
+                                        }}
+                                        sx={{ margin: "5px" }}
+                                        renderInput={(params) => (
+                                            <CustomTextField
+                                                {...params}
+                                                name={fieldName}
+                                                label={name}
+                                            />
+                                        )}
+                                    />
+                                )
+                            )}
+                        </div>
+                        {/* <div className="date-picker-div"> */}
+                        <div className="contact-div">
                             <DatePicker
                                 // disablePast
                                 label="Check In Date"
@@ -266,7 +348,8 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
                                 loading={roomLoadingStatus === "loading"}
                                 className="auto-complete custom-text-field contacts-field"
                                 id="combo-box-demo"
-                                sx={{ marginTop: "1em" }}
+                                sx={{ marginTop: "1em", width: "100%" }}
+                                style={{ width: "100%" }}
                                 fullWidth
                                 renderInput={(params: any) => (
                                     <CustomTextField
