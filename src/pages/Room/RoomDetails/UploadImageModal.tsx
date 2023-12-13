@@ -8,7 +8,7 @@ import { useState } from "react";
 import { RoomType } from "../../../components/Room/RoomList";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/types";
-import { addRoomImage } from "../../../redux/slices/roomSlicers";
+import { addRoomImage, resetStatus } from "../../../redux/slices/roomSlicers";
 import { Bounce } from "react-activity";
 
 const VisuallyHiddenInput = styled("input")({
@@ -36,6 +36,7 @@ function UploadImageModal({ roomData, open, setModalOpen }: ModalProps) {
         if (fileUpload) {
             await dispatch(addRoomImage({ file: fileUpload, roomDetails: roomData }));
         }
+            dispatch(resetStatus());
     };
 
     return (
