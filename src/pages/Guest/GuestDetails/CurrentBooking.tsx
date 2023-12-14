@@ -61,7 +61,7 @@ function CurrentBooking({
         );
     };
 
-    console.log(bookingDetails);
+    // console.log(bookingDetails);
     return (
         <div className="current-booking-container">
             <div className="booking-history-div">

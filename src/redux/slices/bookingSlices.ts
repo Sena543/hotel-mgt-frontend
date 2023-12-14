@@ -83,11 +83,25 @@ export const createNewBookingHistory = createAsyncThunk(
 export const createNewGuestMealOrder = createAsyncThunk(
     "create/new-guest-order",
     async function createGuestMealOrder(
-        orderData: { data: BookingHistoryType; rawDocID: string },
+        orderData: {
+            // data: BookingHistoryType;
+            // data: Omit<BookingHistoryType, "bookingID" | "guestID" | "roomID" | "checkIn">;
+            data: {
+                guestID: string;
+                guestName: string;
+                roomId: string;
+                mealId: string;
+                beverageId: string;
+                mealPrice: number;
+                beveragePrice: number;
+            };
+            rawDocID: string;
+        },
         thunkAPI
     ) {
         try {
             const { data, rawDocID } = orderData;
+            if (!rawDocID) return;
             await updateDoc(doc(firestoredb, "booking", rawDocID), {
                 mealOrderID: arrayUnion(data),
             });
@@ -119,7 +133,7 @@ export const bookingSlice = createSlice({
         builder.addCase(
             fetchGuestBookingHistory.fulfilled,
             (state: BookingState, action: PayloadAction<any>) => {
-                console.log(action, "bh");
+                // console.log(action, "bh");
                 // (state: BookingState, action: PayloadAction<BookingHistoryType[]>) => {
                 state = { ...state, status: "success", bookingHistory: action.payload };
 
@@ -169,8 +183,8 @@ export const bookingSlice = createSlice({
 
                 let currentState = JSON.parse(JSON.stringify(current(state))); //makes the state mutable
 
-                console.log(data, "data");
-                console.log(Object.getOwnPropertyDescriptors(currentState));
+                // console.log(data, "data");
+                // console.log(Object.getOwnPropertyDescriptors(currentState));
                 let findBookingOrder = currentState.bookingHistory.filter(
                     (hist: any) => hist.rawDocID === rawDocID
                 )[0];

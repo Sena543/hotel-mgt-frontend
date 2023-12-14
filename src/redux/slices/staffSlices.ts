@@ -1,9 +1,10 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { getDocs, collection, addDoc } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { getRawData } from "../../utils/util-functions";
 import { StaffDetailsType } from "../../constants/genericTypes";
 import { toast } from "react-toastify";
+import { doc, updateDoc } from "firebase/firestore/lite";
 
 export type UserType = {
     name: string;
@@ -57,10 +58,31 @@ export const fetchAllUsers = createAsyncThunk(
 
 export const createNewStaff = createAsyncThunk(
     "create/employees",
-    async function fetchStaff(newEmployeeData: StaffDetailsType, thunkAPI) {
+    async function createStaff(newEmployeeData: StaffDetailsType, thunkAPI) {
         try {
             await addDoc(collection(firestoredb, "employees"), newEmployeeData);
             return newEmployeeData;
+        } catch (error: any) {
+            console.log(error);
+
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const updateStaffData = createAsyncThunk(
+    "update/employees",
+    async function updateStaff(
+        updatedEmployeeData: { data: StaffDetailsType; rawDocID: string },
+        thunkAPI
+    ) {
+        try {
+            // console.log(updatedEmployeeData);
+            const { rawDocID, data } = updatedEmployeeData;
+            await updateDoc(doc(firestoredb, "employees", rawDocID), {
+                ...data,
+            });
+            return updatedEmployeeData;
         } catch (error: any) {
             console.log(error);
 
@@ -138,8 +160,33 @@ export const staffSlice = createSlice({
             // state = { ...state, status: action.payload };
             return state;
         });
+        builder.addCase(updateStaffData.pending, (state) => {
+            state = { ...state, status: "loading" };
+            return state;
+        });
+        builder.addCase(
+            updateStaffData.fulfilled,
+            (state, action: PayloadAction<{ rawDocID: string; data: StaffDetailsType }>) => {
+                const { rawDocID, data } = action.payload;
+
+                let currentState = JSON.parse(JSON.stringify(current(state))); //makes the state mutable
+                const findStaff = currentState.staffData.filter(
+                    (s: StaffDetailsType) => s.rawDocID != rawDocID
+                );
+
+                state = { ...state, status: "success", staffData: [...findStaff, data] };
+                console.log(state);
+                return state;
+            }
+        );
+
+        builder.addCase(updateStaffData.rejected, (state, action: PayloadAction<any>) => {
+            state = { ...state, status: "failed", errorMessage: action.payload };
+            toast.warn(`Error: Could not perform update`);
+            return state;
+        });
     },
 });
 
-export const { resetStatus } = staffSlice.actions;
+export const { resetStatus: resetStaffStatus } = staffSlice.actions;
 export default staffSlice.reducer;

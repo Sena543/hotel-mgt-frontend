@@ -13,11 +13,15 @@ import { CloseRounded } from "@mui/icons-material";
 import CustomTextField from "../TextInput/CustomTextField";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGuests } from "../../redux/slices/guestSlices";
-import { AppDispatch } from "../../redux/types";
+import { AppDispatch, RootState } from "../../redux/types";
 import { useEffect, useState } from "react";
 import { fetchRestaurantMenu } from "../../redux/slices/restaurantSlice";
 import { fetchAllRooms } from "../../redux/slices/roomSlicers";
 import { createNewGuestMealOrder } from "../../redux/slices/bookingSlices";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import { formattedDate } from "../../utils/util-functions";
+import { BookingHistoryType } from "../../constants/genericTypes";
 
 type OrderModalProps = {
     open: boolean;
@@ -49,7 +53,7 @@ const top100Films = [
 
 function OrderModal({ open, setOpenModal }: OrderModalProps) {
     const [guestOrder, setGuestOrder] = useState({
-        guestId: "",
+        guestID: "",
         guestName: "",
         roomId: "",
         mealId: "",
@@ -59,11 +63,11 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
     });
 
     const dispatch = useDispatch<AppDispatch>();
-    const { guestsData } = useSelector((state: any) => state.guests);
-    const { roomList: roomData } = useSelector((state: any) => state.rooms);
+    const { guestsData } = useSelector((state: RootState) => state.guests);
+    const { roomList: roomData } = useSelector((state: RootState) => state.rooms);
 
-    const { restaurantMealsList, status } = useSelector((state: any) => state.restaurant);
-    const { bookingHistory } = useSelector((state: any) => state.booking);
+    const { restaurantMealsList, status } = useSelector((state: RootState) => state.restaurant);
+    const { bookingHistory } = useSelector((state: RootState) => state.booking);
 
     // console.log(bookingHistory);
     useEffect(() => {
@@ -89,7 +93,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         // const guestRoomId = guestsData.filter(({lastName, firstName})=>)
         setGuestOrder((prevState) => ({
             ...prevState,
-            guestId: selectedData?.guestID,
+            guestID: selectedData?.guestID,
             guestName: `${selectedData?.firstName} ${selectedData?.lastName}`,
             roomId: selectedData?.roomAssigned,
         }));
@@ -104,9 +108,19 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
         }));
     };
 
+    const filterGuest = () => {
+        return guestsData.filter((guest) => {
+            return dayjs().isBetween(formattedDate(guest.checkIn), formattedDate(guest.checkOut));
+        });
+    };
+    // TODO- Use function below  in auto complete component below
+    //TODO - lots of bugs here must fix
+    console.log(filterGuest());
+
     const submitGuestOrder = () => {
+        //TODO check this part and fix
         const getRawDocID = bookingHistory.filter(
-            ({ guestID }: { guestID: string }) => guestID === guestOrder.guestId
+            (guest: BookingHistoryType) => guest.guestID.toString() === guestOrder.guestID
         )[0];
         // console.log(getRawDocID.rawDocID);
         dispatch(createNewGuestMealOrder({ data: guestOrder, rawDocID: getRawDocID.rawDocID }));
@@ -141,6 +155,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                         onInputChange={(event, newInputValue) =>
                             setGuestOrder({ ...guestOrder, guestName: newInputValue })
                         }
+                        // options={filterGuest()}
                         options={guestsData}
                         sx={{ width: 300 }}
                         renderInput={(params) => (
@@ -162,7 +177,7 @@ function OrderModal({ open, setOpenModal }: OrderModalProps) {
                         )}
                     />
                     <CustomTextField
-                        value={guestOrder.guestId}
+                        value={guestOrder.guestID}
                         label="Guest ID"
                         className="custom-text-field-order-modal"
                     />

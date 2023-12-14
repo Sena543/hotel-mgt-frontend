@@ -1,6 +1,7 @@
 import "./guest-details.css";
 import GenericDashCards from "../../../components/Cards/GenericDashCards";
 import {
+    Button,
     Table,
     TableBody,
     TableCell,
@@ -29,7 +30,7 @@ const prepareBookingHistory = (bookingHistory: BookingHistoryType[], roomData: R
 
     bookingHistory.forEach((historyElement: BookingHistoryType) => {
         roomData.forEach((roomElement: RoomType) => {
-            console.log({ roomElement, historyElement });
+            // console.log({ roomElement, historyElement });
             if (roomElement.roomName === historyElement.roomID) {
                 bh.push({
                     ...historyElement,
@@ -50,12 +51,12 @@ function dateWithOrdinal(n: number) {
 function GuestDetails() {
     const { name, guestID } = useParams();
     const dispatch = useDispatch<AppDispatch>();
+    const { bookingHistory } = useSelector((state: RootState) => state.booking);
+    const { roomList: rooms } = useSelector((state: RootState) => state.rooms);
+
     useEffect(() => {
         dispatch(fetchGuestBookingHistory(Number(guestID)));
     }, [dispatch]);
-
-    const { bookingHistory } = useSelector((state: RootState) => state.booking);
-    const { roomList: rooms } = useSelector((state: RootState) => state.rooms);
 
     //TODO write a test for the line below
     const selectedGuestDetails = useSelector(
@@ -75,8 +76,6 @@ function GuestDetails() {
             formattedDate(passedDate)
         );
     };
-
-    // console.log(preparedBookingHistoryData);
 
     return (
         <div className="guest-details-container">
@@ -141,6 +140,7 @@ function GuestDetails() {
                                             // period,
                                             checkIn,
                                             checkOut,
+                                            rawDocID,
                                         }: {
                                             roomID: string;
                                             bedType: string;
@@ -148,8 +148,12 @@ function GuestDetails() {
                                             status: string;
                                             checkIn: string;
                                             checkOut: string;
+                                            rawDocID: string;
                                         }) => (
-                                            <StyledTableRow hover key={`${roomID}-${bedType}`}>
+                                            <StyledTableRow
+                                                hover
+                                                key={`${roomID}-${bedType}-${rawDocID}`}
+                                            >
                                                 <TableCell>{roomID}</TableCell>
                                                 <TableCell>{bedType}</TableCell>
                                                 <TableCell>{facility}</TableCell>

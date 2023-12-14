@@ -30,4 +30,16 @@
         align-items: center;
         justify-content: space-between;
     }
+    .admin-table-div,
+    .tax-table-div {
+        width: 50%;
+    }
+}
+.newuser-modal-container,
+.tax-modal-container {
+    width: 30%;
+    height: 40%;
+    position: relative;
+    left: 35%;
+    top: 20%;
 }

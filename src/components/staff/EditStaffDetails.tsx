@@ -1,65 +1,65 @@
-import "./create-staff.css";
 import { CloseRounded } from "@mui/icons-material";
 import {
     Typography,
     IconButton,
     Divider,
-    Tooltip,
-    Button,
-    Checkbox,
-    FormControlLabel,
     FormGroup,
     CircularProgress,
+    Button,
+    Tooltip,
+    Checkbox,
+    FormControlLabel,
 } from "@mui/material";
-import { useState } from "react";
 import GenericModal from "../Modal/GenericModal";
 import CustomTextField from "../TextInput/CustomTextField";
-import { collection, addDoc } from "firebase/firestore/lite";
-import firestoredb from "../../../firebase-config";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewStaff, resetStaffStatus } from "../../redux/slices/staffSlices";
-import { AppDispatch } from "../../redux/types";
-import GenericAlert from "../Alert/Alert";
+import { AppDispatch, RootState } from "../../redux/types";
+import { useEffect, useState } from "react";
+import { StaffDetailsType } from "../../constants/genericTypes";
+import { updateStaffData, resetStaffStatus } from "../../redux/slices/staffSlices";
 
-type CreateModalProps = {
+type EditStaffDetailsType = {
     open: boolean;
     setOpenModal: Function;
+    staffDetailsID: string;
 };
 
-interface StaffDetails {
-    lastName: string;
-    firstName: string;
-    email: string;
-    contact: string;
-    jobDescription: string;
-    jobTitle: string;
-    workingDays: string[];
-    salary: number;
-}
-
-function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
+function EditStaffDetails({ setOpenModal, open, staffDetailsID }: EditStaffDetailsType) {
     const dispatch = useDispatch<AppDispatch>();
-    const { status } = useSelector((state: any) => state.staff);
-    const [alertOpen, setAlertOpen] = useState<boolean>(false);
-    const [staffDetails, setStaffDetails] = useState<StaffDetails>({
+    const { status, staffData } = useSelector((state: RootState) => state.staff);
+    const staffDetails = staffData.filter((s) => {
+        return s.employeeID === staffDetailsID;
+    })[0];
+
+    const [empUpdateData, setEmpUpdateData] = useState<StaffDetailsType>({
         lastName: "",
         firstName: "",
         email: "",
         contact: "",
-        workingDays: [],
         jobDescription: "",
-        jobTitle: "",
         salary: 0,
+        jobTitle: "",
+        workingDays: [],
+        // workingDays: ["Sunday"],
+        employeeID: "",
+        rawDocID: "",
     });
 
-    const handleChange = (name: string, value: unknown) => {
-        setStaffDetails((prevState: any) => {
-            return { ...prevState, [name]: value };
+    useEffect(() => {
+        setEmpUpdateData(staffDetails);
+    }, [staffDetailsID]);
+
+    const handleChange = (name: keyof typeof empUpdateData, value: string | string[]) => {
+        setEmpUpdateData((prev: typeof empUpdateData) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
         });
     };
 
     const handleWorkingDaySelection = (label: string) => {
-        let workingDays: string[] = [...staffDetails.workingDays];
+        let workingDays: string[] = [...empUpdateData?.workingDays];
         const find_inArray = workingDays.includes(label);
 
         if (find_inArray) {
@@ -71,14 +71,12 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
         handleChange("workingDays", workingDays);
     };
 
-    const submitCreateEmployeeData = async () => {
-        // const employeesCollectionRef = collection(firestoredb, "employees");
-        const empData = {
-            ...staffDetails,
-            employeeID: `E-${new Date().getTime().toString().substring(-5)}`,
+    const submitUpdate = () => {
+        const updateDataObj = {
+            rawDocID: empUpdateData.rawDocID,
+            data: empUpdateData,
         };
-        dispatch(createNewStaff(empData));
-        status === "success" ? setAlertOpen(true) : null;
+        dispatch(updateStaffData(updateDataObj));
         dispatch(resetStaffStatus());
     };
 
@@ -91,6 +89,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
         "Friday",
         "Saturday",
     ];
+
     const renderDaysWithCheckbox = (
         <>
             {weekDays &&
@@ -99,11 +98,8 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={staffDetails["workingDays"].includes(day)}
-                                    onChange={
-                                        (e) => handleWorkingDaySelection(day)
-                                        // console.log(e.target.checked);
-                                    }
+                                    checked={empUpdateData?.workingDays?.includes(day)}
+                                    onChange={(e) => handleWorkingDaySelection(day)}
                                 />
                             }
                             label={<Typography variant="h6">{day}</Typography>}
@@ -124,7 +120,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                 className="create-staff-header generic-flex-justify-content-style"
             >
                 <Typography fontWeight={"bolder"} fontSize="25px">
-                    New Staff
+                    Update Staff Details
                 </Typography>
                 <Tooltip title="Close">
                     <IconButton onClick={() => setOpenModal(false)}>
@@ -133,15 +129,18 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                 </Tooltip>
             </div>
             <Divider />
-            <div className=" create-staff-form">
+            <div
+                className=" create-staff-form"
+                style={{ display: "flex", flexDirection: "column", alignItems: "stretch" }}
+            >
                 <div style={{}}>
                     <div className="emp-name-div">
                         <CustomTextField
                             autoFocus
                             name="lastName"
                             variant="outlined"
-                            value={staffDetails.lastName}
-                            // error={!guestDetails.lastName}
+                            // value={staffDetails[0]?.lastName}
+                            value={empUpdateData?.lastName}
                             // helperText="Last name is required"
                             className="custom-text-field"
                             label="Last Name"
@@ -155,18 +154,17 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                             label="First Name"
                             // error={!guestDetails.firstName}
                             // helperText="First name is required"
-                            value={staffDetails.firstName}
+                            value={empUpdateData?.firstName}
                             margin="normal"
                             onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
                     </div>
-
                     <div className="staff-contact-div emp-name-div">
                         <CustomTextField
                             name="email"
                             variant="outlined"
                             className="custom-text-field contacts-field email"
-                            value={staffDetails.email}
+                            value={empUpdateData?.email}
                             fullWidth
                             // error={!guestDetails.email}
                             // helperText="email is required"
@@ -178,7 +176,7 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                             name="contact"
                             variant="outlined"
                             fullWidth
-                            value={staffDetails.contact}
+                            value={empUpdateData?.contact}
                             className="custom-text-field contacts-field phone-number"
                             label="Phone Number"
                             margin="normal"
@@ -187,26 +185,24 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                             onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
                     </div>
-                    <div className="job-details-div ">
+                    <div className="staff-contact-div emp-name-div">
                         <CustomTextField
                             name="salary"
                             variant="outlined"
                             className="custom-text-field contacts-field email"
-                            value={staffDetails.salary}
+                            value={empUpdateData?.salary}
                             fullWidth
                             // error={!guestDetails.email}
                             // helperText="email is required"
                             label="Salary"
                             margin="normal"
-                            onChange={(e: any) => handleChange(e.target.name, +e.target.value)}
+                            onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
-                    </div>
-                    <div className="job-details-div ">
                         <CustomTextField
                             name="jobTitle"
                             variant="outlined"
                             className="custom-text-field contacts-field email"
-                            value={staffDetails.jobTitle}
+                            value={empUpdateData?.jobTitle}
                             fullWidth
                             // error={!guestDetails.email}
                             // helperText="email is required"
@@ -214,13 +210,30 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                             margin="normal"
                             onChange={(e: any) => handleChange(e.target.name, e.target.value)}
                         />
+                    </div>
+                    <div
+                        className="job-details-div "
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
                         <CustomTextField
                             name="jobDescription"
                             variant="outlined"
                             fullWidth
                             rows={3}
                             multiline
-                            value={staffDetails.jobDescription}
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                margin: "3em auto",
+                            }}
+                            value={empUpdateData?.jobDescription}
                             className="custom-text-field contacts-field jobDescription"
                             label="Job Description"
                             margin="normal"
@@ -231,35 +244,34 @@ function CreateStaffModal({ setOpenModal, open }: CreateModalProps) {
                     </div>
 
                     <div className="select-working-days">
-                        {/* <div className="working-days"> */}
                         <FormGroup row className="working-days">
-                            {renderDaysWithCheckbox}
+                            {/* {renderDaysWithCheckbox} */}
                         </FormGroup>
-                        {/* </div> */}
                     </div>
                 </div>
+
                 <div className="button-div">
                     {status === "loading" ? (
                         <CircularProgress />
                     ) : (
                         <Button
-                            onClick={submitCreateEmployeeData}
+                            onClick={submitUpdate}
                             variant="contained"
                             className="create-guest-button"
                         >
-                            Create
+                            Update Details
                         </Button>
                     )}
                 </div>
             </div>
-            <GenericAlert
+            {/* <GenericAlert
                 open={alertOpen}
                 severity="success"
                 setOpen={setAlertOpen}
                 message="Operation successfull"
-            />
+            /> */}
         </GenericModal>
     );
 }
 
-export default CreateStaffModal;
+export default EditStaffDetails;

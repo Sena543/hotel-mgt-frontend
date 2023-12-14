@@ -89,10 +89,13 @@ export const roomSlice = createSlice({
         });
         builder.addCase(fetchAllRooms.fulfilled, (state, action) => {
             const { roomsData, guestsData } = action.payload;
-            const reservedGuests = guestsData.filter((guest) =>
-                dayjs().isBefore(formattedDate(guest.checkIn))
+            const reservedGuests = guestsData.filter(
+                (guest) =>
+                    dayjs().isBefore(formattedDate(guest.checkIn)) ||
+                    dayjs().isBefore(formattedDate(guest.checkOut))
             );
 
+            console.log(reservedGuests);
             //gets room names
             let availableRooms = roomsData.map((room) => room.roomName);
 
@@ -103,8 +106,8 @@ export const roomSlice = createSlice({
                     //if current day is before checkout then removed that room cos
                     //room is still occupied.
                     availableRooms.includes(guest.roomAssigned) &&
-                    dayjs().isBefore(dayjs(formattedDate(guest.checkOut))) &&
-                    dayjs().isBefore(formattedDate(guest.checkIn))
+                    (dayjs().isBefore(dayjs(formattedDate(guest.checkOut))) ||
+                        dayjs().isBefore(formattedDate(guest.checkIn)))
                 ) {
                     // Remove the occupied room from the available list
                     availableRooms = availableRooms.filter((room) => room !== guest.roomAssigned);

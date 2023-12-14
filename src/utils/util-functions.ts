@@ -35,9 +35,12 @@ export function groupByMonthAndCount(guests: GuestsType[]) {
         return { name: month, checkIn: 0, checkOut: 0 };
     });
 
-    guests.forEach((guest: GuestsType) => {
-        const checkInmonthNumber = Number(formattedDate(guest.checkIn).getMonth()) + 1;
-        const checkOutmonthNumber = Number(formattedDate(guest.checkOut).getMonth()) + 1;
+    guests.forEach((guest: GuestsType, index) => {
+        const checkInmonthNumber = Number(formattedDate(guest.checkIn).getMonth());
+        const checkOutmonthNumber = Number(formattedDate(guest.checkOut).getMonth());
+
+        // const checkInmonthNumber = Number(formattedDate(guest.checkIn).getMonth()) + 1;
+        // const checkOutmonthNumber = Number(formattedDate(guest.checkOut).getMonth()) + 1;
         // const checkInmonthNumber = Number(guest["checkIn"].split("-")[1]) - 1;
         // const checkOutmonthNumber = Number(guest["checkOut"].split("-")[1]) - 1;
 
@@ -51,7 +54,7 @@ export function groupByMonthAndCount(guests: GuestsType[]) {
             formattedDate(guest.checkOut)
         )
             ? groupAndCount[checkOutmonthNumber].checkOut + 1
-            : groupAndCount[checkOutmonthNumber].checkOut;
+            : groupAndCount[checkOutmonthNumber]?.checkOut;
     });
 
     //return from first to current month
