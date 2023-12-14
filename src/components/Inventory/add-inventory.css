@@ -1,0 +1,90 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+.perisable-form-control-group {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.basic-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media only screen and (min-width: 700px) {
+    .inventory-modal-container {
+        transform: translate(65%, 25%);
+        width: 40%;
+        min-height: 60%;
+        padding: 1rem;
+    }
+
+    /* 
+    .guest-details-inventory {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    } */
+}
+
+@media only screen and (max-width: 750px) {
+    .inventory-modal-container {
+        transform: translate(10%, 25%);
+        width: 80%;
+        min-height: 60%;
+        padding: 1rem;
+    }
+    /* 
+    .guest-details-inventory {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    } */
+}
+
+@media only screen and (max-width: 600px) {
+    .inventory-modal-container {
+        transform: translate(10%, 25%);
+        width: 80%;
+        min-height: 60%;
+        padding: 1rem;
+    }
+    /* 
+    .guest-details-inventory {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .custom-text-field-inventory-modal {
+        width: 100% !important;
+        padding: 0.5rem;
+    } */
+}
+
+@media only screen and (max-width: 400px) {
+    .inventory-modal-container {
+        transform: translate(5%, 5%);
+        width: 90%;
+        min-height: 50%;
+        padding: 1rem;
+    }
+    /*
+    .guest-details-inventory {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .custom-text-field-inventory-modal {
+        width: 100% !important;
+        padding: 0.5rem;
+    } */
+}

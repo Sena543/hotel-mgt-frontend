@@ -16,6 +16,7 @@ import CarouselImage from "./CarouselImage";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/types";
+import { RoomType } from "../../../components/Room/RoomList";
 
 type BookingDetails = {
     bedType: string;
@@ -25,6 +26,7 @@ type BookingDetails = {
     facility: string;
     guestID: string;
     mealOrderID: string[];
+    imgUrls: string[];
     rawDocID: string;
     roomID: string;
     roomCapacity?: string;
@@ -37,47 +39,29 @@ const breakPoints = [
     { width: 1200, itemsToShow: 4.5 },
 ];
 const fontSize = 15;
-function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) {
+function CurrentBooking({
+    bookingDetails,
+    roomDetails,
+}: {
+    bookingDetails: BookingDetails;
+    roomDetails: RoomType;
+}) {
     const dispatch = useDispatch<AppDispatch>();
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const imgs = [
-        {
-            url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        // {
-        //     url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        // },
-        {
-            url: "https://images.pexels.com/photos/14656123/pexels-photo-14656123.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/13748895/pexels-photo-13748895.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        // {
-        //     url: "https://images.pexels.com/photos/13748845/pexels-photo-13748845.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        // },
-        {
-            url: "https://images.pexels.com/photos/11856438/pexels-photo-11856438.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/14656124/pexels-photo-14656124.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-        {
-            url: "https://images.pexels.com/photos/13748835/pexels-photo-13748835.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-        },
-    ];
-
     const next = () => {
-        setCurrentIndex((currentIndex + 1) % imgs.length);
+        setCurrentIndex((currentIndex + 1) % bookingDetails.imgUrls.length);
     };
 
     // move to the previous photo
     // if we are at the beginning, go to the last photo
     const prev = () => {
-        setCurrentIndex((currentIndex - 1 + imgs.length) % imgs.length);
+        setCurrentIndex(
+            (currentIndex - 1 + bookingDetails.imgUrls.length) % bookingDetails.imgUrls.length
+        );
     };
 
+    // console.log(bookingDetails);
     return (
         <div className="current-booking-container">
             <div className="booking-history-div">
@@ -91,7 +75,12 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
                 itemsToScroll={2}
                 isRTL={false}
             >
-                {imgs.map(({ url }, index) => (
+                {/* {bookingDetails?.imgUrls.length > 0
+					? bookingDetails?.imgUrls.map((url, index) => (
+							<CarouselImage key={url} imgUrl={url} index={index} />
+					  ))
+					: null} */}
+                {roomDetails?.imageUrls.map((url, index) => (
                     <CarouselImage key={url} imgUrl={url} index={index} />
                 ))}
             </Carousel>
@@ -99,7 +88,7 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
                 <div className="facilities-div">
                     <Typography>Room Facilities</Typography>
                     <Typography fontSize={14} color="gray">
-                        {bookingDetails?.facility}
+                        {roomDetails?.facility}
                     </Typography>
                 </div>
                 <div className="room-details">
@@ -131,8 +120,7 @@ function CurrentBooking({ bookingDetails }: { bookingDetails: BookingDetails }) 
                             <Typography fontSize={fontSize}>Room Capacity</Typography>
                         </div>
                         <Typography fontSize={fontSize + 2} fontWeight="bolder">
-                            {/* {bookingDetails.roomCapacity ? bookingDetails.roomCapacity : "N/A"} */}
-                            N/A
+                            {roomDetails?.roomCapacity ? roomDetails?.roomCapacity : "N/A"}
                         </Typography>
                     </div>
                     <div className="room-details-div">

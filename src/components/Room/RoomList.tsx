@@ -12,6 +12,7 @@ import {
 import "./roomList.css";
 // import { roomData } from "../../services/roomList";
 import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
+import { Link } from "react-router-dom";
 
 export type RoomType = {
     roomName: string;
@@ -19,6 +20,9 @@ export type RoomType = {
     facility: string;
     status: string;
     rawDocID: string;
+    roomCapacity: number;
+    imageUrls: string[];
+    price: number;
     // status: "Booked" | "Available";
     // period: string;
 };
@@ -34,9 +38,12 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
         if (selectedHeader === "available") {
             return roomData.filter(({ status }: { status: string }) => status === "Available");
         }
-
+        if (selectedHeader === "reserved") {
+            return roomData.filter(({ status }: { status: string }) => status === "Reserved");
+        }
         return roomData;
     };
+    // console.log(roomData);
 
     return (
         <>
@@ -60,7 +67,14 @@ function RoomList({ selectedHeader, roomData }: { selectedHeader: string; roomDa
                             )
                             .map(({ roomName, bedType, facility, status, rawDocID }) => (
                                 <StyledTableRow hover key={rawDocID}>
-                                    <TableCell>{roomName}</TableCell>
+                                    <TableCell>
+                                        <Link
+                                            style={{ textDecoration: "none" }}
+                                            to={`/admin/rooms/roomdetails/${roomName}`}
+                                        >
+                                            <Typography>{roomName}</Typography>
+                                        </Link>
+                                    </TableCell>
                                     <TableCell>{bedType}</TableCell>
                                     <TableCell>{facility}</TableCell>
                                     <TableCell>

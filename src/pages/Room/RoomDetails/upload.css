@@ -1,0 +1,47 @@
+.upload-modal {
+	background: white;
+	border-radius: 10px;
+	border: 2px solid rgb(108, 105, 105);
+	gap: 1rem;
+}
+
+.upload-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+@media only screen and (max-width: 700px) {
+	.upload-modal {
+		width: 35%;
+		height: 30%;
+		transform: translate(80%, 80%);
+		padding: 0.5rem;
+	}
+}
+
+@media only screen and (min-width: 700px) {
+	/* and (max-width: 1200px) { */
+	.upload-modal {
+		width: 45%;
+		height: 40%;
+		transform: translate(65%, 75%);
+		background: white;
+		border-radius: 10px;
+		border: 2px solid rgb(108, 105, 105);
+		gap: 1rem;
+		padding: 1rem;
+	}
+}
+
+@media only screen and (min-width: 900px) {
+	/* and (max-width: 1200px) { */
+	.upload-modal {
+		width: 35%;
+		height: 40%;
+		transform: translate(95%, 70%);
+		background: white;
+		border-radius: 10px;
+		border: 2px solid rgb(108, 105, 105);
+		gap: 1rem;
+	}
+}

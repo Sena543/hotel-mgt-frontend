@@ -1,0 +1,45 @@
+.guest-restuarant-orders {
+    margin: 2% auto;
+}
+
+@media only screen and (max-width: 700px) {
+    .restaurant-header {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        top: -1.5rem;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .restaurant-container {
+        margin-left: 225px;
+    }
+    .restaurant-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header-button-div {
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .admin-table-div,
+    .tax-table-div {
+        width: 50%;
+    }
+}
+.newuser-modal-container,
+.tax-modal-container {
+    width: 30%;
+    height: 40%;
+    position: relative;
+    left: 35%;
+    top: 20%;
+}

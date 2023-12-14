@@ -2,18 +2,18 @@ import { Typography, Paper, Button } from "@mui/material";
 import React from "react";
 
 type GenericHeaderProps = {
-	headerTitle: string;
+    headerTitle: string;
 };
 
 function GenericHeader({ headerTitle }: GenericHeaderProps) {
-	return (
-		<div className="staff-list-div" style={{ position: "relative", bottom: "100px" }}>
-			<div style={{}}>
-				<Typography fontSize={30} fontWeight="bold">
-					{headerTitle}
-				</Typography>
-			</div>
-			{/*
+    return (
+        <div className={`staff-list-div`}>
+            <div style={{}}>
+                <Typography fontSize={30} fontWeight="bold">
+                    {headerTitle}
+                </Typography>
+            </div>
+            {/*
 			<Paper className="room-header-paper">
                  {headers &&
 					headers.map(({ name, value }) => (
@@ -27,11 +27,11 @@ function GenericHeader({ headerTitle }: GenericHeaderProps) {
 					))}
 			</Paper>
                      */}
-			{/* <Button onClick={() => setOpenModal(true)} variant="contained">
+            {/* <Button onClick={() => setOpenModal(true)} variant="contained">
 				Create Staff
 			</Button> */}
-		</div>
-	);
+        </div>
+    );
 }
 
 export default GenericHeader;

@@ -1,7 +1,7 @@
 import "./guest-details.css";
 import GenericDashCards from "../../../components/Cards/GenericDashCards";
 import {
-    CircularProgress,
+    Button,
     Table,
     TableBody,
     TableCell,
@@ -13,24 +13,30 @@ import {
 import GuestProfile from "./GuestProfile";
 import CurrentBooking from "./CurrentBooking";
 import { StyledTableCell, StyledTableRow } from "../../../components/Table/TableComp";
-import { roomData } from "../../../services/roomList";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../redux/types";
+import { AppDispatch, RootState } from "../../../redux/types";
 import { useEffect } from "react";
 import { fetchGuestBookingHistory } from "../../../redux/slices/bookingSlices";
+import { BookingHistoryType } from "../../../constants/genericTypes";
+import { RoomType } from "../../../components/Room/RoomList";
+import { formattedDate } from "../../../utils/util-functions";
 
-const prepareBookingHistory = (bookingHistory: any, roomData: any) => {
+// const prepareBookingHistory = (bookingHistory: any, roomData: any) => {
+//types were originally any type just in case types start throwing errors
+const prepareBookingHistory = (bookingHistory: BookingHistoryType[], roomData: RoomType[]) => {
     // bh = new booking history variable
     let bh: any = [];
 
-    bookingHistory.forEach((historyElement: any) => {
-        roomData.forEach((roomElement: any) => {
+    bookingHistory.forEach((historyElement: BookingHistoryType) => {
+        roomData.forEach((roomElement: RoomType) => {
+            // console.log({ roomElement, historyElement });
             if (roomElement.roomName === historyElement.roomID) {
                 bh.push({
                     ...historyElement,
                     bedType: roomElement.bedType,
                     facility: roomElement.facility,
+                    imgUrls: [...roomElement?.imageUrls],
                 });
             }
         });
@@ -45,29 +51,30 @@ function dateWithOrdinal(n: number) {
 function GuestDetails() {
     const { name, guestID } = useParams();
     const dispatch = useDispatch<AppDispatch>();
+    const { bookingHistory } = useSelector((state: RootState) => state.booking);
+    const { roomList: rooms } = useSelector((state: RootState) => state.rooms);
+
     useEffect(() => {
         dispatch(fetchGuestBookingHistory(Number(guestID)));
     }, [dispatch]);
 
-    const { bookingHistory } = useSelector((state: any) => state.booking);
-    const { roomList: rooms } = useSelector((state: any) => state.rooms);
-
     //TODO write a test for the line below
     const selectedGuestDetails = useSelector(
         //gets the current booking of the guest
-        (state: any) =>
-            state.guests.guestsData.filter((guest: any) => guest.guestID === Number(guestID))[0]
+        (state: RootState) =>
+            state.guests.guestsData.filter(
+                (guest: any) => Number(guest.guestID) === Number(guestID)
+            )[0]
     );
+    const roomDetails = rooms.filter((room) => room.roomName === selectedGuestDetails.roomAssigned);
     const tableHeadList = ["Room Name", "Bed Type", "Room Facility", "Book Date"];
 
     const preparedBookingHistoryData = prepareBookingHistory(bookingHistory, rooms);
 
-    const dateObjFunction = (passedDate: string) => {
-        return new Date(passedDate);
-    };
-
     const monthFormatterFunction = (passedDate: string) => {
-        return new Intl.DateTimeFormat("en-US", { month: "short" }).format(new Date(passedDate));
+        return new Intl.DateTimeFormat("en-GB", { month: "short" }).format(
+            formattedDate(passedDate)
+        );
     };
 
     return (
@@ -78,7 +85,7 @@ function GuestDetails() {
                 </Typography>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginBottom: "25px" }}>
-                <Link to={"/guests"} style={{ textDecoration: "none" }}>
+                <Link to={"/admin/guests"} style={{ textDecoration: "none" }}>
                     <Typography style={{ marginRight: "3px" }}>Guest / </Typography>
                 </Link>
                 <Typography>{name}</Typography>
@@ -86,7 +93,10 @@ function GuestDetails() {
             <div className="guest-details-booking">
                 <div className="current-booking-card">
                     <GenericDashCards>
-                        <CurrentBooking bookingDetails={preparedBookingHistoryData[0]} />
+                        <CurrentBooking
+                            bookingDetails={preparedBookingHistoryData[0]}
+                            roomDetails={roomDetails[0]}
+                        />
                     </GenericDashCards>
                 </div>
                 <div className="guest-profile-card">
@@ -130,6 +140,7 @@ function GuestDetails() {
                                             // period,
                                             checkIn,
                                             checkOut,
+                                            rawDocID,
                                         }: {
                                             roomID: string;
                                             bedType: string;
@@ -137,8 +148,12 @@ function GuestDetails() {
                                             status: string;
                                             checkIn: string;
                                             checkOut: string;
+                                            rawDocID: string;
                                         }) => (
-                                            <StyledTableRow hover key={`${roomID}-${bedType}`}>
+                                            <StyledTableRow
+                                                hover
+                                                key={`${roomID}-${bedType}-${rawDocID}`}
+                                            >
                                                 <TableCell>{roomID}</TableCell>
                                                 <TableCell>{bedType}</TableCell>
                                                 <TableCell>{facility}</TableCell>
@@ -155,18 +170,17 @@ function GuestDetails() {
                                                         {status}
                                                     </Typography>
                                                     <Typography variant="caption" display="block">
-                                                        {`
-														${monthFormatterFunction(checkIn)} ${dateObjFunction(checkIn).getDate()}${dateWithOrdinal(
-                                                            dateObjFunction(checkIn).getDate()
-                                                        )} - ${monthFormatterFunction(
-                                                            checkOut
-                                                        )} ${dateObjFunction(
-                                                            checkOut
+                                                        {`${formattedDate(
+                                                            checkIn
                                                         ).getDate()}${dateWithOrdinal(
-                                                            dateObjFunction(checkOut).getDate()
-                                                        )} 
-													`}
-
+                                                            formattedDate(checkIn).getDate()
+                                                        )} ${monthFormatterFunction(checkIn)}`}{" "}
+                                                        -{" "}
+                                                        {`
+															${formattedDate(checkOut).getDate()}${dateWithOrdinal(
+                                                            formattedDate(checkOut).getDate()
+                                                        )} ${monthFormatterFunction(checkOut)}
+															`}
                                                         {/* {console.log(checkOut)} */}
                                                     </Typography>
                                                 </TableCell>
@@ -187,3 +201,14 @@ export default GuestDetails;
 // TODO
 //sort booking history by  created date
 // probabily add created date to database
+// `
+// 														${monthFormatterFunction(checkIn)} ${dateObjFunction(checkIn).getDate()}${dateWithOrdinal(
+//                                                             dateObjFunction(checkIn).getDate()
+//                                                         )} - ${monthFormatterFunction(
+//                                                             checkOut
+//                                                         )} ${dateObjFunction(
+//                                                             checkOut
+//                                                         ).getDate()}${dateWithOrdinal(
+//                                                             dateObjFunction(checkOut).getDate()
+//                                                         )}
+// 													`

@@ -16,6 +16,8 @@ import { StyledTableCell, StyledTableRow } from "../Table/TableComp";
 import Request from "../guest/Request";
 import "./guest-table.css";
 import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import { formattedDate } from "../../utils/util-functions";
 // import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 
 type GuestTableProps = {
@@ -36,9 +38,24 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
     const headerList = ["Guest Name", "Room", "Check in", "Check out", "Requests", "Status"];
 
     const checkGuestStatus = (date: string) => {
-        return dayjs().isAfter(dayjs(date));
+        if (dayjs().isAfter(formattedDate(date))) {
+            return "checkOut";
+        }
     };
-    // console.log(dayjs().isSameOrAfter(dayjs("1-4-2023")));
+
+    const guestStatus = (checkInDate: string, checkOutDate: string) => {
+        // console.log(checkInDate, checkOutDate);
+        if (dayjs().isBefore(formattedDate(checkInDate))) {
+            // console.log("reserved");
+            return "Reserved";
+        }
+        if (dayjs().isBetween(formattedDate(checkInDate), formattedDate(checkOutDate))) {
+            // console.log("check in");
+            return "Checked In";
+        }
+        return "Checked Out";
+    };
+    // console.log(guestList);
     return (
         <div>
             {/* <GenericTable tableData={guests} showActionCol={true} /> */}
@@ -47,7 +64,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                     <TableHead>
                         <TableRow>
                             {headerList.map((name) => (
-                                <StyledTableCell key={name}>
+                                <StyledTableCell key={name} className={name.toLowerCase()}>
                                     <Typography variant="h6">{name.toLocaleUpperCase()}</Typography>
                                 </StyledTableCell>
                             ))}
@@ -86,7 +103,7 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                                         <StyledTableCell>{roomAssigned}</StyledTableCell>
                                         <StyledTableCell>{checkIn}</StyledTableCell>
                                         <StyledTableCell>{checkOut.toString()}</StyledTableCell>
-                                        <StyledTableCell>
+                                        <StyledTableCell className="requests">
                                             <IconButton onClick={() => setOpen(true)}>
                                                 <MoreHorizRounded />
                                             </IconButton>
@@ -94,9 +111,12 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                                         <StyledTableCell>
                                             <Typography
                                                 className={`${
-                                                    checkGuestStatus(checkOut)
-                                                        ? "checkedOut"
-                                                        : "checkedIn"
+                                                    // checkGuestStatus(checkOut)
+                                                    //     ? "checkedOut"
+                                                    //     : "checkedIn"
+                                                    guestStatus(checkIn, checkOut)
+                                                        .toLowerCase()
+                                                        .replaceAll(/\s/g, "")
                                                 }`}
                                                 style={{
                                                     display: "grid",
@@ -104,9 +124,10 @@ function GuestTable({ guestList }: { guestList: GuestTableProps[] }) {
                                                     borderRadius: 5,
                                                 }}
                                             >
-                                                {checkGuestStatus(checkOut)
+                                                {/* {checkGuestStatus(checkOut)
                                                     ? "Checked Out"
-                                                    : "Checked In"}
+                                                    : "Checked In"} */}
+                                                {guestStatus(checkIn, checkOut)}
                                             </Typography>
                                         </StyledTableCell>
                                         <Request

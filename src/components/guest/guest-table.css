@@ -5,16 +5,30 @@
     }
 }
 
+/* Medium devices (phones, 700px and up) */
+@media only screen and (min-width: 700px) and (max-width: 1600px) {
+    .guest-table-container {
+        margin-top: 5%;
+        width: 100%;
+        /* overflow-x: hidden; */
+    }
+}
+
 .guest-name {
     text-decoration: none;
 }
 
-.checkedOut {
+.checkedout {
     background-color: rgba(190, 223, 213, 255);
-    width: 110%;
+    width: 100%;
 }
 
-.checkedIn {
+.checkedin {
+    background-color: rgba(216, 193, 193, 255);
+    width: 100%;
+}
+
+.reserved {
     background-color: rgba(245, 241, 214, 255);
-    width: 110%;
+    width: 100%;
 }

@@ -4,6 +4,8 @@ import roomReducer from "./slices/roomSlicers";
 import staffReducer from "./slices/staffSlices";
 import bookingReducer from "./slices/bookingSlices";
 import restaurantReducer from "./slices/restaurantSlice";
+import authReducer from "./slices/authSlice";
+import taxReducer from "./slices/taxes";
 import { RootState } from "./types";
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
@@ -14,6 +16,8 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
             staff: staffReducer,
             booking: bookingReducer,
             restaurant: restaurantReducer,
+            auth: authReducer,
+            tax: taxReducer,
         },
         preloadedState,
     });
@@ -26,5 +30,7 @@ export default configureStore({
         staff: staffReducer,
         booking: bookingReducer,
         restaurant: restaurantReducer,
+        auth: authReducer,
+        tax: taxReducer,
     },
 });

@@ -1,7 +1,9 @@
 .login-root {
     display: grid;
     place-items: center;
-    /* width: 90%; */
+    /* width: 100%; */
+width: inherit;
+    /* transform: translateX(20%); */
     /* height: 100%; */
 }
 
@@ -11,12 +13,12 @@
     justify-content: space-evenly;
     border-radius: 5px;
     align-items: center;
-    width: 40%;
+    width: 30%;
     height: 65%;
     margin: 10% auto;
     box-shadow: 4px 7px 20px 2px #d1d1d1;
 }
-
+ 
 .custom-login-text-field {
     width: 90%;
 }

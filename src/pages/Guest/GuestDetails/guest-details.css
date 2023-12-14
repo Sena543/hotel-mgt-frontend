@@ -2,6 +2,9 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
+	width: 75%;
+	position: relative;
+	left: 6%;
 }
 
 .current-booking-card {

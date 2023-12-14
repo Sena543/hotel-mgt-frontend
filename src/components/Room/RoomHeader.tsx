@@ -4,39 +4,42 @@ import CustomTextField from "../TextInput/CustomTextField";
 import { SearchRounded } from "@mui/icons-material";
 
 type RoomHeaderProps = {
-	selectedHeader: string;
-	setSelectedHeader: Function;
+    selectedHeader: string;
+    setSelectedHeader: Function;
 };
 
 function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
-	const roomAvailabilityTypes = [
-		{ name: "All Rooms", value: "all" },
-		{ name: "Available Rooms", value: "available" },
-		{ name: "Booked Rooms", value: "booked" },
-	];
-	// console.log(selectedHeader);
-	return (
-		<div className="room-header-container">
-			{/* <div className="room"> */}
-			<div>
-				<Typography style={{}} fontSize={30} fontWeight="bold">
-					Room
-				</Typography>
-			</div>
-			<Paper className="room-header-paper">
-				{roomAvailabilityTypes.map(({ name, value }) => (
-					<div
-						onClick={() => setSelectedHeader(value)}
-						key={name}
-						className={`roomHeader ${selectedHeader === value ? "header-selected" : ""}`}
-					>
-						<Typography variant="h6">{name}</Typography>
-					</div>
-				))}
-			</Paper>
-			<div></div>
-			{/* </div> */}
-			{/* <div className="textfield-div">
+    const roomAvailabilityTypes = [
+        { name: "All Rooms", value: "all" },
+        { name: "Available Rooms", value: "available" },
+        { name: "Reserved Rooms", value: "reserved" },
+        { name: "Booked Rooms", value: "booked" },
+    ];
+    // console.log(selectedHeader);
+    return (
+        <div className="room-header-container">
+            {/* <div className="room"> */}
+            <div>
+                <Typography style={{}} fontSize={30} fontWeight="bold">
+                    Room
+                </Typography>
+            </div>
+            <Paper className="room-header-paper">
+                {roomAvailabilityTypes.map(({ name, value }) => (
+                    <div
+                        onClick={() => setSelectedHeader(value)}
+                        key={name}
+                        className={`roomHeader ${
+                            selectedHeader === value ? "header-selected" : ""
+                        }`}
+                    >
+                        <Typography variant="h6">{name}</Typography>
+                    </div>
+                ))}
+            </Paper>
+            <div></div>
+            {/* </div> */}
+            {/* <div className="textfield-div">
 				<CustomTextField
 					fullWidth
 					placeholder="Search here..."
@@ -49,12 +52,12 @@ function RoomHeader({ selectedHeader, setSelectedHeader }: RoomHeaderProps) {
 					}}
 				/>
 			</div> */}
-			{/* <div className="schedule-div"> */}
-			{/* <input id="dateInput" type="date" /> */}
-			{/* <Typography variant="h6">Check schedule</Typography> */}
-			{/* </div> */}
-		</div>
-	);
+            {/* <div className="schedule-div"> */}
+            {/* <input id="dateInput" type="date" /> */}
+            {/* <Typography variant="h6">Check schedule</Typography> */}
+            {/* </div> */}
+        </div>
+    );
 }
 
 export default RoomHeader;

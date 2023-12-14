@@ -7,8 +7,9 @@
 		display: flex;
 		justify-content: space-between;
 		position: relative;
-		top: -1em;
+		top: -0.5em;
 		left: 0.5em;
+		bottom: 100px;
 	}
 	.room-header-paper {
 		display: flex;

@@ -1,23 +1,21 @@
 import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import PageLoading from "./PageLoading";
 import Sidebar from "./Sidebar/Sidebar";
-import Login from "../pages/Login/Login";
-import Signup from "../pages/Signup/Signup";
 
 function RootLayout() {
-    const signedIn = true;
+    if (!localStorage.getItem("role")) {
+        return <Navigate to="sign-in" />;
+    }
     return (
-        <>
-            {signedIn ? (
-                <Suspense fallback={<PageLoading />}>
-                    <Sidebar />
+        <div style={{ margin: "0 auto", padding: "2rem" }}>
+            <Suspense fallback={<PageLoading />}>
+                <Sidebar />
+                <div style={{marginLeft:'6%'}}>
                     <Outlet />
-                </Suspense>
-            ) : (
-                <Login />
-            )}
-        </>
+                </div>
+            </Suspense>
+        </div>
     );
 }
 

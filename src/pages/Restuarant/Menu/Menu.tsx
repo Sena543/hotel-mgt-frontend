@@ -14,75 +14,10 @@ function Menu() {
 	const dispatch = useDispatch<AppDispatch>();
 	const { restaurantMealsList } = useSelector((state: any) => state.restaurant);
 	const [open, setModalOpen] = useState(false);
-
+	const user = useSelector((state: any) => state.auth.authData);
 	useEffect(() => {
 		dispatch(fetchRestaurantMenu());
 	}, []);
-	const meals = [
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "breakfast",
-		},
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "lunch",
-		},
-		{
-			meal: "Beef Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "supper",
-		},
-		{
-			meal: "CARNE ASADA Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "breakfast",
-		},
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "lunch",
-		},
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "supper",
-		},
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "breakfast",
-		},
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "lunch",
-		},
-		{
-			meal: "Chicken Taco",
-			price: "3.99",
-			description:
-				"Succulent hand-shredded pork, grilled then smothered with our fresh homemade guacamole and salsa Mexicana, wrapped in a warm, soft corn tortilla.",
-			mealType: "supper",
-		},
-	];
 
 	const breakfast = filterMenuItems(restaurantMealsList, "breakfast", "dish");
 	const lunch = filterMenuItems(restaurantMealsList, "lunch", "dish");
@@ -149,9 +84,11 @@ function Menu() {
 						Menu
 					</Typography>
 
-					<div className="menu-button-div">
-						<Button onClick={() => setModalOpen(true)}>Add New Dish</Button>
-					</div>
+					{user.role == "ADMIN" ? (
+						<div className="menu-button-div">
+							<Button onClick={() => setModalOpen(true)}>Add New Dish</Button>
+						</div>
+					) : null}
 				</div>
 				<div>
 					<div className="food-header">

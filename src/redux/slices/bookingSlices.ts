@@ -36,7 +36,9 @@ export const fetchAllGuestBookingHistory = createAsyncThunk(
         } catch (error: any) {
             console.log(error.message);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -55,7 +57,9 @@ export const fetchGuestBookingHistory = createAsyncThunk(
         } catch (error: any) {
             console.log(error.message);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -69,7 +73,9 @@ export const createNewBookingHistory = createAsyncThunk(
         } catch (error: any) {
             console.log(error);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -77,11 +83,25 @@ export const createNewBookingHistory = createAsyncThunk(
 export const createNewGuestMealOrder = createAsyncThunk(
     "create/new-guest-order",
     async function createGuestMealOrder(
-        orderData: { data: BookingHistoryType; rawDocID: string },
+        orderData: {
+            // data: BookingHistoryType;
+            // data: Omit<BookingHistoryType, "bookingID" | "guestID" | "roomID" | "checkIn">;
+            data: {
+                guestID: string;
+                guestName: string;
+                roomId: string;
+                mealId: string;
+                beverageId: string;
+                mealPrice: number;
+                beveragePrice: number;
+            };
+            rawDocID: string;
+        },
         thunkAPI
     ) {
         try {
             const { data, rawDocID } = orderData;
+            if (!rawDocID) return;
             await updateDoc(doc(firestoredb, "booking", rawDocID), {
                 mealOrderID: arrayUnion(data),
             });
@@ -90,7 +110,9 @@ export const createNewGuestMealOrder = createAsyncThunk(
         } catch (error: any) {
             console.log(error);
 
-            return thunkAPI.rejectWithValue(error.message);
+            if (error instanceof Error) {
+                return thunkAPI.rejectWithValue(error.message);
+            }
         }
     }
 );
@@ -110,7 +132,9 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             fetchGuestBookingHistory.fulfilled,
-            (state, action: PayloadAction<BookingHistoryType[]>) => {
+            (state: BookingState, action: PayloadAction<any>) => {
+                // console.log(action, "bh");
+                // (state: BookingState, action: PayloadAction<BookingHistoryType[]>) => {
                 state = { ...state, status: "success", bookingHistory: action.payload };
 
                 // toast.success("Success");
@@ -130,7 +154,8 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             createNewBookingHistory.fulfilled,
-            (state: any, action: PayloadAction<BookingHistoryType>) => {
+            // (state: any, action: PayloadAction<BookingHistoryType>) => {
+            (state: any, action: PayloadAction<any>) => {
                 state = {
                     ...state,
                     bookingHistory: [...state.bookingHistory, action.payload],
@@ -158,8 +183,8 @@ export const bookingSlice = createSlice({
 
                 let currentState = JSON.parse(JSON.stringify(current(state))); //makes the state mutable
 
-                console.log(data, "data");
-                console.log(Object.getOwnPropertyDescriptors(currentState));
+                // console.log(data, "data");
+                // console.log(Object.getOwnPropertyDescriptors(currentState));
                 let findBookingOrder = currentState.bookingHistory.filter(
                     (hist: any) => hist.rawDocID === rawDocID
                 )[0];
@@ -186,7 +211,7 @@ export const bookingSlice = createSlice({
         builder.addCase(createNewGuestMealOrder.rejected, (state, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             // state = { ...state, status: action.payload };
-            toast.warn(`Error ${state.errorMessage}`);
+            toast.warn(`Create New Order Error: ${state.errorMessage}`);
             return state;
         });
 
@@ -204,7 +229,8 @@ export const bookingSlice = createSlice({
         });
         builder.addCase(
             fetchAllGuestBookingHistory.fulfilled,
-            (state: any, action: PayloadAction<BookingHistoryType[]>) => {
+            (state: any, action: PayloadAction<any>) => {
+                // (state: any, action: PayloadAction<BookingHistoryType[]>) => {
                 state = {
                     ...state,
                     bookingHistory: [...action.payload],
