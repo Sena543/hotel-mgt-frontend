@@ -22,6 +22,7 @@ import { formattedDate } from "../../../utils/util-functions";
 import { fetchTaxeData } from "../../../redux/slices/taxes";
 import { fetchRestaurantMenu } from "../../../redux/slices/restaurantSlice";
 import { fetchAllGuestBookingHistory } from "../../../redux/slices/bookingSlices";
+import { computeTax, processVariousData } from "../../../utils/computeItems";
 
 const styles = {
     headerStyle: {
@@ -73,101 +74,34 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
         }
     }, [dispatch]);
 
-    // console.log({ guestRoomStayed, guestDetails, guestBookingDetails });
-    const rows = [
-        { roomNo: "1", des: "lorem ipsum", pricePerNight: 122, otherCharges: 555 },
-        { roomNo: "2", des: "lorem ipsum", pricePerNight: 122, otherCharges: 555 },
-    ];
-
-    const formatForTable = () => {
-        let arr: (typeof rows)[0][] = [];
-        guestRoomStayed.forEach((room) => {
-            let data = {
-                roomNo: "",
-                des: "",
-                pricePerNight: 0,
-                otherCharges: 0,
-                // meals: [],
-            };
-            data.roomNo = room.roomName;
-            data.des = room.facility;
-            data.pricePerNight = room.price;
-
-            arr.push(data);
-        });
-        return arr;
-    };
-
-    const otherCharges = () => {
-        const guestMeals = guestBookingDetails[0]?.mealOrderID;
-        type Format = {
-            type: string;
-            name: string;
-            price: number;
-        };
-
-        const otherChargeFormatted: Format[] = [];
-
-        guestMeals &&
-            guestMeals.forEach((meal) => {
-                const beverageObj = {} as Format;
-                const mealObj = {} as Format;
-                if (meal.beverageId) {
-                    beverageObj["type"] = "Beverage";
-                    beverageObj["price"] = meal?.beveragePrice;
-
-                    const getBev = restaurantMeals.filter((m) => m.dishId === meal.beverageId)[0];
-                    beverageObj["name"] = getBev?.dishOrBev;
-                    otherChargeFormatted.push(beverageObj);
-                }
-                if (meal.mealId) {
-                    mealObj["type"] = "Meal";
-                    const getMeal = restaurantMeals.filter((m) => m.dishId === meal.mealId)[0];
-                    mealObj["price"] = meal.mealPrice;
-                    mealObj["name"] = getMeal?.dishOrBev;
-
-                    otherChargeFormatted.push(mealObj);
-                }
-            });
-
-        return otherChargeFormatted;
-    };
-
-    //FIXME : FIX THIS ASAP - CHANGE TO USE REDUCE FOR EACH ITEM IN ARRAY
-    // const sum = formatForTable().map(
-    const sum = formatForTable().reduce(
-        (currSum, row) =>
-            currSum +
-            row.pricePerNight *
-                Number(
-                    dayjs(formattedDate(guestDetails.checkOut)).diff(
-                        formattedDate(guestDetails.checkIn),
-                        "day"
-                    )
-                ),
-        0
+    const {
+        processedTableData,
+        otherChargesProcessed,
+        otherChargesSumOutput,
+        overallAmount,
+        subSum,
+    } = processVariousData(
+        guestRoomStayed,
+        guestBookingDetails[0],
+        restaurantMeals,
+        taxes,
+        guestDetails
     );
 
-    const otherChargesSum = () => {
-        return otherCharges().reduce((currentSum, currentValue) => {
-            return currentSum + currentValue.price;
-        }, 0);
-    };
+    //FIXME : FIX THIS ASAP - CHANGE TO USE REDUCE FOR EACH ITEM IN ARRAY
+    // const sum = formatForTable().reduce(
+    //     (currSum, row) =>
+    //         currSum +
+    //         row.pricePerNight *
+    //             Number(
+    //                 dayjs(formattedDate(guestDetails.checkOut)).diff(
+    //                     formattedDate(guestDetails.checkIn),
+    //                     "day"
+    //                 )
+    //             ),
+    //     0
+    // );
 
-    const computeTax = (tax: number, value: number) => {
-        return tax * value;
-    };
-
-    const computeOverallSum = (taxes: TaxInformation[], itemTotal: number) => {
-        let vals: number[] = [];
-        taxes.forEach((t) => {
-            vals.push(t.value * itemTotal);
-        });
-
-        return vals.reduce((currSum: number, curValue: number) => curValue + currSum, itemTotal);
-    };
-
-   
     return (
         // <div className={`invoice-container ${true ? "showInvoice" : null}`}>
         <div className={`invoice-container ${open ? "showInvoice" : null}`}>
@@ -259,7 +193,8 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {formatForTable().map((row) => (
+                                {/* {formatForTable().map((row) => ( */}
+                                {processedTableData.map((row) => (
                                     // {rows.map((row) => (
                                     <StyledTableRow key={row.roomNo}>
                                         <TableCell>{row.roomNo}</TableCell>
@@ -272,7 +207,8 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                             )}
                                         </TableCell>
                                         <TableCell align="right">{row.pricePerNight}</TableCell>
-                                        <TableCell align="right">{otherChargesSum()}</TableCell>
+                                        <TableCell align="right">{otherChargesSumOutput}</TableCell>
+                                        {/* <TableCell align="right">{otherChargesSum()}</TableCell> */}
                                         <TableCell align="right">
                                             {row.pricePerNight *
                                                 Number(
@@ -283,7 +219,7 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                                         "day"
                                                     )
                                                 ) +
-                                                otherChargesSum()}
+                                                otherChargesSumOutput}
                                         </TableCell>
                                     </StyledTableRow>
                                 ))}
@@ -291,23 +227,7 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                     <TableCell rowSpan={3} />
                                     <TableCell colSpan={4}>Subtotal</TableCell>
                                     <TableCell align="right">
-                                        <Typography>
-                                            {
-                                                /* {formatForTable().map(
-                                                (row) =>
-                                                    row.pricePerNight *
-                                                    Number(
-                                                        dayjs(
-                                                            formattedDate(guestDetails.checkOut)
-                                                        ).diff(
-                                                            formattedDate(guestDetails.checkIn),
-                                                            "day"
-                                                        )
-                                                    )
-                                            )} */
-                                                sum + otherChargesSum()
-                                            }
-                                        </Typography>
+                                        <Typography>{subSum + otherChargesSumOutput}</Typography>
                                         {/* <Typography>{invoiceSubtotal}</Typography> */}
                                     </TableCell>
                                 </TableRow>
@@ -335,7 +255,6 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                             ))}
                                         </TableRow>
                                     </TableCell>
-                                    {/* <TableCell align="right">{123}</TableCell> */}
                                     <TableCell align="right">
                                         <TableRow>
                                             {taxes.map((tax) => (
@@ -343,13 +262,12 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                                     key={tax.rawDocID}
                                                     style={{
                                                         display: "flex",
-                                                        // justifyContent: "space-between",
                                                         border: "0",
                                                     }}
                                                     align="right"
                                                 >
                                                     <Typography>
-                                                        {computeTax(tax.value, sum)}
+                                                        {computeTax(tax.value, subSum)}
                                                     </Typography>
                                                 </TableCell>
                                             ))}
@@ -358,11 +276,7 @@ function GuestInvoice({ open, setOpen, guestDetails }: GuestInvoice) {
                                 </TableRow>
                                 <TableRow style={{ backgroundColor: "rgba(128, 82, 157, 0.08)" }}>
                                     <TableCell colSpan={4}>Total</TableCell>
-                                    <TableCell align="right">
-                                        {computeOverallSum(taxes, sum + otherChargesSum()).toFixed(
-                                            2
-                                        )}
-                                    </TableCell>
+                                    <TableCell align="right">{overallAmount}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
