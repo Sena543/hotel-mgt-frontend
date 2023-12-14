@@ -1,4 +1,5 @@
 export type GuestsType = {
+    rawDocID: string;
     lastName: string;
     firstName: string;
     roomAssigned: string;
@@ -10,6 +11,7 @@ export type GuestsType = {
     contact: string;
     guestID: Number;
     title: string;
+    reference: string;
 };
 
 export type StaffDetailsType = {

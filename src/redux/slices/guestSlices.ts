@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { GuestsType } from "../../constants/genericTypes";
 import { guests } from "../../services/guests";
-import { addDoc, collection, getDocs } from "firebase/firestore/lite";
+import { addDoc, collection, doc, getDocs, updateDoc } from "firebase/firestore/lite";
 import firestoredb from "../../../firebase-config";
 import { toast } from "react-toastify";
 import { getRawData } from "../../utils/util-functions";
@@ -36,6 +36,23 @@ export const addNewGuest = createAsyncThunk(
         try {
             await addDoc(collection(firestoredb, "guests"), newGuestData);
             return newGuestData;
+        } catch (error: any) {
+            console.log(error);
+
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+export const saveGuestPaymentReference = createAsyncThunk(
+    "post/saveGuestPaymentReference",
+    async (updateData: { reference: string; rawDocID: string }, thunkAPI) => {
+        const { reference, rawDocID } = updateData;
+        try {
+            await updateDoc(doc(firestoredb, "guests", rawDocID), {
+                reference,
+            });
+            return updateData;
         } catch (error: any) {
             console.log(error);
 
@@ -98,6 +115,39 @@ export const guestSlice = createSlice({
             return state;
         });
         builder.addCase(addNewGuest.rejected, (state, action: any) => {
+            state = { ...state, status: "failed", errorMessage: action.payload };
+            // state = { ...state, status: action.payload };
+            return state;
+        });
+        builder.addCase(saveGuestPaymentReference.pending, (state) => {
+            state = { ...state, status: "loading" };
+            return state;
+        });
+        builder.addCase(
+            saveGuestPaymentReference.fulfilled,
+            (state, action: PayloadAction<{ reference: string; rawDocID: string }>) => {
+                const { rawDocID, reference } = action.payload;
+
+                let currentState = JSON.parse(JSON.stringify(current(state))); //makes the state mutable
+                const filterOutFoundGuest = currentState.guestsData.filter(
+                    (s: GuestsType) => s.rawDocID != rawDocID
+                );
+                const findGuest = currentState.guestsData.filter(
+                    (s: GuestsType) => s.rawDocID != rawDocID
+                )[0];
+
+                findGuest["reference"] = reference;
+                state = {
+                    ...state,
+                    status: "success",
+                    guestsData: [...filterOutFoundGuest, findGuest],
+                };
+
+                toast.success("Success: Guest created");
+                return state;
+            }
+        );
+        builder.addCase(saveGuestPaymentReference.rejected, (state, action: any) => {
             state = { ...state, status: "failed", errorMessage: action.payload };
             // state = { ...state, status: action.payload };
             return state;

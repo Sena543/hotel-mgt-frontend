@@ -175,7 +175,7 @@ export const staffSlice = createSlice({
                 );
 
                 state = { ...state, status: "success", staffData: [...findStaff, data] };
-                console.log(state);
+                // console.log(state);
                 return state;
             }
         );
