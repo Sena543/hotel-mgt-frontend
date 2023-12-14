@@ -5,33 +5,65 @@ import { Button, Icon, Typography } from "@mui/material";
 import profile from "../../../assets/images/profile.jpg";
 import { GuestsType } from "../../../constants/genericTypes";
 import { checkGuestStatus } from "../../../utils/util-functions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GuestInvoice from "./GuestInvoice";
 import { PaystackButton, usePaystackPayment } from "react-paystack";
-import paystackConfig from "../../../utils/paystackConfig";
+import paystackConfig, { onClose, onSucess } from "../../../utils/paystackConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/types";
+import { fetchAllGuestBookingHistory } from "../../../redux/slices/bookingSlices";
+import { fetchRestaurantMenu } from "../../../redux/slices/restaurantSlice";
+import { fetchTaxeData } from "../../../redux/slices/taxes";
+import { processVariousData } from "../../../utils/computeItems";
 
 //TODO
 // fix guest status - reserved, checkout or checked in
 function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
-    // console.log(profileDetails)
     const [viewInvoice, setViewInvoice] = useState(false);
-    const initializePayment = usePaystackPayment(paystackConfig(profileDetails));
+    const taxes = useSelector((state: RootState) => state.tax.taxes);
+    const dispatch = useDispatch<AppDispatch>();
+    const guestRoomStayed = useSelector((state: RootState) =>
+        state.rooms.roomList.filter((room) => {
+            return room.roomName === profileDetails?.roomAssigned;
+        })
+    );
+    const restaurantMeals = useSelector((state: RootState) => state.restaurant.restaurantMealsList);
+    const guestBookingDetails = useSelector((state: RootState) =>
+        state.booking.bookingHistory.filter((booking) => {
+            return booking.guestID === profileDetails?.guestID;
+        })
+    );
 
-    // const componentProps = {
-    //     email: profileDetails?.email,
-    //     // amount: computeOverallSum(taxes, sum + otherChargesSum()).toFixed(2),
-    //     amount: 1000,
-    //     metadata: {
-    //         name: `${profileDetails?.lastName} ${profileDetails?.firstName}`,
-    //         phone: profileDetails?.contact,
-    //     },
-    //     publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-    //     text: "Buy Now",
-    //     onSuccess: ({ reference }: { reference: string }) => {
-    //         alert(`Your purchase was successful! Transaction reference: ${reference}`);
-    //     },
-    //     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
-    // };
+    useEffect(() => {
+        if (taxes.length === 0) {
+            dispatch(fetchTaxeData());
+        }
+        if (restaurantMeals.length === 0) {
+            dispatch(fetchRestaurantMenu());
+        }
+        if (guestBookingDetails.length === 0) {
+            dispatch(fetchAllGuestBookingHistory());
+        }
+    }, [dispatch]);
+
+    const { overallAmount } = processVariousData(
+        guestRoomStayed,
+        guestBookingDetails[0],
+        restaurantMeals,
+        taxes,
+        profileDetails
+    );
+    const initializePayment = usePaystackPayment(
+        paystackConfig(profileDetails, Number(overallAmount))
+    );
+
+    const handlePayment = () => {
+        initializePayment(
+            onSucess(paystackConfig(profileDetails, Number(overallAmount)).reference!),
+            onClose
+        );
+    };
+
     return (
         <div className="guest-profile-container">
             <div className="img_name-div display-flex-flex-direction-row">
@@ -116,8 +148,9 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                 >
                     View Invoice
                 </Button>
-                <Button variant="contained">Settle Bill</Button>
-                {/* <PaystackButton className="paystack-button" {...componentProps} /> */}
+                <Button variant="contained" onClick={handlePayment}>
+                    Settle Bill
+                </Button>
             </div>
             <GuestInvoice
                 open={viewInvoice}
