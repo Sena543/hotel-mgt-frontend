@@ -1,5 +1,11 @@
 import "./guest-profile.css";
-import { MailOutlineRounded, PersonRounded, PhoneOutlined } from "@mui/icons-material";
+import {
+    CheckRounded,
+    CloseRounded,
+    MailOutlineRounded,
+    PersonRounded,
+    PhoneOutlined,
+} from "@mui/icons-material";
 import { Button, Icon, Typography } from "@mui/material";
 // import imgSvg from "../../../assets/react.svg";
 import profile from "../../../assets/images/profile.jpg";
@@ -15,10 +21,14 @@ import { fetchAllGuestBookingHistory } from "../../../redux/slices/bookingSlices
 import { fetchRestaurantMenu } from "../../../redux/slices/restaurantSlice";
 import { fetchTaxeData } from "../../../redux/slices/taxes";
 import { processVariousData } from "../../../utils/computeItems";
+import { saveGuestPaymentReference } from "../../../redux/slices/guestSlices";
+import { useNavigate, useParams } from "react-router-dom";
 
 //TODO
 // fix guest status - reserved, checkout or checked in
 function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
+    const navigate = useNavigate();
+    const { name, guestID } = useParams();
     const [viewInvoice, setViewInvoice] = useState(false);
     const taxes = useSelector((state: RootState) => state.tax.taxes);
     const dispatch = useDispatch<AppDispatch>();
@@ -46,7 +56,7 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
         }
     }, [dispatch]);
 
-    const { overallAmount } = processVariousData(
+    const { overallAmount, subSum, taxAmount } = processVariousData(
         guestRoomStayed,
         guestBookingDetails[0],
         restaurantMeals,
@@ -58,10 +68,18 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
     );
 
     const handlePayment = () => {
-        initializePayment(
-            onSucess(paystackConfig(profileDetails, Number(overallAmount)).reference!),
-            onClose
-        );
+        initializePayment(() => {
+            //on transaction success this function is ran
+            //placed directly here because of dispatch hook
+            // onSucess(paystackConfig(profileDetails, Number(overallAmount)).reference!);
+            dispatch(
+                saveGuestPaymentReference({
+                    reference: paystackConfig(profileDetails, Number(overallAmount)).reference!,
+                    rawDocID: profileDetails.rawDocID,
+                })
+            );
+            navigate(`/admin/guests/guest_details/${name}/${guestID}`);
+        }, onClose);
     };
 
     return (
@@ -109,16 +127,16 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                 </Typography>
                 <div>
                     <div className="guest-charges">
-                        <Typography>Room charges</Typography>
-                        <Typography>20000</Typography>
+                        <Typography>Sub Total</Typography>
+                        <Typography>{subSum}</Typography>
                     </div>
                     <div className="guest-charges">
                         <Typography>Taxes</Typography>
-                        <Typography>122323</Typography>
+                        <Typography>{taxAmount}</Typography>
                     </div>
                     <div className="guest-charges">
                         <Typography>Amount Due</Typography>
-                        <Typography style={{ fontWeight: "bold" }}>19899823</Typography>
+                        <Typography style={{ fontWeight: "bold" }}>{overallAmount}</Typography>
                     </div>
                 </div>
             </div>
@@ -128,7 +146,12 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                 </Typography>
                 <div className="guest-charges payment-mode">
                     <Typography>Bill settled</Typography>
-                    <Typography style={{}}>Yes</Typography>
+                    {/* <Typography style={{}}>Yes</Typography> */}
+                    {profileDetails?.reference ? (
+                        <CheckRounded style={{ color: "#0d5ade" }} />
+                    ) : (
+                        <CloseRounded style={{ color: "red" }} />
+                    )}
                 </div>
             </div>
             <div
@@ -148,9 +171,14 @@ function GuestProfile({ profileDetails }: { profileDetails: GuestsType }) {
                 >
                     View Invoice
                 </Button>
-                <Button variant="contained" onClick={handlePayment}>
+                {!profileDetails?.reference ? (
+                    <Button variant="contained" onClick={handlePayment}>
+                        Settle Bill
+                    </Button>
+                ) : null}
+                {/* <Button variant="contained" onClick={handlePayment}>
                     Settle Bill
-                </Button>
+                </Button> */}
             </div>
             <GuestInvoice
                 open={viewInvoice}

@@ -116,6 +116,8 @@ function CreateGuestModal({ setOpenModal, open }: CreateModalProps) {
             checkOut: `${guestDetails["checkOut"].get("date")}-${
                 guestDetails["checkOut"].get("month") + 1
             }-${guestDetails["checkOut"].get("year")}`,
+            reference: "",
+            title: guestDetails?.title,
             // checkIn: new Date(guestDetails.checkIn).toLocaleDateString("en-GB"),
             // checkOut: new Date(guestDetails.checkOut).toLocaleDateString("en-GB"),
         };
