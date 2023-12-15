@@ -21,6 +21,8 @@ import { fetchGuestBookingHistory } from "../../../redux/slices/bookingSlices";
 import { BookingHistoryType } from "../../../constants/genericTypes";
 import { RoomType } from "../../../components/Room/RoomList";
 import { formattedDate } from "../../../utils/util-functions";
+import { fetchGuests } from "../../../redux/slices/guestSlices";
+import { fetchAllRooms } from "../../../redux/slices/roomSlicers";
 
 // const prepareBookingHistory = (bookingHistory: any, roomData: any) => {
 //types were originally any type just in case types start throwing errors
@@ -56,6 +58,12 @@ function GuestDetails() {
 
     useEffect(() => {
         dispatch(fetchGuestBookingHistory(Number(guestID)));
+        if (bookingHistory.length === 0) {
+            dispatch(fetchGuests());
+        }
+        if (rooms.length === 0) {
+            dispatch(fetchAllRooms());
+        }
     }, [dispatch]);
 
     //TODO write a test for the line below
@@ -66,7 +74,9 @@ function GuestDetails() {
                 (guest: any) => Number(guest.guestID) === Number(guestID)
             )[0]
     );
-    const roomDetails = rooms.filter((room) => room.roomName === selectedGuestDetails.roomAssigned);
+    const roomDetails = rooms.filter(
+        (room) => room.roomName === selectedGuestDetails?.roomAssigned
+    );
     const tableHeadList = ["Room Name", "Bed Type", "Room Facility", "Book Date"];
 
     const preparedBookingHistoryData = prepareBookingHistory(bookingHistory, rooms);

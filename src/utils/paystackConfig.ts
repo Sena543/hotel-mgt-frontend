@@ -16,9 +16,9 @@ export default function paystackConfig(
         email: profileDetails?.email,
         amount: totalAmount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
         publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-        lastname: profileDetails.lastName,
-        firstname: profileDetails.firstName,
-        phone: profileDetails.contact,
+        lastname: profileDetails?.lastName,
+        firstname: profileDetails?.firstName,
+        phone: profileDetails?.contact,
         currency: "GHS",
     };
 }
