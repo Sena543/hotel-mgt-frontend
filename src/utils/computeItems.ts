@@ -78,6 +78,19 @@ export function computeTax(tax: number, value: number) {
     return tax * value;
 }
 
+export function computeOverallTaxAmount(taxes: TaxInformation[], itemTotal: number) {
+    let vals: number[] = [];
+    taxes.forEach((t) => {
+        vals.push(t.value * itemTotal);
+    });
+    // return taxes.reduce(
+    //     (currentSum, currValue) => computeTax(currValue.value, itemTotal) + currentSum,
+    //     0
+    // );
+
+    return vals.reduce((currSum: number, curValue: number) => curValue + currSum, 0);
+}
+
 export function computeOverallSum(taxes: TaxInformation[], itemTotal: number) {
     let vals: number[] = [];
     taxes.forEach((t) => {
@@ -112,11 +125,14 @@ export function processVariousData(
         0
     );
     const overallAmount = computeOverallSum(taxes, otherChargesSumOutput + subSum).toFixed(2);
+    const taxAmount = computeOverallTaxAmount(taxes, subSum).toFixed(2);
+    console.log(taxAmount);
     return {
         processedTableData,
         otherChargesProcessed,
         otherChargesSumOutput,
         overallAmount,
         subSum,
+        taxAmount,
     };
 }
