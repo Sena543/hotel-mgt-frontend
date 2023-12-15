@@ -66,7 +66,8 @@ export const fetchGuestBookingHistory = createAsyncThunk(
 
 export const createNewBookingHistory = createAsyncThunk(
     "create/booking-history",
-    async function createBookingHistory(orderData: BookingHistoryType, thunkAPI) {
+    // async function createBookingHistory(orderData: BookingHistoryType, thunkAPI) {
+    async function createBookingHistory(orderData: Omit<BookingHistoryType, "rawDocID">, thunkAPI) {
         try {
             await addDoc(collection(firestoredb, "booking"), orderData);
             return orderData;
