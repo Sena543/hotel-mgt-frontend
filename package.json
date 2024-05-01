@@ -30,7 +30,7 @@
         "react-elastic-carousel": "^0.11.5",
         "react-paystack": "^4.0.3",
         "react-redux": "^8.0.5",
-        "react-router-dom": "^6.8.0",
+        "react-router-dom": "^6.23.0",
         "react-toastify": "^9.1.2",
         "recharts": "^2.10.3",
         "styled-components": "^5.3.9"
