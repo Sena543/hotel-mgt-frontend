@@ -14,7 +14,7 @@ function Header() {
 						<a
 							href={`#${link.toLowerCase().replaceAll(/\s/g, "")}`}
 							key={link}
-							style={{ textDecoration: "none", color: "#80529d" }}
+							style={{ fontSize: "16px", textDecoration: "none", color: "#80529d" }}
 						>
 							{link}
 						</a>

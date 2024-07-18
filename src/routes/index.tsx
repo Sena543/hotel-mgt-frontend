@@ -17,8 +17,8 @@ const Guests = lazy(() => import("../pages/Guest/Guests"));
 const Rooms = lazy(() => import("../pages/Room/Rooms"));
 const Staff = lazy(() => import("../pages/Staff/Staff"));
 
-export default createHashRouter([
-// export default createBrowserRouter([
+// export default createHashRouter([
+export default createBrowserRouter([
 	{ path: "", element: <Booking /> },
 	{
 		path: "/admin",
