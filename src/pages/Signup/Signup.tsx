@@ -267,9 +267,8 @@ function Signup() {
                         Login
                     </Link>
                 </div> */}
-				<a style={{ textDecoration: "none", color: "#80529d", fontSize: "1.5em" }} href="/sign-in">
-					Admin Sign in
-				</a>
+
+				<Link style={{ textDecoration: "none", color: "#80529d", fontSize: "1.5em" }}  to={"/sign-in"}>Admin Sign in</Link> 
 			</div>
 		</div>
 	);

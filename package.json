@@ -3,7 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "homepage": "https://sena543.github.io/hotel-mgt-frontend/",
+    "homepage": ".",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
