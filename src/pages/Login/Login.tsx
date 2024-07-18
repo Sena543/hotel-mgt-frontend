@@ -101,6 +101,9 @@ function Login() {
 				</Link> */}
 			</div>
 			{/* </div> */}
+			<a style={{ textDecoration: "none", color: "#80529d", fontSize: "1.5em" }} href="/">
+				Homepage
+			</a>
 		</div>
 	);
 }

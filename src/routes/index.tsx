@@ -18,7 +18,7 @@ const Rooms = lazy(() => import("../pages/Room/Rooms"));
 const Staff = lazy(() => import("../pages/Staff/Staff"));
 
 export default createBrowserRouter([
-	{ path: "/", element: <Booking /> },
+	{ path: "", element: <Booking /> },
 	{
 		path: "/admin",
 		element: <RootLayout />,
