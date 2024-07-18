@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import GenericLayout from "../layouts/GenericLayout";
 import Menu from "../pages/Restuarant/Menu/Menu";
 import Signup from "../pages/Signup/Signup";
@@ -17,7 +17,8 @@ const Guests = lazy(() => import("../pages/Guest/Guests"));
 const Rooms = lazy(() => import("../pages/Room/Rooms"));
 const Staff = lazy(() => import("../pages/Staff/Staff"));
 
-export default createBrowserRouter([
+export default createHashRouter([
+// export default createBrowserRouter([
 	{ path: "", element: <Booking /> },
 	{
 		path: "/admin",
